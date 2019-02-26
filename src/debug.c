@@ -6,7 +6,7 @@
 /*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 01:23:45 by emayert           #+#    #+#             */
-/*   Updated: 2019/02/23 17:00:43 by emayert          ###   ########.fr       */
+/*   Updated: 2019/02/26 14:53:12 by emayert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void			key_handler(int key, t_env *e)
 		e->cam->pos.y += 1;
 	if (key == K_ARRLEFT)
 		e->cam->pos.x -= 1;
-	if (key == K_ARRIGHT)
+	if (key == K_ARRRIGHT)
 		e->cam->pos.x += 1;
 	if (key == K_NUM_PLUS)
 		e->cam->pos.z += 2;

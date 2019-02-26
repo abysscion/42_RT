@@ -6,7 +6,7 @@
 /*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 05:21:02 by emayert           #+#    #+#             */
-/*   Updated: 2019/02/23 17:07:21 by emayert          ###   ########.fr       */
+/*   Updated: 2019/02/26 14:53:30 by emayert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	key_hook(int key, t_env *e)
 		key_handler(key, e);
 	else
 	{
-		if (key == K_ARRIGHT)
+		if (key == K_ARRRIGHT)
 			e->objs->objarr[e->hitobj->index]->pos.x += 1;
 		else if (key == K_ARRLEFT)
 			e->objs->objarr[e->hitobj->index]->pos.x -= 1;

@@ -6,7 +6,7 @@
 /*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 06:45:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/02/26 13:56:43 by emayert          ###   ########.fr       */
+/*   Updated: 2019/02/26 14:53:49 by emayert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@
 #  define K_ARRLEFT		123
 #  define K_ARRRIGHT	124
 #  define M_LMB			1
-#  define M_MWHEEL		2
-#  define M_RMB			3
+#  define M_MWHEEL		3
+#  define M_RMB			2
 #  define M_MWHEELUP	4
 #  define M_MWHEELDOWN	5
 # endif
