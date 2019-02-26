@@ -1,3 +1,12 @@
+#Other
+.vscode
+RTv1
+README.md
+obj/
+log
+.backup.zip
+*~
+
 # Prerequisites
 *.d
 
