@@ -8,10 +8,11 @@ OBJDIR	= ./obj
 
 # sources
 SRC		=	main.c \
-			scener.c \
+			gui.c \
 			freer.c \
 			debug.c \
 			light.c \
+			scener.c \
 			initer.c \
 			supply.c \
 			hooker.c \

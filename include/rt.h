@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/02/23 16:08:40 by emayert          ###   ########.fr       */
+/*   Updated: 2019/03/02 04:15:11 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,11 +129,23 @@ typedef	struct		s_bullshit
 	int					type;
 }					t_bs;
 
+typedef	struct		s_button
+{
+	t_v		pos;
+	int		len;
+	int		wid;
+	int		state;
+	char	*fname;
+	void	*imgon;
+	void	(*foo)(double *, double, int *);
+}					t_bt;
+
 typedef	struct		s_environment
 {
 	t_light	**light;
 	t_cam	*cam;
 	t_ren	*ren_var;
+	t_bt	**buttons;
 	t_lc	*lit_var;
 	t_oc	*objs;
 	t_ho	*hitobj;
@@ -144,6 +156,7 @@ typedef	struct		s_environment
 	int		lnum;
 	int		k;
 }					t_env;
+
 
 t_v					normal2plane(t_env	*e, int i);
 t_v					normal2cone(t_env *e, t_v dest, double closest, int i);
@@ -188,4 +201,18 @@ int					intersect_cone(t_v start,
 										t_v dest, t_obj *cone, double *t);
 int					intersect_plane(t_v start,
 										t_v dest, t_obj *plane, double *t);
+
+/*=================================== GUI ===================================*/
+# define GUI_ICON_SIZE	64
+# define GUI_GAP		5
+# define GUI_BT_NUM		4
+# define GUI_MARGIN		5
+
+t_bt				*new_bt(int x, int y, char *name, t_env *e);
+void				press_mv_button(double *val, double add, int *need_redraw);
+void				handle_gui_click(int x, int y, t_env *e);
+void				init_buttons(t_env *e);
+void				draw_gui(t_env *e);
+/*===========================================================================*/
+
 #endif

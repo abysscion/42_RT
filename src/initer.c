@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:34:01 by cschuste          #+#    #+#             */
-/*   Updated: 2019/02/23 17:04:03 by emayert          ###   ########.fr       */
+/*   Updated: 2019/03/02 01:57:08 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	init_env(t_env *e)
 void	init_mlx(t_env *e)
 {
 	e->mlx = mlx_init();
-	e->win = mlx_new_window(e->mlx, WIN_W, WIN_H, "RTv1");
+	e->win = mlx_new_window(e->mlx, WIN_W + GUI_GAP * 2 + GUI_ICON_SIZE * 3 +
+							GUI_MARGIN * 2, WIN_H, "Raytracer");
 	e->cam->ptr_vp = mlx_new_image(e->mlx, WIN_W, WIN_H);
 	e->cam->view_port_addr = (int *)mlx_get_data_addr(e->cam->ptr_vp,
 		&e->cam->bits_per_pixel, &e->cam->size_line, &e->cam->endian);

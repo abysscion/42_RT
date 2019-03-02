@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/02/23 15:36:04 by emayert          ###   ########.fr       */
+/*   Updated: 2019/03/02 03:51:17 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static	int		trace_ray(t_v dest, t_env *e)
 	int		color;
 	int		num_obj;
 
+	num_obj = 0;
 	e->ren_var->start = e->cam->pos;
 	e->ren_var->dest = dest;
 	e->ren_var->min = 1;
@@ -109,4 +110,6 @@ void			render(t_env *e)
 		++y;
 	}
 	mlx_put_image_to_window(e->mlx, e->win, e->cam->ptr_vp, 0, 0);
+	draw_gui(e);
+	e->need_redraw = 0;
 }

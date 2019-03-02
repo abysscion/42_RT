@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooker.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 05:21:02 by emayert           #+#    #+#             */
-/*   Updated: 2019/02/26 14:53:30 by emayert          ###   ########.fr       */
+/*   Updated: 2019/03/02 03:18:17 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,23 @@
 
 int	expose_hook(t_env *e)
 {
-	render(e);
+	mlx_put_image_to_window(e->mlx, e->win, e->cam->ptr_vp, 0, 0);
 	return (0);
 }
 
 int	mouse_press(int key, int x, int y, t_env *e)
 {
+	handle_gui_click(x, y, e);
 	x -= WIN_W / 2;
 	y -= WIN_H / 2;
 	if (key == M_LMB)
 	{
-		rayhit_obj(vp_to_global((t_v) {x, y, 0}), e);
-		if (e->hitobj->ishit)
-			print_info_about_hitobj(e);
+		if (x < WIN_W / 2 && y < WIN_H / 2)
+		{
+			rayhit_obj(vp_to_global((t_v) {x, y, 0}), e);
+			if (e->hitobj->ishit)
+				print_info_about_hitobj(e);
+		}
 	}
 	if (key == M_RMB)
 		e->hitobj->ishit = -1;
@@ -47,6 +51,8 @@ int	mouse_move(int x, int y, t_env *e)
 {
 	x -= WIN_W / 2;
 	y -= WIN_H / 2;
+	if (e->win)
+		{};
 	return (0);
 }
 
