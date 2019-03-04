@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/02 03:51:17 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/04 12:09:51 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,5 @@ void			render(t_env *e)
 		++y;
 	}
 	mlx_put_image_to_window(e->mlx, e->win, e->cam->ptr_vp, 0, 0);
-	draw_gui(e);
-	e->need_redraw = 0;
+	e->need_rerender = 0;
 }

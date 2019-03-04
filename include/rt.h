@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/02 04:15:11 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/04 13:24:19 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,15 +129,22 @@ typedef	struct		s_bullshit
 	int					type;
 }					t_bs;
 
+typedef	struct		s_image
+{
+	void	*ptimg;
+	char	*path;
+	int		len;
+	int		wid;
+}					t_im;
+
 typedef	struct		s_button
 {
 	t_v		pos;
 	int		len;
 	int		wid;
 	int		state;
-	char	*fname;
-	void	*imgon;
-	void	(*foo)(double *, double, int *);
+	void	*ptimg;
+	void	(*foo)(double *, double, void *);
 }					t_bt;
 
 typedef	struct		s_environment
@@ -149,9 +156,11 @@ typedef	struct		s_environment
 	t_lc	*lit_var;
 	t_oc	*objs;
 	t_ho	*hitobj;
+	t_im	**imgarr;
 	void	*mlx;
 	void	*win;
-	int		need_redraw;
+	int		need_regui;
+	int		need_rerender;
 	int		mouse_pressed;
 	int		lnum;
 	int		k;
@@ -204,14 +213,21 @@ int					intersect_plane(t_v start,
 
 /*=================================== GUI ===================================*/
 # define GUI_ICON_SIZE	64
-# define GUI_GAP		5
-# define GUI_BT_NUM		4
-# define GUI_MARGIN		5
+# define GUI_GAP		10
+# define GUI_BT_NUM		6
+# define GUI_MARGIN		10
+# define GUI_BT_CAM		0
+# define GUI_BT_CUBE	1
+# define GUI_BT_AL		2
+# define GUI_BT_AR		3
+# define GUI_BT_AU		4
+# define GUI_BT_AD		5
 
-t_bt				*new_bt(int x, int y, char *name, t_env *e);
-void				press_mv_button(double *val, double add, int *need_redraw);
-void				handle_gui_click(int x, int y, t_env *e);
+t_bt				*new_bt(int x, int y, int *i, t_env *e);
+void				press_mv_button(double *val, double add, void *e);
+int					handle_gui_click(int x, int y, t_env *e);
 void				init_buttons(t_env *e);
+void				init_images(t_env *e);
 void				draw_gui(t_env *e);
 /*===========================================================================*/
 
