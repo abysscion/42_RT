@@ -121,7 +121,7 @@ int					intersect_plane(t_v start,
 # define T_CYLINDER_NAME		"Infinite cylinder"
 # define T_CONE_NAME			"Infinite cone"
 
-t_bt				*new_bt(int x, int y, int *i, t_env *e);
+t_bt				*new_bt(int x, int y, int i, t_env *e);
 void				draw_object_info(int x, int y, t_env *e);
 void				init_buttons(t_env *e);
 void				init_icons(t_env *e);

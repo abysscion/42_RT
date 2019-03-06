@@ -82,12 +82,17 @@ void			init_buttons(t_env *e)
 	gis = GUI_ICON_SIZE;
 	gg = GUI_GAP;
 	b = e->buttons;
-	b[i] = new_bt(WIN_W + gm, gm, &i, e);
-	b[i] = new_bt(WIN_W + gm + gg * 2 + gis * 2, gm, &i, e);
-	b[i] = new_bt(WIN_W + gm, gm + gis + gg, &i, e);
-	b[i] = new_bt(WIN_W + gm + gg * 2 + gis * 2, gm + gis + gg, &i, e);
-	b[i] = new_bt(WIN_W + gm + gg + gis, gm, &i, e);
-	b[i] = new_bt(WIN_W + gm + gis + gg, gm + gg * 2 + gis * 2, &i, e);
+	b[i] = new_bt(WIN_W + gm, gm, i, e);
+	++i;
+	b[i] = new_bt(WIN_W + gm + gg * 2 + gis * 2, gm, i, e);
+	++i;
+	b[i] = new_bt(WIN_W + gm, gm + gis + gg, i, e);
+	++i;
+	b[i] = new_bt(WIN_W + gm + gg * 2 + gis * 2, gm + gis + gg, i, e);
+	++i;
+	b[i] = new_bt(WIN_W + gm + gg + gis, gm, i, e);
+	++i;
+	b[i] = new_bt(WIN_W + gm + gis + gg, gm + gg * 2 + gis * 2, i, e);
 }
 
 /*
@@ -173,9 +178,10 @@ void			draw_object_info(int x, int y, t_env *e)
 		free(tmp);
 	}
 	else
-	mlx_string_put(e->mlx, e->win, WIN_W + GUI_TOOLBAR_W / 2 - GUI_MSG_NOOBJ_W,
+	mlx_string_put(e->mlx, e->win, WIN_W + GUI_MARGIN, /* + GUI_TOOLBAR_W / 2 - GUI_MSG_NOOBJ_W */
 				y + GUI_MARGIN + GUI_ICON_SIZE * 3 + GUI_GAP * 3 + GUI_TEXT_H,
 				CLR_TEXT, "No object selected");
+	//on macOS GUI_TOOLBAR_W / 2 - GUI_MSG_NOOBJ_W should be depleted!
 }
 
 /*
@@ -315,7 +321,7 @@ int				handle_gui_click(int x, int y, t_env *e)
 **	Icon is being drawn from appropriate xpm image named (fname).
 */
 
-t_bt			*new_bt(int x, int y, int *i, t_env *e)
+t_bt			*new_bt(int x, int y, int i, t_env *e)
 {
 	t_bt	*bt;
 
@@ -323,12 +329,12 @@ t_bt			*new_bt(int x, int y, int *i, t_env *e)
 	bt->pos = (t_v) {x, y, 0};
 	bt->len = GUI_ICON_SIZE;
 	bt->wid = GUI_ICON_SIZE;
-	if (*i == GUI_BT_CAM)
+	if (i == GUI_BT_CAM)
 		bt->state = 1;
 	else
 		bt->state = 0;
 	bt->foo = press_mv_button;
-	bt->ptimg = e->imgarr[(*i)++ * 2 + bt->state]->ptimg;
+	bt->ptimg = e->imgarr[i * 2 + bt->state]->ptimg;
 	return	(bt);
 }
 
