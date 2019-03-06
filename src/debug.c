@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 01:23:45 by emayert           #+#    #+#             */
-/*   Updated: 2019/02/26 14:53:12 by emayert          ###   ########.fr       */
+/*   Updated: 2019/03/06 01:08:26 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	rayhit_obj(t_v dest, t_env *e)
 	cross = 0;
 	e->hitobj->ishit = 0;
 	i = -1;
-	e->hitobj->ishit = 0;
 	dest = vecnorm(vec_rotate(e->cam->rot, dest));
 	while (++i < e->objs->n_obj)
 	{
@@ -62,6 +61,8 @@ void	rayhit_obj(t_v dest, t_env *e)
 	{
 		e->hitobj->type = -1;
 		e->hitobj->index = -1;
+		e->buttons[GUI_BT_CUBE]->state = 0;
+		e->buttons[GUI_BT_CAM]->state = 1;
 	}
 	if (e->hitobj->type >= T_PLANE && e->hitobj->type <= T_CONE)
 		e->hitobj->ishit = 1;
@@ -132,8 +133,6 @@ static	void	key_handler2(int key, t_env *e)
 
 void			key_handler(int key, t_env *e)
 {
-	if (key == K_ESC)
-		exit(0);
 	if (key == K_ARRUP)
 		e->cam->pos.y -= 1;
 	if (key == K_ARRDOWN)

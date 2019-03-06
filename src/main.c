@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:29:07 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/04 08:29:48 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/06 05:37:02 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int		main(int ac, char **av)
 	if (ac == 2)
 	{
 		init_mlx(e);
-		init_images(e);
-		init_buttons(e);
+		init_gui(e);
 		create_objects(e, av[1]);
 		render(e);
 		mlx_hook(e->win, 2, 1L, key_hook, e);
