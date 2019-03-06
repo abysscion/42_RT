@@ -6,7 +6,7 @@
 /*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 21:03:53 by cschuste          #+#    #+#             */
-/*   Updated: 2019/02/22 20:21:54 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/03/06 17:28:31 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,17 @@ static	void			choose_light(t_env *e, int *max, t_lc *lc, int i)
 	}
 }
 
-static	unsigned char	max_color(unsigned char col, double lig)
+static	double	max_color(double intens, unsigned char col, int *remain)
 {
-	int temp;
-
-	temp = col * lig;
-	if (temp > 255)
-		return ((unsigned char)255);
+	*remain = 0;
+	if (intens * col > 255)
+	{
+		*remain = (intens * col - 255)/ 3;
+		col = 255;
+	}
 	else
-		return ((unsigned char)temp);
+		col = intens * col;
+	return (col);
 }
 
 static	double			compute_light(t_env *e, int obj)
@@ -84,8 +86,9 @@ static	double			compute_light(t_env *e, int obj)
 int						light_on(t_env *e, t_v dest, double closest, int i)
 {
 	t_lc				*light;
-	unsigned	char	rgb[3];
-	double				col;
+	double				intens;
+	unsigned char		rgb[3];
+	int					remain;
 
 	light = e->lit_var;
 	light->v = vecmult_num(dest, -1);
@@ -100,9 +103,22 @@ int						light_on(t_env *e, t_v dest, double closest, int i)
 	if (e->objs->objarr[i]->type == T_CONE)
 		light->n = normal2cone(e, dest, closest, i);
 	light->n = vecnorm(light->n);
-	col = compute_light(e, i);
-	rgb[0] = max_color(e->objs->objarr[i]->colour[0], col);
-	rgb[1] = max_color(e->objs->objarr[i]->colour[1], col);
-	rgb[2] = max_color(e->objs->objarr[i]->colour[2], col);
+	intens = compute_light(e, i);
+	/**
+	 ** For good specular
+	 */
+	rgb[0] = max_color(intens, e->objs->objarr[i]->colour[0], &remain);
+	rgb[1] = (e->objs->objarr[i]->colour[1] + remain) > 255 ? 255 : e->objs->objarr[i]->colour[1] + remain;
+	rgb[2] = (e->objs->objarr[i]->colour[2] + remain) > 255 ? 255 : e->objs->objarr[i]->colour[2] + remain;
+	rgb[1] = max_color(intens, rgb[1], &remain);
+	rgb[0] = (rgb[0] + remain) > 255 ? 255 : rgb[0] + remain;
+	rgb[2] = (rgb[2] + remain) > 255 ? 255 : rgb[2] + remain;
+	rgb[2] = max_color(intens, rgb[2], &remain);
+	rgb[0] = (rgb[0] + remain) > 255 ? 255 : rgb[0] + remain;
+	rgb[1] = (rgb[1] + remain) > 255 ? 255 : rgb[1] + remain;
+	/**
+	 ** Norminette this after checking
+	 */
+
 	return ((int)rgb[0] * 0x10000 + (int)rgb[1] * 0x100 + (int)rgb[2]);
 }
