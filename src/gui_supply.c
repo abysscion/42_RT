@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 06:41:38 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/03/07 07:25:47 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/07 09:40:34 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	press_mv_button(double *val, double add, void *e)
 	t_env	*env;
 
 	env = (t_env *)e;
-	*val += add;
-	env->need_rerender = 1;
+	translate_obj(val, add, 1, e);
 	env->need_regui = 1;
 }

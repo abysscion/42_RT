@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 01:23:45 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/07 06:58:30 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/07 09:45:25 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	rayhit_obj(t_v dest, t_env *e)
 
 	closest = RAY_LENMAX;
 	cross = 0;
-	e->hitobj->ishit = 0;
+	e->hitobj->ishit = -1;
 	i = -1;
 	dest = vecnorm(vec_rotate(e->cam->rot, dest));
 	while (++i < e->objs->n_obj)
@@ -63,6 +63,7 @@ void	rayhit_obj(t_v dest, t_env *e)
 		e->hitobj->index = -1;
 		e->buttons[GUI_BT_CUBE]->state = 0;
 		e->buttons[GUI_BT_CAM]->state = 1;
+		e->need_regui = 1;
 	}
 	if (e->hitobj->type >= T_PLANE && e->hitobj->type <= T_CONE)
 		e->hitobj->ishit = 1;
@@ -191,29 +192,34 @@ static	void	key_handler2(int key, t_env *e)
 		e->cam->rot.y -= M_PI / 180 * ROT_STEP;
 	else if (key == K_NUM_6)
 		e->cam->rot.y += M_PI / 180 * ROT_STEP;
-	if (key == K_NUM_2)
+	else if (key == K_NUM_2)
 		e->cam->rot.x -= M_PI / 180 * ROT_STEP;
 	else if (key == K_NUM_8)
 		e->cam->rot.x += M_PI / 180 * ROT_STEP;
-	if (key == K_NUM_7)
-		e->cam->rot.z -= M_PI / 180 * ROT_STEP;
-	else if (key == K_NUM_9)
-		e->cam->rot.z += M_PI / 180 * ROT_STEP;
+	// else if (key == K_NUM_7)
+	// 	e->cam->rot.z -= M_PI / 180 * ROT_STEP;
+	// else if (key == K_NUM_9)
+	// 	e->cam->rot.z += M_PI / 180 * ROT_STEP;
 }
 
 void			key_handler(int key, t_env *e)
 {
+	if (key == K_ARRUP || key == K_ARRDOWN  || key == K_ARRLEFT ||
+	key == K_ARRRIGHT || key == K_NUM_PLUS || key == K_NUM_MINUS ||
+	key == K_NUM_2 || key == K_NUM_4 || key == K_NUM_6 || key == K_NUM_8)
+		e->need_rerender = 1;
 	if (key == K_ARRUP)
 		e->cam->pos.y -= 1;
-	if (key == K_ARRDOWN)
+	else if (key == K_ARRDOWN)
 		e->cam->pos.y += 1;
-	if (key == K_ARRLEFT)
+	else if (key == K_ARRLEFT)
 		e->cam->pos.x -= 1;
-	if (key == K_ARRRIGHT)
+	else if (key == K_ARRRIGHT)
 		e->cam->pos.x += 1;
-	if (key == K_NUM_PLUS)
+	else if (key == K_NUM_PLUS)
 		e->cam->pos.z += 2;
-	if (key == K_NUM_MINUS)
+	else if (key == K_NUM_MINUS)
 		e->cam->pos.z -= 2;
-	key_handler2(key, e);
+	else
+		key_handler2(key, e);
 }

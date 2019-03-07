@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 05:21:02 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/07 08:11:36 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/07 09:46:09 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	expose_hook(t_env *e)
 {
 	mlx_clear_window(e->mlx, e->win);
 	mlx_put_image_to_window(e->mlx, e->win, e->cam->ptr_vp, 0, 0);
+	e->need_regui = 1;
 	draw_gui(e);
 	return (0);
 }
@@ -42,6 +43,7 @@ int	mouse_press(int key, int x, int y, t_env *e)
 		}
 	}
 	e->mouse_pressed = 1;
+	draw_gui(e);
 	return (0);
 }
 
@@ -83,19 +85,20 @@ int	key_hook(int key, t_env *e)
 	else
 	{
 		if (key == K_ARRRIGHT)
-			e->objs->objarr[e->hitobj->index]->pos.x += 1;
+			translate_obj(&e->objs->objarr[e->hitobj->index]->pos.x, 1, 1, e);
 		else if (key == K_ARRLEFT)
-			e->objs->objarr[e->hitobj->index]->pos.x -= 1;
+			translate_obj(&e->objs->objarr[e->hitobj->index]->pos.x, -1, 1, e);
 		else if (key == K_ARRUP)
-			e->objs->objarr[e->hitobj->index]->pos.y -= 1;
+			translate_obj(&e->objs->objarr[e->hitobj->index]->pos.y, -1, 1, e);
 		else if (key == K_ARRDOWN)
-			e->objs->objarr[e->hitobj->index]->pos.y += 1;
+			translate_obj(&e->objs->objarr[e->hitobj->index]->pos.y, 1, 1, e);
 		else if (key == K_NUM_PLUS)
-			e->objs->objarr[e->hitobj->index]->pos.z += 1;
+			translate_obj(&e->objs->objarr[e->hitobj->index]->pos.z, 1, 1, e);
 		else if (key == K_NUM_MINUS)
-			e->objs->objarr[e->hitobj->index]->pos.z -= 1;
-		draw_gui(e);
+			translate_obj(&e->objs->objarr[e->hitobj->index]->pos.z, -1, 1, e);
+		e->need_regui = 1;
 	}
+	draw_gui(e);
 	render(e);
 	return (0);
 }

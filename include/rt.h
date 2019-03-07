@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/07 08:42:15 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/07 09:34:46 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_v					normal2cyl(t_env *e, t_v dest, double closest, int i);
 t_v					normal2plane(t_env	*e, int i);
 t_v					vp_to_global(t_v vp_p);
 double				close_intersection(t_env *e, t_ren *r_v, int *num_obj);
+void				translate_obj(double *val, double add, int rd, t_env *e);
 void				create_any_ob(t_env *e,
 									unsigned char *arr, t_v pos, int spec);
 void				ppx_on_img(int x, int y, int color, t_env *e);

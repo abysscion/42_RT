@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 15:21:02 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/03/07 08:47:10 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/07 09:49:57 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void			draw_gui(t_env *e)
 
 /*
 **	TODO:
-**	1)	Proper functions splits with accordings to norm.
+**	1)	Rethink the way redraw/rerender uses. Or not. At least some checks
+			should be done to avoid duplicate render()/draw_gui() calls.
 **	2)	Depth changing buttons, rotations control switch.
 */
