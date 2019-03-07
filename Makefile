@@ -26,7 +26,8 @@ SRC		=	main.c \
 			gui_initer.c \
 			gui_supply.c \
 			gui_handler.c \
-			find_normal.c
+			find_normal.c \
+			light_supply.c
 
 OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/07 09:34:46 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/07 10:54:53 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,26 @@
 # define T_SPHERE				1
 # define T_CYLINDER				2
 # define T_CONE					3
+# define RECURSION				2
 
+unsigned	char	*light_on(t_env *e, t_ren *r_v, double closest, int i, int rec);
+unsigned	char	*trace_ray(t_ren *ren_var, t_env *e, int rec);
 t_v					normal2cone(t_env *e, t_v dest, double closest, int i);
 t_v					normal2cyl(t_env *e, t_v dest, double closest, int i);
 t_v					normal2plane(t_env	*e, int i);
+t_v					vec_rotate(t_v a, t_v vec);
+t_v					reflect_ray(t_v n, t_v l);
 t_v					vp_to_global(t_v vp_p);
+double				max_color(double intens, unsigned char col, int *remain);
 double				close_intersection(t_env *e, t_ren *r_v, int *num_obj);
+void    			count_rgb(unsigned char *rgb, unsigned char *ref_col, t_env *e, int i);
+void    			limit_specular(unsigned char *rgb, int remain, double intens);
 void				translate_obj(double *val, double add, int rd, t_env *e);
-void				create_any_ob(t_env *e,
-									unsigned char *arr, t_v pos, int spec);
 void				ppx_on_img(int x, int y, int color, t_env *e);
 void				light_abuse(int *i, double *intens);
 void				create_objects(t_env *e, char *av);
 void				print_info_about_hitobj(t_env *e);
+void				create_renvar(t_env *e, t_v dest);
 void				cr_obj(t_bs bs, int i, t_env *e);
 void				rayhit_obj(t_v dest, t_env *e);
 void				key_handler(int key, t_env *e);
@@ -75,8 +82,9 @@ void				create_scene_4(t_env *e);
 void				init_mlx(t_env *e);
 void				init_env(t_env *e);
 void				render(t_env *e);
+void				create_any_ob(t_env *e,
+									unsigned char *arr, t_v pos, int spec);
 int					choose_type(t_env *e, int i, t_ren *r_v, double *t);
-int					light_on(t_env *e, t_v dest, double closest, int i);
 int					mouse_release(int key, int x, int y, t_env *e);
 int					mouse_press(int key, int x, int y, t_env *e);
 int					trace_ray_cylinder(t_v dest, t_env *e);

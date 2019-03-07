@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 01:23:45 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/07 09:45:25 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/07 10:46:55 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,13 +188,13 @@ void	print_info_about_hitobj(t_env *e)
 
 static	void	key_handler2(int key, t_env *e)
 {
-	if (key == K_NUM_4)
+	if (key == K_NUM_4 || key == 0)
 		e->cam->rot.y -= M_PI / 180 * ROT_STEP;
-	else if (key == K_NUM_6)
+	else if (key == K_NUM_6 || key == 2)
 		e->cam->rot.y += M_PI / 180 * ROT_STEP;
-	else if (key == K_NUM_2)
+	else if (key == K_NUM_2 || key == 1)
 		e->cam->rot.x -= M_PI / 180 * ROT_STEP;
-	else if (key == K_NUM_8)
+	else if (key == K_NUM_8 || key == 13)
 		e->cam->rot.x += M_PI / 180 * ROT_STEP;
 	// else if (key == K_NUM_7)
 	// 	e->cam->rot.z -= M_PI / 180 * ROT_STEP;
@@ -216,9 +216,9 @@ void			key_handler(int key, t_env *e)
 		e->cam->pos.x -= 1;
 	else if (key == K_ARRRIGHT)
 		e->cam->pos.x += 1;
-	else if (key == K_NUM_PLUS)
+	else if (key == K_NUM_PLUS || key == 24)
 		e->cam->pos.z += 2;
-	else if (key == K_NUM_MINUS)
+	else if (key == K_NUM_MINUS || key == 27)
 		e->cam->pos.z -= 2;
 	else
 		key_handler2(key, e);

@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   initer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:34:01 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/03/07 08:35:54 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/07 10:48:34 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/rt.h"
+
+void	create_renvar(t_env *e, t_v dest)
+{
+	e->ren_var->start = e->cam->pos;
+	e->ren_var->dest = dest;
+	e->ren_var->min = 1;
+	e->ren_var->max = RAY_LENMAX;
+}
 
 void	init_env(t_env *e)
 {

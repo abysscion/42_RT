@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/07 07:36:14 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/07 10:54:57 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,23 @@ double			close_intersection(t_env *e, t_ren *r_v, int *num_obj)
 	return (closest);
 }
 
-static	int		trace_ray(t_v dest, t_env *e)
+unsigned	char		*trace_ray(t_ren *ren_var, t_env *e, int rec)
 {
 	double	closest;
-	int		color;
+	unsigned char	*color;
 	int		num_obj;
 
 	num_obj = 0;
-	e->ren_var->start = e->cam->pos;
-	e->ren_var->dest = dest;
-	e->ren_var->min = 1;
-	e->ren_var->max = RAY_LENMAX;
-	closest = close_intersection(e, e->ren_var, &num_obj);
-	if (closest == RAY_LENMAX)
-		return (CLR_BACKGROUND);
-	color = light_on(e, dest, closest, num_obj);
+	closest = close_intersection(e, ren_var, &num_obj);
+	if (closest >= ren_var->max)
+	{
+		color = (unsigned char *)malloc(sizeof(unsigned char) * 3);
+		color[0] = 0;
+		color[1] = 0;
+		color[2] = 0;
+		return (color);
+	}
+	color = light_on(e, ren_var, closest, num_obj, rec);
 	return (color);
 }
 
@@ -89,8 +91,9 @@ static	int		trace_ray(t_v dest, t_env *e)
 
 void			render(t_env *e)
 {
-	t_v		dst;
-	int		color;
+	t_v		dest;
+	unsigned char	*color;
+	int		colour;
 	int		x;
 	int		y;
 
@@ -102,11 +105,14 @@ void			render(t_env *e)
 			x = WIN_W / 2 * -1;
 			while (x < WIN_W / 2)
 			{
-				dst = vp_to_global((t_v){x, y, 0});
-				dst = vec_rotate(e->cam->rot, dst);
-				dst = vecnorm(dst);
-				color = trace_ray(dst, e);
-				ppx_on_img(y, x, color, e);
+				dest = vp_to_global((t_v){x, y, 0});
+				dest = vec_rotate(e->cam->rot, dest);
+				dest = vecnorm(dest);
+				create_renvar(e, dest);
+				color = trace_ray(e->ren_var, e, RECURSION);
+				colour = color[0] * 0x10000 + color[1] * 0x100 + color[2];
+				ppx_on_img(y, x, colour, e);
+				free(color);
 				++x;
 			}
 			++y;

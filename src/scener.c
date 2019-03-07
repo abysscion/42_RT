@@ -6,7 +6,7 @@
 /*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 20:26:12 by cschuste          #+#    #+#             */
-/*   Updated: 2019/02/22 21:25:20 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/03/07 10:56:14 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	cr_obj(t_bs bs, int i, t_env *e)
 	p->objarr[i]->rot = (t_v){bs.rotx, bs.roty, bs.rotz};
 	p->objarr[i]->radius = bs.rad;
 	p->objarr[i]->specular = bs.spec;
+	p->objarr[i]->reflect = bs.reflect;
 	p->objarr[i]->type = bs.type;
 }
 

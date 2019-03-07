@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_0.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 20:26:12 by cschuste          #+#    #+#             */
-/*   Updated: 2019/02/22 18:17:41 by emayert          ###   ########.fr       */
+/*   Updated: 2019/03/07 10:57:02 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ void			create_scene_0(t_env *e)
 	while (++i < e->objs->n_obj)
 		e->objs->objarr[i] = (t_obj *)malloc(sizeof(t_obj));
 	i = -1;
-	cr_obj((t_bs){0, 0, 6, 0, 0, 0, 1, 100, 0, 0, 10, T_SPHERE}, ++i, e);
+	cr_obj((t_bs){0, 0, 6, 0, 0, 0, 1, 100, 0, 0, 10, 0, T_SPHERE}, ++i, e);
 	create_light(e);
 }
