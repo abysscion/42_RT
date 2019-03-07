@@ -2,27 +2,38 @@ NAME	=	RT
 OS		=	$(shell uname)
 
 # directories
-SRCDIR	= src
-INCDIR	= include
-OBJDIR	= obj
+SRCDIR	= ./src
+INCDIR	= ./include
+OBJDIR	= ./obj
 
-# PATHS TO SRC SUBDIRECTORIES & NAMES OF SUBDIRECTORIES
-SRC_SUBDIR = $(wildcard $(SRCDIR)/*)
-SUBDIR = $(SRC_SUBDIR:$(SRCDIR)/%=%)
+# sources
+SRC		=	main.c \
+			gui.c \
+			freer.c \
+			debug.c \
+			light.c \
+			scener.c \
+			initer.c \
+			supply.c \
+			hooker.c \
+			render.c \
+			test_0.c \
+			test_1.c \
+			test_2.c \
+			test_3.c \
+			test_4.c \
+			intersect.c \
+			gui_initer.c \
+			gui_supply.c \
+			gui_handler.c \
+			find_normal.c \
+			light_supply.c
 
-# PATHS TO C SOURCE FILES
-SRC_PATH = $(foreach subdir,$(SRC_SUBDIR),$(wildcard $(subdir)/*.c))
-
-# PATHS TO OBJ SUBDIRECTRIES, PATHS TO & NAMES OF OBJECTS
-OBJ_SUBDIR = $(addprefix $(OBJDIR)/,$(SUBDIR))
-OBJ_PATH = $(SRC_PATH:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 # compiler
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra
-#CFLAGS	+=	-Werror
-#CFLAGS	+=	-g
-CFLAGS	+=	-Ofast #-O0
+CFLAGS	=	-g -Wall -Wextra -Ofast #-O0 #-Werror
 
 #OSX frameworks
 FWS		=	-framework OpenCL -framework OpenGL -framework AppKit
@@ -53,7 +64,7 @@ MLX_LIB =	$(addprefix $(MLX),mlx.a)
 all: obj $(FT_LIB) $(VEC_LIB) $(MLX_LIB) $(NAME)
 
 obj:
-	mkdir -p $(OBJ_SUBDIR)
+	mkdir -p $(OBJDIR)
 
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(MLX_INC) $(VEC_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
@@ -67,8 +78,8 @@ $(VEC_LIB):
 $(MLX_LIB):
 	make -C $(MLX)
 
-$(NAME): $(OBJ_PATH)
-	$(CC) $(OBJ_PATH) $(MLX_LNK) $(VEC_LNK) $(FT_LNK) -lpthread -lm -o $(NAME)
+$(NAME): $(OBJ)
+	$(CC) $(OBJ) $(MLX_LNK) $(VEC_LNK) $(FT_LNK) -lpthread -lm -o $(NAME)
 
 clean:
 	rm -rf $(OBJDIR)

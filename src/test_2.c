@@ -6,7 +6,7 @@
 /*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 20:26:12 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/07 15:18:59 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/03/07 10:57:39 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void			create_scene_2(t_env *e)
 	while (++i < e->objs->n_obj)
 		e->objs->objarr[i] = (t_obj *)malloc(sizeof(t_obj));
 	i = -1;
-	cr_obj((t_bs){0, 4, 0, 0, -1, 0, 0, 40, 80, 250, 0, 0, 0, T_PLANE}, ++i, e);
-	cr_obj((t_bs){0, 0, 20, 0, -1, 0, 0.6, 150, 150, 0, 0, 0, 0, T_CONE}, ++i, e);
+	cr_obj((t_bs){0, 4, 0, 0, -1, 0, 0, 40, 80, 250, 0, 0, T_PLANE}, ++i, e);
+	cr_obj((t_bs){0, 0, 20, 0, -1, 0, 0.6, 150, 150, 0, 0, 0, T_CONE}, ++i, e);
 	create_light(e);
 }
