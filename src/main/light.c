@@ -6,7 +6,7 @@
 /*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 21:03:53 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/07 15:50:43 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/03/07 16:27:21 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,10 @@ unsigned	char		*light_on(t_env *e, t_ren *r_v, double *closest, int i, int rec)
 	}
 	if (e->objs->objarr[i]->transp > 0)
 	{
-		light->p = vecsum(r_v->start, vecmult_num(r_v->dest, closest[1]));
+		if (e->objs->objarr[i]->type == T_PLANE)
+			light->p = vecsum(r_v->start, vecmult_num(r_v->dest, closest[0]));
+		else
+			light->p = vecsum(r_v->start, vecmult_num(r_v->dest, closest[1]));
 		ref_col = trace_ray(&(t_ren){light->p, r_v->dest,
 					RAY_LENMIN, RAY_LENMAX}, e, rec - 1);
 		count_transp(rgb, ref_col, e, i);
