@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:34:01 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/03/06 05:32:49 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/07 08:35:54 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,23 @@
 
 void	init_env(t_env *e)
 {
-	e->objs = (t_oc *)malloc(sizeof(t_oc));
-	e->objs->n_obj = 0;
-	e->cam = (t_cam *)malloc(sizeof(t_cam));
-	e->cam->rot = (t_v) {0, 0, 0};
-	e->cam->pos = (t_v) {0, 0, 0};
+	e->imgarr = (t_im **)malloc(sizeof(t_im *) * GUI_BT_NUM * 2);
+	e->buttons = (t_bt **)malloc(sizeof(t_bt *) * GUI_BT_NUM);
+	e->ren_var = (t_ren *)malloc(sizeof(t_ren));
+	e->lit_var = (t_lc *)malloc(sizeof(t_lc));
+	e->gui = (t_gui *)malloc(sizeof(t_gui));
 	e->hitobj = (t_ho *)malloc(sizeof(t_ho));
 	e->hitobj->ishit = -1;
 	e->hitobj->index = -1;
-	e->lit_var = (t_lc *)malloc(sizeof(t_lc));
-	e->ren_var = (t_ren *)malloc(sizeof(t_ren));
-	e->imgarr = (t_im **)malloc(sizeof(t_im *) * GUI_BT_NUM * 2);
-	e->buttons = (t_bt **)malloc(sizeof(t_bt *) * GUI_BT_NUM);
-	e->gui = (t_gui *)malloc(sizeof(t_gui));
+	e->cam = (t_cam *)malloc(sizeof(t_cam));
+	e->cam->rot = (t_v) {0, 0, 0};
+	e->cam->pos = (t_v) {0, 0, 0};
 	e->cam->view_port_addr = 0x0;
+	e->objs = (t_oc *)malloc(sizeof(t_oc));
+	e->objs->n_obj = 0;
 	e->mlx = NULL;
 	e->win = NULL;
 	e->k = 0;
-	e->need_regui = 0;
-	e->need_rerender = 0;
 	e->mouse_pressed = 0;
 }
 

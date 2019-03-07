@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/06 05:31:36 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/07 08:42:15 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,9 @@
 # define T_CYLINDER				2
 # define T_CONE					3
 
-
 t_v					normal2cone(t_env *e, t_v dest, double closest, int i);
 t_v					normal2cyl(t_env *e, t_v dest, double closest, int i);
 t_v					normal2plane(t_env	*e, int i);
-t_v					vec_rotate(t_v a, t_v vec);
 t_v					vp_to_global(t_v vp_p);
 double				close_intersection(t_env *e, t_ren *r_v, int *num_obj);
 void				create_any_ob(t_env *e,
@@ -83,8 +81,8 @@ int					mouse_press(int key, int x, int y, t_env *e);
 int					trace_ray_cylinder(t_v dest, t_env *e);
 int					trace_ray_sphere(t_v dest, t_env *e);
 int					trace_ray_plane(t_v dest, t_env *e);
-int					mouse_move(int x, int y, t_env *e);
 int					trace_ray_cone(t_v dest, t_env *e);
+int					mouse_move(int x, int y, t_env *e);
 int					key_hook(int key, t_env *e);
 int					clean_n_close(t_env *e);
 int					expose_hook(t_env *e);
@@ -121,12 +119,15 @@ int					intersect_plane(t_v start,
 # define T_CYLINDER_NAME		"Infinite cylinder"
 # define T_CONE_NAME			"Infinite cone"
 
+t_bt				*new_button(int x, int y, int i, t_env *e);
 t_bt				*new_bt(int x, int y, int i, t_env *e);
+void				press_mv_button(double *val, double add, void *e);
 void				draw_object_info(int x, int y, t_env *e);
 void				init_buttons(t_env *e);
 void				init_icons(t_env *e);
 void				init_gui(t_env *e);
 void				draw_gui(t_env *e);
+int					is_within_border(int x, int y, int bt_index, t_env *e);
 int					handle_gui_click(int x, int y, t_env *e);
 /*================================ END OF GUI ===============================*/
 

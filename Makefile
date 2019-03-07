@@ -23,6 +23,9 @@ SRC		=	main.c \
 			test_3.c \
 			test_4.c \
 			intersect.c \
+			gui_initer.c \
+			gui_supply.c \
+			gui_handler.c \
 			find_normal.c
 
 OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))

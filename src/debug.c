@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 01:23:45 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/06 01:08:26 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/07 06:58:30 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,76 @@ void	rayhit_obj(t_v dest, t_env *e)
 	}
 	if (e->hitobj->type >= T_PLANE && e->hitobj->type <= T_CONE)
 		e->hitobj->ishit = 1;
+}
+
+/*
+**	Draws text info about clicked object at (x, y) position
+*/
+
+/*	There !MUST! be something better at string bulding. For example another foo
+**		which takes void* struct with an array of strings and their count.
+**		Maybe it would be just a single-linked list. DUNNO YET...
+*/
+
+void			draw_object_info(int x, int y, t_env *e)
+{
+	char	buff[256];
+	char	*tmp;
+	char	*p;
+	int		i;
+	t_obj	*ptj;
+
+	if (e->hitobj->ishit == 1)
+	{
+		ptj = e->objs->objarr[e->hitobj->index];
+		i = 0;
+
+		p = ft_strcpy(&buff[0], "Type: ");
+		ft_strcat(p, e->gui->objs_types[ptj->type]);
+		mlx_string_put(e->mlx, e->win, x + GUI_MARGIN, y + GUI_TEXT_H * ++i +
+			GUI_MARGIN + GUI_ICON_SIZE * 3 + GUI_GAP * 3, CLR_TEXT, p);
+		ft_strclr(p);
+
+		p = ft_strcpy(&buff[0], "Radius: ");
+		tmp = ft_itoa(ptj->radius);
+		ft_strcat(p, tmp);
+		mlx_string_put(e->mlx, e->win, x + GUI_MARGIN, y + GUI_TEXT_H * ++i +
+			GUI_MARGIN + GUI_ICON_SIZE * 3 + GUI_GAP * 3, CLR_TEXT, p);
+		ft_strclr(p);
+		free(tmp);
+
+		p = ft_strcpy(&buff[0], "Position: (");
+		tmp = ft_itoa((int)ptj->pos.x);
+		ft_strcat(p, ft_strcat(tmp, ", "));
+		free(tmp);
+		tmp = ft_itoa((int)ptj->pos.y);
+		ft_strcat(p, ft_strcat(tmp, ", "));
+		free(tmp);
+		tmp = ft_itoa((int)ptj->pos.z);
+		ft_strcat(p, ft_strcat(tmp, ")"));
+		mlx_string_put(e->mlx, e->win, x + GUI_MARGIN, y + GUI_TEXT_H * ++i +
+			GUI_MARGIN + GUI_ICON_SIZE * 3 + GUI_GAP * 3, CLR_TEXT, p);
+		ft_strclr(p);
+		free(tmp);
+
+		p = ft_strcpy(&buff[0], "Rotation: (");
+		tmp = ft_itoa((int)ptj->rot.x);
+		ft_strcat(p, ft_strcat(tmp, ", "));
+		free(tmp);
+		tmp = ft_itoa((int)ptj->rot.y);
+		ft_strcat(p, ft_strcat(tmp, ", "));
+		free(tmp);
+		tmp = ft_itoa((int)ptj->rot.z);
+		ft_strcat(p, ft_strcat(tmp, ")"));
+		mlx_string_put(e->mlx, e->win, x + GUI_MARGIN, y + GUI_TEXT_H * ++i +
+			GUI_MARGIN + GUI_ICON_SIZE * 3 + GUI_GAP * 3, CLR_TEXT, p);
+		ft_strclr(p);
+		free(tmp);
+	}
+	else
+	mlx_string_put(e->mlx, e->win, WIN_W + GUI_MARGIN,
+				y + GUI_MARGIN + GUI_ICON_SIZE * 3 + GUI_GAP * 3 + GUI_TEXT_H,
+				CLR_TEXT, "No object selected");
 }
 
 /*

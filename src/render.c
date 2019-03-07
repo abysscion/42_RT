@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/04 12:09:51 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/07 07:36:14 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,21 +94,24 @@ void			render(t_env *e)
 	int		x;
 	int		y;
 
-	y = WIN_H / 2 * -1;
-	while (y < WIN_H / 2)
+	if (e->need_rerender == 1)
 	{
-		x = WIN_W / 2 * -1;
-		while (x < WIN_W / 2)
+		y = WIN_H / 2 * -1;
+		while (y < WIN_H / 2)
 		{
-			dst = vp_to_global((t_v){x, y, 0});
-			dst = vec_rotate(e->cam->rot, dst);
-			dst = vecnorm(dst);
-			color = trace_ray(dst, e);
-			ppx_on_img(y, x, color, e);
-			++x;
+			x = WIN_W / 2 * -1;
+			while (x < WIN_W / 2)
+			{
+				dst = vp_to_global((t_v){x, y, 0});
+				dst = vec_rotate(e->cam->rot, dst);
+				dst = vecnorm(dst);
+				color = trace_ray(dst, e);
+				ppx_on_img(y, x, color, e);
+				++x;
+			}
+			++y;
 		}
-		++y;
+		mlx_put_image_to_window(e->mlx, e->win, e->cam->ptr_vp, 0, 0);
+		e->need_rerender = 0;
 	}
-	mlx_put_image_to_window(e->mlx, e->win, e->cam->ptr_vp, 0, 0);
-	e->need_rerender = 0;
 }

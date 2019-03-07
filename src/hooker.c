@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 05:21:02 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/06 05:43:30 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/07 08:11:36 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	mouse_press(int key, int x, int y, t_env *e)
 				{
 					e->buttons[GUI_BT_CAM]->state = 0;
 					e->buttons[GUI_BT_CUBE]->state = 1;
+					e->need_regui = 1;
 					print_info_about_hitobj(e);
 				}
 			}
@@ -48,14 +49,17 @@ int	mouse_release(int key, int x, int y, t_env *e)
 {
 	int	i;
 
+	x -= WIN_W / 2;
+	y -= WIN_H / 2;
 	if (key)
 	{;}
 	i = GUI_BT_AL - 1;
 	while (++i <= GUI_BT_AD)
 		if (e->buttons[i]->state == 1)
+		{
 			e->buttons[i]->state = 0;
-	x -= WIN_W / 2;
-	y -= WIN_H / 2;
+			e->need_regui = 1;
+		}
 	e->mouse_pressed = 0;
 	draw_gui(e);
 	return (0);
