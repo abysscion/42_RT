@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/07 14:46:40 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/07 15:43:49 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,42 +35,48 @@ int			choose_type(t_env *e, int i, t_ren *r_v, double *t)
 	*closest = RAY_LENMAX;
 } */
 
-double			close_intersection(t_env *e, t_ren *r_v, int *num_obj)
+double			*close_intersection(t_env *e, t_ren *r_v, int *num_obj)
 {
-	double	closest;
+	// double	closest;
 	double	roots[2];
+	double	*result;
 	int		cross;
 	int		i;
 
 	i = -1;
-	closest = r_v->max;
+	// closest = r_v->max;
 	cross = 0;
+	result = (double *)malloc(sizeof(double) * 2);
+	result[0] = r_v->max;
 	while (++i < e->objs->n_obj)
 	{
 		cross = choose_type(e, i, r_v, roots);
-		if (cross && roots[0] > r_v->min && roots[0] < closest)
+		if (cross && roots[0] > r_v->min && roots[0] < result[0])
 		{
-			closest = roots[0];
+			result[0] = roots[0];
+			result[1] = roots[1];
 			*num_obj = i;
+
 		}
-		if (cross && roots[1] > r_v->min && roots[1] < closest)
+		if (cross && roots[1] > r_v->min && roots[1] < result[0])
 		{
-			closest = roots[1];
+			result[0] = roots[1];
+			result[1] = roots[0];
 			*num_obj = i;
 		}
 	}
-	return (closest);
+	return (result);
 }
 
 unsigned char	*trace_ray(t_ren *ren_var, t_env *e, int rec)
 {
-	double	closest;
+	double	*closest;
 	unsigned char	*color;
 	int		num_obj;
 
 	num_obj = 0;
 	closest = close_intersection(e, ren_var, &num_obj);
-	if (closest >= ren_var->max)
+	if (closest[0] >= ren_var->max)
 	{
 		color = (unsigned char *)malloc(sizeof(unsigned char) * 3);
 		color[0] = 0;

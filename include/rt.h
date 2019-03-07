@@ -6,7 +6,7 @@
 /*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/07 10:54:53 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/03/07 15:39:01 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
 # define T_CONE					3
 # define RECURSION				2
 
-unsigned	char	*light_on(t_env *e, t_ren *r_v, double closest, int i, int rec);
+unsigned	char	*light_on(t_env *e, t_ren *r_v, double *closest, int i, int rec);
 unsigned	char	*trace_ray(t_ren *ren_var, t_env *e, int rec);
 t_v					normal2cone(t_env *e, t_v dest, double closest, int i);
 t_v					normal2cyl(t_env *e, t_v dest, double closest, int i);
@@ -61,9 +61,10 @@ t_v					normal2plane(t_env	*e, int i);
 t_v					vec_rotate(t_v a, t_v vec);
 t_v					reflect_ray(t_v n, t_v l);
 t_v					vp_to_global(t_v vp_p);
+double				*close_intersection(t_env *e, t_ren *r_v, int *num_obj);
 double				max_color(double intens, unsigned char col, int *remain);
-double				close_intersection(t_env *e, t_ren *r_v, int *num_obj);
-void    			count_rgb(unsigned char *rgb, unsigned char *ref_col, t_env *e, int i);
+void    			count_reflect(unsigned char *rgb, unsigned char *ref_col, t_env *e, int i);
+void    			count_transp(unsigned char *rgb, unsigned char *ref_col, t_env *e, int i);
 void    			limit_specular(unsigned char *rgb, int remain, double intens);
 void				translate_obj(double *val, double add, int rd, t_env *e);
 void				ppx_on_img(int x, int y, int color, t_env *e);

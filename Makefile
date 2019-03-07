@@ -22,7 +22,7 @@ CC		=	gcc
 CFLAGS	=	-Wall -Wextra
 #CFLAGS	+=	-Werror
 #CFLAGS	+=	-g
-CFLAGS	+=	-Ofast -O0
+CFLAGS	+=	-Ofast #-O0
 
 #OSX frameworks
 FWS		=	-framework OpenCL -framework OpenGL -framework AppKit

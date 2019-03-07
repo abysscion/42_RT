@@ -6,11 +6,11 @@
 /*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 10:08:37 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/07 10:44:42 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/03/07 15:58:35 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/rt.h"
+#include "rt.h"
 
 double	max_color(double intens, unsigned char col, int *remain)
 {
@@ -43,12 +43,21 @@ void    limit_specular(unsigned char *rgb, int remain, double intens)
 	rgb[1] = (rgb[1] + remain) > 255 ? 255 : rgb[1] + remain;
 }
 
-void    count_rgb(unsigned char *rgb, unsigned char *ref_col, t_env *e, int i)
+void    count_reflect(unsigned char *rgb, unsigned char *ref_col, t_env *e, int i)
 {
-	rgb[0] = rgb[0] * (1 - e->objs->objarr[i]->reflect) + ref_col[0]
-        * e->objs->objarr[i]->reflect;
-	rgb[1] = rgb[1] * (1 - e->objs->objarr[i]->reflect) + ref_col[1]
-        * e->objs->objarr[i]->reflect;
-	rgb[2] = rgb[2] * (1 - e->objs->objarr[i]->reflect) + ref_col[2]
-        * e->objs->objarr[i]->reflect;
+	double	reflect;
+	double	transp;
+
+	reflect = e->objs->objarr[i]->reflect;
+	transp = e->objs->objarr[i]->transp;
+	rgb[0] = rgb[0] * (1 - (reflect + transp)) + ref_col[0] * reflect;
+	rgb[1] = rgb[1] * (1 - (reflect + transp)) + ref_col[1] * reflect;
+	rgb[2] = rgb[2] * (1 - (reflect + transp)) + ref_col[2] * reflect;
+}
+
+void    count_transp(unsigned char *rgb, unsigned char *ref_col, t_env *e, int i)
+{
+	rgb[0] = rgb[0] + ref_col[0] * e->objs->objarr[i]->transp;
+	rgb[1] = rgb[1] + ref_col[1] * e->objs->objarr[i]->transp;
+	rgb[2] = rgb[2] + ref_col[2] * e->objs->objarr[i]->transp;
 }
