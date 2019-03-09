@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/07 10:54:57 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/03/09 17:05:27 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void			render(t_env *e)
 			}
 			++y;
 		}
+		anti_aliasing(e);
 		mlx_put_image_to_window(e->mlx, e->win, e->cam->ptr_vp, 0, 0);
 		e->need_rerender = 0;
 	}
