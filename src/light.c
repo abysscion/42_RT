@@ -6,7 +6,7 @@
 /*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 21:03:53 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/07 10:52:03 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/03/09 17:49:50 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static	void			choose_light(t_env *e, int *max, t_lc *lc, int i)
 
 static	double			compute_light(t_env *e, int obj)
 {
+	double	*roots;
 	double	intens;
 	double	temp;
 	int		i;
@@ -55,8 +56,9 @@ static	double			compute_light(t_env *e, int obj)
 		else
 		{
 			choose_light(e, &max, e->lit_var, i);
-			if (close_intersection(e, &(t_ren){e->lit_var->p, e->lit_var->l,
-				RAY_LENMIN, max}, &e->lit_var->temp) < max)
+			roots = close_intersection(e, &(t_ren){e->lit_var->p, e->lit_var->l,
+				RAY_LENMIN, max}, &e->lit_var->temp);
+			if (roots[0] < max)
 				continue;
 			temp = vecmult_scal(e->lit_var->n, e->lit_var->l);
 			if (temp > 0)
@@ -69,7 +71,7 @@ static	double			compute_light(t_env *e, int obj)
 	return (intens);
 }
 
-unsigned	char		*light_on(t_env *e, t_ren *r_v, double closest, int i, int rec)
+unsigned	char		*light_on(t_env *e, t_ren *r_v, double *closest, int i, int rec)
 {
 	t_lc				*light;
 	double				intens;
@@ -79,16 +81,16 @@ unsigned	char		*light_on(t_env *e, t_ren *r_v, double closest, int i, int rec)
 
 	light = e->lit_var;
 	light->v = vecmult_num(r_v->dest, -1);
-	light->p = vecsum(r_v->start, vecmult_num(r_v->dest, closest));
+	light->p = vecsum(r_v->start, vecmult_num(r_v->dest, closest[0]));
 	light->n = vecsub(light->p, e->objs->objarr[i]->pos);
 	if (e->objs->objarr[i]->type == T_SPHERE)
 		light->n = vecsub(light->p, e->objs->objarr[i]->pos);
 	if (e->objs->objarr[i]->type == T_PLANE)
 		light->n = normal2plane(e, i);
 	if (e->objs->objarr[i]->type == T_CYLINDER)
-		light->n = normal2cyl(e, r_v->dest, closest, i);
+		light->n = normal2cyl(e, r_v->dest, closest[0], i);
 	if (e->objs->objarr[i]->type == T_CONE)
-		light->n = normal2cone(e, r_v->dest, closest, i);
+		light->n = normal2cone(e, r_v->dest, closest[0], i);
 	light->n = vecnorm(light->n);
 	intens = compute_light(e, i);
 	rgb = (unsigned char *)malloc(sizeof(unsigned char) * 3);
@@ -99,13 +101,21 @@ unsigned	char		*light_on(t_env *e, t_ren *r_v, double closest, int i, int rec)
 	rgb[1] = (e->objs->objarr[i]->colour[1] + remain) > 255 ? 255 : e->objs->objarr[i]->colour[1] + remain;
 	rgb[2] = (e->objs->objarr[i]->colour[2] + remain) > 255 ? 255 : e->objs->objarr[i]->colour[2] + remain;
 	limit_specular(rgb, remain, intens);
-	if (rec <= 0 || e->objs->objarr[i]->reflect <= 0)
-		return (rgb);
-	ref_col = trace_ray(&(t_ren){light->p, reflect_ray(light->v, light->n),
+	if (rec > 0 && e->objs->objarr[i]->reflect > 0)
+	{
+		ref_col = trace_ray(&(t_ren){light->p, reflect_ray(light->v, light->n),
 				RAY_LENMIN, RAY_LENMAX}, e, rec - 1);
-	count_rgb(rgb, ref_col, e, i);
-	free (ref_col);
+		count_reflect(rgb, ref_col, e, i);
+		free (ref_col);
+	}
+	if (rec > 0 && e->objs->objarr[i]->transp > 0)
+	{
+		if (e->objs->objarr[i]->type != T_PLANE)
+			light->p = vecsum(r_v->start, vecmult_num(r_v->dest, closest[1]));
+		ref_col = trace_ray(&(t_ren){light->p, r_v->dest,
+				RAY_LENMIN, RAY_LENMAX}, e, rec - 1);
+		count_transp(rgb, ref_col, e, i);
+	}
+	free(closest);
 	return (rgb);
 }
-
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/09 17:05:27 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/03/09 17:50:41 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,31 @@ static	void	abuse_init(int *i, int *cross, double *closest)
 	*closest = RAY_LENMAX;
 }
 
-double			close_intersection(t_env *e, t_ren *r_v, int *num_obj)
+double			*close_intersection(t_env *e, t_ren *r_v, int *num_obj)
 {
-	double	closest;
+	double	*closest;
 	double	t[2];
 	int		cross;
 	int		i;
 
-	abuse_init(&i, &cross, &closest);
+	closest = (double *)malloc(sizeof(double) * 2);
+	abuse_init(&i, &cross, &closest[0]);
 	while (++i < e->objs->n_obj)
 	{
 		cross = choose_type(e, i, r_v, t);
 		if (cross)
 		{
-			if (t[0] > r_v->min && t[0] < r_v->max && t[0] < closest)
+			if (t[0] > r_v->min && t[0] < r_v->max && t[0] < closest[0])
 			{
-				closest = t[0];
+				closest[0] = t[0];
+				closest[1] = t[1];
 				*num_obj = i;
 			}
 			if (e->objs->objarr[i]->type != T_PLANE &&
-				t[1] > r_v->min && t[1] < r_v->max && t[1] < closest)
+				t[1] > r_v->min && t[1] < r_v->max && t[1] < closest[0])
 			{
-				closest = t[1];
+				closest[0] = t[1];
+				closest[1] = t[0];
 				*num_obj = i;
 			}
 		}
@@ -66,13 +69,13 @@ double			close_intersection(t_env *e, t_ren *r_v, int *num_obj)
 
 unsigned	char		*trace_ray(t_ren *ren_var, t_env *e, int rec)
 {
-	double	closest;
+	double	*closest;
 	unsigned char	*color;
 	int		num_obj;
 
 	num_obj = 0;
 	closest = close_intersection(e, ren_var, &num_obj);
-	if (closest >= ren_var->max)
+	if (closest[0] >= ren_var->max)
 	{
 		color = (unsigned char *)malloc(sizeof(unsigned char) * 3);
 		color[0] = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/03/09 17:07:07 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/03/09 17:47:55 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef	struct		s_object
 	double				radius;
 	int					specular;
 	double				reflect;
+	double				transp;
 	int					type;
 }					t_obj;
 
@@ -93,6 +94,7 @@ typedef	struct		s_bullshit
 	unsigned	char	b;
 	int					spec;
 	double				reflect;
+	double				transp;
 	int					type;
 }					t_bs;
 
