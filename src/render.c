@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/12 12:15:35 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/13 17:00:43 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	render(t_env *env)
 		}
 		y++;
 	}
-	//anti_aliasing(env);
+	anti_aliasing(env);
 	mlx_put_image_to_window(env->mlx.mlx_ptr,
 		env->mlx.win_ptr, env->mlx.img_ptr, 0, 0);
 }
