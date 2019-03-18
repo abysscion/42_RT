@@ -6,20 +6,25 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 17:06:00 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/03/12 12:11:29 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/18 18:34:38 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static int	cast_rgb(int i)
+static void	sum_color(t_clr *aliasing, t_clr *color)
 {
-	t_clr color;
+	int		i;
 
-	color.b = (i & 0xFF) / 4;
-	color.g = ((i >> 8) & 0xFF) / 4;
-	color.r = ((i >> 16) & 0xFF) / 4;
-	return (color.b + (color.g << 8) + (color.r << 16));
+	i = 0;
+	ft_bzero(color, 3);
+	while (i < 4)
+	{
+		color->b += aliasing[i].b / 4;
+		color->g += aliasing[i].g / 4;
+		color->r += aliasing[i].r / 4;
+		i++;
+	}
 }
 
 static int	check_difference(int i, int j)
@@ -46,46 +51,70 @@ static int	check_pixel(t_env *env, int i, int j)
 {
 	int mass;
 
-	mass = env->mlx.image[j + (i * WIN_H)];
-	if (i - 1 <= 0)
+	mass = env->sdl.image[j + (i * WIN_H)];
+	if (i - 1 >= 0)
 		if (check_difference(mass,
-			env->mlx.image[j + ((i - 1) * WIN_H)]))
+			env->sdl.image[j + ((i - 1) * WIN_H)]))
 			return (1);
 	if (j - 1 >= 0)
 		if (check_difference(mass,
-			env->mlx.image[j - 1 + (i * WIN_H)]))
+			env->sdl.image[j - 1 + (i * WIN_H)]))
 			return (1);
 	if (j + 1 < WIN_W)
 		if (check_difference(mass,
-			env->mlx.image[j + 1 + (i * WIN_H)]))
+			env->sdl.image[j + 1 + (i * WIN_H)]))
 			return (1);
 	if (i + 1 < WIN_H)
 		if (check_difference(mass,
-			env->mlx.image[j + ((i + 1) * WIN_H)]))
+			env->sdl.image[j + ((i + 1) * WIN_H)]))
 			return (1);
 	return (0);
 }
 
-void	anti_aliasing(t_env *env)
+static void	anti_aliasing_render(t_env *env, t_clr *aliasing, int i, int j)
 {
-	int i;
-	int j;
+	t_v		dest;
+	int		k;
+	int		x;
+	int		y;
+
+	y = i;
+	k = 0;
+	while (y <= i + 1)
+	{
+		x = j;
+		while (x <= j + 1)
+		{
+			dest = (t_v){x * 1.0 / (WIN_W * 2), y * 1.0 / (WIN_H * 2), 1.0};
+			dest = vecnorm(vec_rotate(env->cam.rotation, dest));
+			init_ray(env, dest);
+			aliasing[k] = trace_ray(env, RECURSION);
+			k++;
+			x++;
+		}
+		y++;
+	}
+}
+
+void		anti_aliasing(t_env *env)
+{
+	int		i;
+	int		j;
+	t_clr	color;
+	t_clr	aliasing[4];
 
 	i = WIN_H / 2 * -1;
 	while (i < WIN_H / 2)
 	{
 		j = WIN_W / 2 * -1;
-		while (j < WIN_H / 2)
+		while (j < WIN_W / 2)
 		{
 			if (check_pixel(env, i + WIN_H / 2, j + WIN_W / 2))
 			{
-				anti_aliasing_render(env, i * 2, j * 2);
-				env->mlx.image[j + (WIN_W / 2) +
-					((i + WIN_H / 2) * (WIN_H))] =
-					(cast_rgb(env->aliasing[0])) +
-					(cast_rgb(env->aliasing[1])) +
-					(cast_rgb(env->aliasing[2])) +
-					(cast_rgb(env->aliasing[3]));
+				anti_aliasing_render(env, &aliasing[0], i * 2, j * 2);
+				sum_color(&aliasing[0], &color);
+				SDL_SetRenderDrawColor(env->sdl.renderer, color.r, color.g, color.b, 0);
+				SDL_RenderDrawPoint(env->sdl.renderer, j + WIN_W / 2, i + WIN_H / 2);
 			}
 			j++;
 		}

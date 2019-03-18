@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/12 12:10:15 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/18 18:01:57 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include <pthread.h>
 # include <fcntl.h>
 # include <math.h>
+# include "SDL.h"
+# include "SDL_image.h"
 
 /*================================ MAIN =====================================*/
 # define MSG_USAGE	"usage: \e[33mThere's no usage yet :^)\e[0m"
@@ -86,7 +88,8 @@ int					trace_ray_sphere(t_v dest, t_env *e);
 int					trace_ray_plane(t_v dest, t_env *e);
 int					trace_ray_cone(t_v dest, t_env *e);
 
-void				key_handler(int key, t_env *e);
+
+void				sdl_key_press_events(int key, t_env *env);
 int					key_hook(int key, t_env *e);
 
 int					mouse_release(int key, int x, int y, t_env *e);
@@ -124,9 +127,7 @@ void				validate_plane(char **params);
 
 double				ft_atod(char *str);
 
-
 void				anti_aliasing(t_env *env);
-void				anti_aliasing_render(t_env *env, int i, int j);
 /*=============================== END OF MAIN ===============================*/
 
 /*=================================== GUI ===================================*/

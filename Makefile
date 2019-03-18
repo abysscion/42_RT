@@ -20,9 +20,8 @@ SRC		=	main.c \
 			parser_validation.c \
 			parser_utility.c \
 			lists.c \
-			hooker.c \
-			anti_aliasing_render.c \
-			anti_aliasing.c
+			key_events.c \
+			anti_aliasing.c \
 			#gui_initer.c \
 			#gui_supply.c \
 			#gui_handler.c \
@@ -34,7 +33,7 @@ OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 # compiler
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra #-Werror
-CFLAGS	+=	-Ofast
+#CFLAGS	+=	-Ofast
 #CFLAGS	+=	-g
 
 #OSX frameworks
@@ -51,6 +50,11 @@ VEC_LIB	=	$(addprefix $(VEC),libvec.a)
 VEC		=	./lib/libvec/
 VEC_INC	=	-I ./lib/libvec
 VEC_LNK	=	-L ./lib/libvec -lvec
+
+# sdl lib
+SDL		=	./lib/sdl2
+SDL_INC	=	-I ./lib/sdl2/include
+SDL_LNK	=	-L ./lib/sdl2 -lSDL2_image -lSDL2
 
 # mlx lib
 ifeq ($(OS), Linux)
@@ -69,7 +73,7 @@ obj:
 	mkdir -p $(OBJDIR)
 
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
-	$(CC) $(CFLAGS) $(MLX_INC) $(VEC_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
+	$(CC) $(CFLAGS) $(SDL_INC) $(VEC_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
 
 $(FT_LIB):
 	make -C $(FT)
@@ -81,7 +85,7 @@ $(MLX_LIB):
 	make -C $(MLX)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) $(MLX_LNK) $(VEC_LNK) $(FT_LNK) -lpthread -lm -o $(NAME)
+	$(CC) $(OBJ) $(SDL_LNK) $(VEC_LNK) $(FT_LNK) -lpthread -lm -o $(NAME)
 
 clean:
 	rm -rf $(OBJDIR)

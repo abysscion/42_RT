@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/13 17:00:43 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/03/18 18:29:42 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,16 @@ void	render(t_env *env)
 			dest = (t_v){x * 1.0 / WIN_W, y * 1.0 / WIN_H, 1.0};
 			dest = vecnorm(vec_rotate(env->cam.rotation, dest));
 			init_ray(env, dest);
-			color = trace_ray(env, RECURSION);		
-			env->mlx.image[WIN_W * (y + WIN_H / 2) + (x + WIN_W / 2)] =
-				(color.r << 16) + (color.g << 8) + color.b;
+			color = trace_ray(env, RECURSION);
+			env->sdl.image[WIN_W * (y + WIN_H / 2) + (x + WIN_W / 2)] =
+				(color.r << 16) + (color.b << 8) + (color.g);
+			SDL_SetRenderDrawColor(env->sdl.renderer, color.r, color.g, color.b, 0);
+			SDL_RenderDrawPoint(env->sdl.renderer, x + WIN_W / 2, y + WIN_H / 2);
 			x++;
 		}
 		y++;
 	}
 	anti_aliasing(env);
-	mlx_put_image_to_window(env->mlx.mlx_ptr,
-		env->mlx.win_ptr, env->mlx.img_ptr, 0, 0);
+	SDL_RenderPresent(env->sdl.renderer);
+
 }

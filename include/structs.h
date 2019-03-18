@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/03/12 12:04:47 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/18 18:02:29 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define STRUCTS_H
 
 # include "libvec.h"
+# include "SDL.h"
+# include "SDL_image.h"
 
 typedef	struct		s_hitobject
 {
@@ -103,7 +105,7 @@ typedef struct	s_ls
 	int			id;
 }				t_lst;
 
-typedef struct	s_mlx
+/*typedef struct	s_mlx
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
@@ -112,7 +114,14 @@ typedef struct	s_mlx
 	int			bits;
 	int			colms;
 	int			endian;
-}				t_mlx;
+}				t_mlx; */
+
+typedef struct	s_sdl
+{
+	SDL_Window		*window;
+	SDL_Renderer	*renderer;
+	int				*image;
+}				t_sdl;
 
 typedef	struct	s_environment
 {
@@ -124,12 +133,11 @@ typedef	struct	s_environment
 	t_lst		*lights;
 	t_lst		*surfaces;
 	t_cam		cam;
-	t_mlx		mlx;
+	t_sdl		sdl;
 	t_ray		ray;
 	int			mouse_pressed;
 	int			need_rerender;
 	int			need_regui;
-	int			aliasing[4];
 }				t_env;
 
 #endif
