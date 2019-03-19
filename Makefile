@@ -52,9 +52,8 @@ VEC_INC	=	-I ./lib/libvec
 VEC_LNK	=	-L ./lib/libvec -lvec
 
 # sdl lib
-SDL		=	./lib/sdl2
-SDL_INC	=	-I ./lib/sdl2/include
-SDL_LNK	=	-L ./lib/sdl2 -lSDL2-2.0.0
+SDL_INC	=	-I ~/.brew/include/SDL2
+SDL_LNK	=	-L ~/.brew/lib -lSDL2-2.0.0
 
 # mlx lib
 ifeq ($(OS), Linux)
