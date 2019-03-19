@@ -33,7 +33,7 @@ OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 # compiler
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra #-Werror
-#CFLAGS	+=	-Ofast
+CFLAGS	+=	-Ofast
 #CFLAGS	+=	-g
 
 #OSX frameworks
@@ -54,7 +54,7 @@ VEC_LNK	=	-L ./lib/libvec -lvec
 # sdl lib
 SDL		=	./lib/sdl2
 SDL_INC	=	-I ./lib/sdl2/include
-SDL_LNK	=	-L ./lib/sdl2 -lSDL2_image -lSDL2
+SDL_LNK	=	-L ./lib/sdl2 -lSDL2-2.0.0
 
 # mlx lib
 ifeq ($(OS), Linux)
