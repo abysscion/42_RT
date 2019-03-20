@@ -3,56 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/03/18 18:02:29 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/20 17:17:20 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+# ifdef __APPLE__
+#  include <OpenCL/opencl.h>
+#  include "SDL.h"
+#  include "SDL_image.h"
+# else
+#  include <CL/cl.h>
+#  include <SDL2/SDL.h>
+#  include <SDL2/SDL_image.h>
+# endif
 # include "libvec.h"
-# include "SDL.h"
-# include "SDL_image.h"
-
-typedef	struct		s_hitobject
-{
-	int				index;
-	int				ishit;
-	int				type;
-}					t_ho;
-
-typedef	struct		s_image
-{
-	void			*ptimg;
-	char			*path;
-	int				len;
-	int				wid;
-}					t_im;
-
-typedef	struct		s_button
-{
-	t_v				pos;
-	int				len;
-	int				wid;
-	int				state;
-	void			*ptimg;
-	void			(*foo)(double *, double, void *);
-}					t_bt;
-
-typedef	struct		s_graphical_user_interface
-{
-	char			**objs_types;
-	void			*pt_back_img;
-}					t_gui;
-
-//=============================
 
 typedef struct		s_lc
 {
-	t_v				to_dest;	
+	t_v				to_dest;
 	t_v				surf_normal;
 	t_v				surf_point;
 	t_v				point_to_light;
@@ -105,17 +79,6 @@ typedef struct	s_ls
 	int			id;
 }				t_lst;
 
-/*typedef struct	s_mlx
-{
-	void		*mlx_ptr;
-	void		*win_ptr;
-	void		*img_ptr;
-	int			*image;
-	int			bits;
-	int			colms;
-	int			endian;
-}				t_mlx; */
-
 typedef struct	s_sdl
 {
 	SDL_Window		*window;
@@ -125,19 +88,12 @@ typedef struct	s_sdl
 
 typedef	struct	s_environment
 {
-	t_gui		*gui;
-	t_ho		*hitobj;
-	t_bt		**buttons;
-	t_im		**imgarr;
-
 	t_lst		*lights;
 	t_lst		*surfaces;
 	t_cam		cam;
 	t_sdl		sdl;
 	t_ray		ray;
 	int			mouse_pressed;
-	int			need_rerender;
-	int			need_regui;
 }				t_env;
 
 #endif

@@ -22,11 +22,6 @@ SRC		=	main.c \
 			lists.c \
 			key_events.c \
 			anti_aliasing.c \
-			#gui_initer.c \
-			#gui_supply.c \
-			#gui_handler.c \
-			gui.c \
-
 
 OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
@@ -52,19 +47,13 @@ VEC_INC	=	-I ./lib/libvec
 VEC_LNK	=	-L ./lib/libvec -lvec
 
 # sdl lib
+ifeq ($(OS), Linux)
+SDL_INC	=	-I /usr/include/SDL2
+SDL_LNK	=	-L /use/include/SDL2 -lSDL2_image -lSDL2
+else
 SDL_INC	=	-I ~/.brew/include/SDL2
 SDL_LNK	=	-L ~/.brew/lib -lSDL2-2.0.0
-
-# mlx lib
-ifeq ($(OS), Linux)
-MLX 	=	./lib/libmlx/
-MLX_LNK	=	-L $(MLX) -lmlx -lXext -lX11 -lOpenCL
-else
-MLX		=	./lib/libmlx_macos/
-MLX_LNK =	-L ./lib/libmlx_macos/ -lmlx $(FWS)
 endif
-MLX_INC =	-I $(MLX)
-MLX_LIB =	$(addprefix $(MLX),mlx.a)
 
 all: obj $(FT_LIB) $(VEC_LIB) $(MLX_LIB) $(NAME)
 
@@ -80,9 +69,6 @@ $(FT_LIB):
 $(VEC_LIB):
 	make -C $(VEC)
 
-$(MLX_LIB):
-	make -C $(MLX)
-
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) $(SDL_LNK) $(VEC_LNK) $(FT_LNK) -lpthread -lm -o $(NAME)
 
@@ -90,7 +76,6 @@ clean:
 	rm -rf $(OBJDIR)
 	make -C $(FT) clean
 	make -C $(VEC) clean
-	make -C $(MLX) clean
 
 fclean: clean
 	rm -rf $(NAME)

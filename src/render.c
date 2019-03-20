@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/18 18:29:42 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/20 17:20:24 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_clr	trace_ray(t_env *env, int recursion)
 	t_lst	*closest_surf;
 	t_clr	color;
 
+	closest_surf = 0x0;
 	closest_dist = closest_intersection(env, &closest_surf);
 	if (closest_dist >= env->ray.max)
 		return ((t_clr){0, 0, 0});
@@ -102,5 +103,4 @@ void	render(t_env *env)
 	}
 	anti_aliasing(env);
 	SDL_RenderPresent(env->sdl.renderer);
-
 }

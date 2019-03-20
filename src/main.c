@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:29:07 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/18 18:13:55 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/20 17:04:43 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,12 @@ int			main(int argc, char **argv)
 {
 	t_env *env;
 
-	int		 	state;
-
-	state = 0;
 	env = (t_env *)malloc(sizeof(t_env));
 	env->sdl.image = (int *)malloc(sizeof(int) * WIN_H * WIN_H);
-	SDL_CreateWindowAndRenderer(WIN_H, WIN_W, 0, &(env->sdl.window), &(env->sdl.renderer));
+	SDL_CreateWindowAndRenderer(WIN_H, WIN_W, 0,
+								&(env->sdl.window), &(env->sdl.renderer));
 	if (argc == 2)
 	{
-		//init_gui(env);
 		init_env(env);
 		parse_file(argv[1], env);
 		render(env);
