@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/03/20 17:17:20 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/21 13:48:27 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # ifdef __APPLE__
 #  include <OpenCL/opencl.h>
-#  include <SDL2/SDL.h>
-#  include <SDL2/SDL_image.h>
+#  include <SDL.h>
+#  include <SDL_image.h>
 # else
 #  include <CL/cl.h>
 #  include <SDL2/SDL.h>
