@@ -6,11 +6,20 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 14:22:32 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/11 18:06:33 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/21 20:40:47 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+void		calc_basis(t_surf *surf)
+{
+	surf->basis.z = surf->orientation;
+	surf->basis.x = vecmult_vec(surf->basis.z, (t_v){0,0,1});
+	surf->basis.y = vecmult_vec(surf->basis.x, surf->basis.z);
+	printf("x %.2f %.2f %.2f y %.2f %.2f %.2f z %.2f %.2f %.2f\n", surf->basis.x.x, surf->basis.x.y, surf->basis.x.z,
+			surf->basis.y.x, surf->basis.y.y, surf->basis.y.z, surf->basis.z.x, surf->basis.z.y, surf->basis.z.z);
+}
 
 void		check_param_num(char **param, int i, char *name)
 {
@@ -57,11 +66,23 @@ void		free_words(char **words)
 void		set_surf_type(char *surf, t_lst *lst)
 {
 	if (ft_strcmp(surf, "sphere") == 0)
+	{
 		lst->type = T_SPHERE;
+		((t_surf *)lst->obj)->type = T_SPHERE;
+	}
 	else if (ft_strcmp(surf, "plane") == 0)
+	{
 		lst->type = T_PLANE;
+		((t_surf *)lst->obj)->type = T_PLANE;
+	}
 	else if (ft_strcmp(surf, "cylinder") == 0)
+	{
 		lst->type = T_CYLINDER;
+		((t_surf *)lst->obj)->type = T_CYLINDER;
+	}
 	else if (ft_strcmp(surf, "cone") == 0)
+	{
 		lst->type = T_CONE;
+		((t_surf *)lst->obj)->type = T_CONE;
+	}
 }

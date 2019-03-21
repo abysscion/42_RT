@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/03/21 13:48:27 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/03/21 20:43:10 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,16 @@ typedef struct		s_clr
 	unsigned char	b;
 }					t_clr;
 
+typedef struct	s_basis
+{
+	t_v			x;
+	t_v			y;
+	t_v			z;
+}				t_basis;
+
 typedef struct	s_surface
 {
+	t_basis		basis;
 	t_clr		color;
 	t_v			position;
 	t_v			orientation;
@@ -63,6 +71,7 @@ typedef struct	s_surface
 	double		specular;
 	double		reflect;
 	double		transp;
+	int			type;
 }				t_surf;
 
 typedef	struct	s_light
@@ -94,6 +103,10 @@ typedef	struct	s_environment
 	t_sdl		sdl;
 	t_ray		ray;
 	int			mouse_pressed;
+	int			need_rerender;
+	int			need_regui;
+	SDL_Surface *surface;
+	unsigned char *texture;
 }				t_env;
 
 #endif

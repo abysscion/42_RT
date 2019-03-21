@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/20 17:20:24 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/21 20:40:59 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	render(t_env *env)
 		x = WIN_W / 2 * -1;
 		while (x < WIN_W / 2)
 		{
-			dest = (t_v){x * 1.0 / WIN_W, y * 1.0 / WIN_H, 1.0};
+			dest = (t_v){x * 1.0 / WIN_W, y * -1.0 / WIN_H, 1.0};
 			dest = vecnorm(vec_rotate(env->cam.rotation, dest));
 			init_ray(env, dest);
 			color = trace_ray(env, RECURSION);
@@ -101,6 +101,6 @@ void	render(t_env *env)
 		}
 		y++;
 	}
-	anti_aliasing(env);
+	//anti_aliasing(env);
 	SDL_RenderPresent(env->sdl.renderer);
 }

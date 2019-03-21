@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:38:08 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/11 18:45:24 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/21 20:40:49 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void	parse_surface(char **params, t_lst *lst, t_surf *surf)
 	surf->orientation = vecnorm(surf->orientation);
 	free_words(split);
 	set_surf_type(params[0], lst);
+	if (surf->type == T_PLANE)
+		calc_basis(surf);
 	free_words(params);
 }
 static void	parse_light(char **params, t_lst *lst, t_light *light)
@@ -76,7 +78,8 @@ static void	select_object(t_env *env, char **params)
 			current = env->lights;
 		else
 			current = list_add(env->lights);
-		current->obj = (t_light *)malloc(sizeof(t_light));	
+		current->obj = (t_light *)malloc(sizeof(t_light));
+
 		parse_light(params, current, current->obj);
 	}
 	else

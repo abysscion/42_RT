@@ -22,6 +22,12 @@ SRC		=	main.c \
 			lists.c \
 			key_events.c \
 			anti_aliasing.c \
+			textures.c
+			#gui_initer.c \
+			#gui_supply.c \
+			#gui_handler.c \
+			gui.c \
+
 
 OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
@@ -52,7 +58,7 @@ SDL_INC	=	-I /usr/include/SDL2
 SDL_LNK	=	-L /use/include/SDL2 -lSDL2_image -lSDL2
 else
 SDL_INC	=	-I ~/.brew/include/SDL2
-SDL_LNK	=	-L ~/.brew/lib -lSDL2-2.0.0
+SDL_LNK	=	-L ~/.brew/lib -lSDL2-2.0.0 -lSDL2_image-2.0.0
 endif
 
 all: obj $(FT_LIB) $(VEC_LIB) $(MLX_LIB) $(NAME)

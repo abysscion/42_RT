@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/20 17:19:28 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/03/21 20:42:02 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 # define RAY_LENMAX				2147483647
 # define RAY_LENMIN				0.001
 # define ROT_STEP				15
-# define WIN_H					512
-# define WIN_W					512
+# define WIN_H					1024
+# define WIN_W					1024
 # define CLR_BACKGROUND			0
 # define T_PLANE				0
 # define T_SPHERE				1
@@ -99,6 +99,10 @@ void				validate_cone(char **params);
 void				validate_plane(char **params);
 double				ft_atod(char *str);
 void				anti_aliasing(t_env *env);
+
+void    			load_texture(t_env *env);
+void				get_texture_color(t_env *env, t_surf *surface, t_lc *light);
+void				calc_basis(t_surf *surf);
 /*=============================== END OF MAIN ===============================*/
 
 /*=================================== GUI ===================================*/
