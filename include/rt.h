@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/22 13:25:50 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/22 14:09:04 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define T_AMBIENT				0
 # define T_POINT				1
 # define T_DIRECTIONAL			2
-# define RECURSION				2
+# define RECURSION				3
 
 t_clr				trace_ray(t_env *env, int rec);
 t_clr				light_on(t_env *env, double closest, t_lst *surface, int rec);
@@ -101,7 +101,6 @@ void				validate_plane(char **params);
 double				ft_atod(char *str);
 void				anti_aliasing(t_env *env);
 
-void    			load_texture(t_surf *surf, char *texture_name);
 void				get_texture_color(t_surf *surface, t_lc *light);
 void				calc_basis(t_surf *surf);
 /*=============================== END OF MAIN ===============================*/

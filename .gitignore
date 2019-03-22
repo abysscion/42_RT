@@ -7,6 +7,7 @@ obj/
 log
 .backup.zip
 *~
+.DS_Store
 
 # Prerequisites
 *.d

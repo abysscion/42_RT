@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:38:08 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/22 13:26:26 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/22 17:15:14 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	parse_surface(char **params, t_lst *lst, t_surf *surf)
 	surf->orientation = vecnorm(surf->orientation);
 	free_words(split);
 	set_surf_type(params[0], lst);
-	if (surf->type == T_PLANE && strcmp(params[8], "none"))
+	if (strcmp(params[8], "none"))
 	{
 		surf->texture = IMG_Load(params[8]);
 		calc_basis(surf);

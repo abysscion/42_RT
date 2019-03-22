@@ -6,14 +6,30 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 14:22:32 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/22 13:10:48 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/22 19:33:19 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
+void		calc_basis_sphere(t_surf *surf)
+{
+	t_v		pole;
+	t_v		equator;
+
+	pole = vecsum(surf->position, (t_v){0,surf->radius,0});
+	equator = vecsum(surf->position, (t_v){surf->radius,0,0});
+	surf->basis.x = vecnorm(vecsub(equator, surf->position));
+	surf->basis.y = vecnorm(vecsub(pole, surf->position));
+}
+
 void		calc_basis(t_surf *surf)
 {
+	if (surf->type == T_SPHERE)
+	{
+		calc_basis_sphere(surf);
+		return ;
+	}
 	if (surf->orientation.x == 0 && surf->orientation.y == 0 &&
 		(surf->orientation.z == 1 || surf->orientation.z == -1))
 	{

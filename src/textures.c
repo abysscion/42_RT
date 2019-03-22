@@ -6,12 +6,46 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 17:16:20 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/22 13:25:34 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/22 19:09:17 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
+static void	calc_sphere_local_coords(t_v *surf_point, t_surf *surface, double *u, double *v)
+{
+	t_v		center_to_point;
+	double	phi;
+	double	theta;
+
+	center_to_point = vecnorm(vecsub(*surf_point, surface->position));
+	phi = acos(vecmult_scal(surface->basis.y, center_to_point));
+	*v = phi / M_PI;
+	theta = (acos(vecmult_scal(center_to_point, surface->basis.x) / sin(phi))) / (2 * M_PI);
+	if (vecmult_scal(vecmult_vec(surface->basis.x, surface->basis.y), center_to_point) > 0)
+		*u = theta;
+	else
+		*u = 1 - theta;
+}
+
+static void get_sphere_texture_color(t_surf *surface, t_lc *light)
+{
+	int		x;
+	int		y;
+	double	u;
+	double	v;
+
+	calc_sphere_local_coords(&light->surf_point, surface, &u, &v);
+	x = (int)(u * surface->texture->w) *
+		surface->texture->format->BytesPerPixel;
+	y = (int)(v * surface->texture->h) *
+		surface->texture->pitch;
+	if (x < 0 || y < 0)
+		return ;
+	surface->color.r = ((unsigned char *)surface->texture->pixels)[y + x];
+	surface->color.g = ((unsigned char *)surface->texture->pixels)[y + x + 1];
+	surface->color.b = ((unsigned char *)surface->texture->pixels)[y + x + 2];
+}
 
 static void	calc_local_coords(t_v *surf_point, t_basis *basis, double *u, double *v)
 {
@@ -29,6 +63,11 @@ void		get_texture_color(t_surf *surface, t_lc *light)
 	double	v;
 	double	buff;
 
+	if (surface->type == T_SPHERE)
+	{
+		get_sphere_texture_color(surface, light);
+		return ;
+	}
 	calc_local_coords(&light->surf_point, &surface->basis, &u, &v);
 	if ((u = modf(u, &buff)) < 0)
 		u = 1 + u;
