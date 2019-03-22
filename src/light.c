@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 21:03:53 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/21 16:51:13 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/22 13:27:30 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ t_clr			light_on(t_env *env, double closest, t_lst *surface, int rec)
 	calc_surf_normal(env, closest, surface, &lc);
 	intensity = 0;
 	calc_light(env, surface, &intensity, &lc);
-	if (surface->type == T_PLANE)
-		get_texture_color(env, (t_surf *)surface->obj, &lc);
+	if (surface->type == T_PLANE && ((t_surf *)surface->obj)->texture)
+		get_texture_color((t_surf *)surface->obj, &lc);
 	calc_color(&color, intensity, (t_surf *)surface->obj);
 	if (rec <= 0 || ((t_surf *)surface->obj)->reflect <= 0)
 		return (color);

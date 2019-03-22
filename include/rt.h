@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/21 20:42:02 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/22 13:25:50 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ void				validate_plane(char **params);
 double				ft_atod(char *str);
 void				anti_aliasing(t_env *env);
 
-void    			load_texture(t_env *env);
-void				get_texture_color(t_env *env, t_surf *surface, t_lc *light);
+void    			load_texture(t_surf *surf, char *texture_name);
+void				get_texture_color(t_surf *surface, t_lc *light);
 void				calc_basis(t_surf *surf);
 /*=============================== END OF MAIN ===============================*/
 

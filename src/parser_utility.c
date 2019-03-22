@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 14:22:32 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/21 20:40:47 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/22 13:10:48 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,16 @@
 
 void		calc_basis(t_surf *surf)
 {
+	if (surf->orientation.x == 0 && surf->orientation.y == 0 &&
+		(surf->orientation.z == 1 || surf->orientation.z == -1))
+	{
+		surf->basis.x = (t_v){1,0,0};
+		surf->basis.y = (t_v){0,1,0};
+		return ;
+	}
 	surf->basis.z = surf->orientation;
-	surf->basis.x = vecmult_vec(surf->basis.z, (t_v){0,0,1});
-	surf->basis.y = vecmult_vec(surf->basis.x, surf->basis.z);
+	surf->basis.y = vecmult_vec(surf->basis.z, (t_v){0,0,1});
+	surf->basis.x = vecmult_vec(surf->basis.y, surf->basis.z);
 	printf("x %.2f %.2f %.2f y %.2f %.2f %.2f z %.2f %.2f %.2f\n", surf->basis.x.x, surf->basis.x.y, surf->basis.x.z,
 			surf->basis.y.x, surf->basis.y.y, surf->basis.y.z, surf->basis.z.x, surf->basis.z.y, surf->basis.z.z);
 }

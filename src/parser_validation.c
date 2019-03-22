@@ -6,17 +6,21 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:38:08 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/11 17:41:30 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/22 13:15:03 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
+/*
+** add parser validation for texture name and it's existence
+*/
+
 static void	validate_surface(char **params, char *name)
 {
 	char	**split;
 
-	check_param_num(params, 8, name);
+	check_param_num(params, 9, name);
 	check_floats(&params[4], 1, name);
 	check_floats(&params[5], 1, name);
 	check_floats(&params[6], 1, name);
