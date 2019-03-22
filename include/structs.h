@@ -26,11 +26,13 @@
 
 typedef struct		s_lc
 {
-	t_v				to_dest;
+	t_v				to_start;
 	t_v				surf_normal;
 	t_v				surf_point;
 	t_v				point_to_light;
 	t_v				reflect_dir;
+	t_v				orig_dest;
+	t_v				orig_norm;
 }					t_lc;
 
 typedef struct		s_ray

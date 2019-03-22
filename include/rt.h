@@ -57,6 +57,7 @@ double				closest_intersection(t_env *env, t_lst **closest_surf);
 void				calc_ref_color(t_clr *color, t_clr *ref_color, t_surf *surface);
 void    			count_rgb(unsigned char *rgb, unsigned char *ref_col, t_env *e, int i);
 void				calc_color(t_clr *color, double intens, t_surf *surface);
+t_clr   			calc_refract(t_env *env, t_lc lc, t_lst *surface, int rec);
 void				create_objects(t_env *e, char *av);
 void				print_info_about_hitobj(t_env *e);
 void				rayhit_obj(t_v dest, t_env *e);

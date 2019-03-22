@@ -22,7 +22,8 @@ SRC		=	main.c \
 			lists.c \
 			key_events.c \
 			anti_aliasing.c \
-			textures.c
+			textures.c \
+			refract.c
 			#gui_initer.c \
 			#gui_supply.c \
 			#gui_handler.c \

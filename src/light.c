@@ -17,10 +17,10 @@ static double	calc_spec(t_lc *lc, t_surf *surface, t_light *light)
 	double	cosine;
 
 	lc->reflect_dir = calc_reflected_ray(lc->point_to_light, lc->surf_normal);
-	cosine = vecmult_scal(lc->reflect_dir, lc->to_dest);
+	cosine = vecmult_scal(lc->reflect_dir, lc->to_start);
 	if (cosine > 0)
 		return (light->intensity * pow(cosine / (veclen(lc->reflect_dir) *
-				veclen(lc->to_dest)), surface->specular));
+				veclen(lc->to_start)), surface->specular));
 	else
 		return (0);
 }
@@ -79,22 +79,28 @@ t_clr			light_on(t_env *env, double closest, t_lst *surface, int rec)
 	t_clr				color;
 	t_clr				ref_color;
 
-	lc.to_dest = vecmult_num(env->ray.dest, -1);
+	lc.orig_dest = env->ray.dest;
+	lc.to_start = vecmult_num(env->ray.dest, -1);
 	lc.surf_point = vecsum(env->ray.start, vecmult_num(env->ray.dest, closest));
+	
 	calc_surf_normal(env, closest, surface, &lc);
+	lc.orig_norm = lc.surf_normal;
 	intensity = 0;
 	calc_light(env, surface, &intensity, &lc);
 	if (surface->type == T_PLANE && ((t_surf *)surface->obj)->texture)
 		get_texture_color((t_surf *)surface->obj, &lc);
 	calc_color(&color, intensity, (t_surf *)surface->obj);
-	if (rec <= 0 || ((t_surf *)surface->obj)->reflect <= 0)
-		return (color);
-	env->ray.start = lc.surf_point;
-	env->ray.dest = calc_reflected_ray(lc.to_dest, lc.surf_normal);
-	env->ray.min = RAY_LENMIN;
-	env->ray.max = RAY_LENMAX;
-	ref_color = trace_ray(env, rec - 1);
-	calc_ref_color(&color, &ref_color, surface->obj);
+	if (rec > 0 && ((t_surf *)surface->obj)->reflect > 0)
+	{
+		env->ray.start = lc.surf_point;
+		env->ray.dest = calc_reflected_ray(lc.to_start, lc.surf_normal);
+		env->ray.min = RAY_LENMIN;
+		env->ray.max = RAY_LENMAX;
+		ref_color = trace_ray(env, rec - 1);
+		calc_ref_color(&color, &ref_color, surface->obj);
+	}
+	else if (((t_surf *)surface->obj)->transp > 0 && rec > 0)
+	color = calc_refract(env, lc, surface, rec);
 	return (color);
 }
                                                 
