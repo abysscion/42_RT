@@ -35,8 +35,8 @@ OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 # compiler
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra #-Werror
-CFLAGS	+=	-Ofast
-#CFLAGS	+=	-g
+#CFLAGS	+=	-Ofast
+CFLAGS	+=	-g
 
 #OSX frameworks
 FWS		=	-framework OpenCL -framework OpenGL -framework AppKit
