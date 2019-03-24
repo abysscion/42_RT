@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:38:08 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/22 17:15:14 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/24 20:37:58 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ static void	parse_surface(char **params, t_lst *lst, t_surf *surf)
 {
 	char		**split;
 
-	surf->radius = ft_atod(params[4]);
-	surf->specular = ft_atod(params[5]);
-	surf->reflect = ft_atod(params[6]);
-	surf->transp = ft_atod(params[7]);
+	surf->height = ft_atod(params[4]);
+	surf->radius = ft_atod(params[5]);
+	surf->specular = ft_atod(params[6]);
+	surf->reflect = ft_atod(params[7]);
+	surf->transp = ft_atod(params[8]);
 	split = ft_strsplit(params[1], ',');
 	surf->color = (t_clr){ft_atoi(split[0]),
 		ft_atoi(split[1]), ft_atoi(split[2])};
@@ -34,9 +35,9 @@ static void	parse_surface(char **params, t_lst *lst, t_surf *surf)
 	surf->orientation = vecnorm(surf->orientation);
 	free_words(split);
 	set_surf_type(params[0], lst);
-	if (strcmp(params[8], "none"))
+	if (strcmp(params[9], "none"))
 	{
-		surf->texture = IMG_Load(params[8]);
+		surf->texture = IMG_Load(params[9]);
 		calc_basis(surf);
 	}
 	else

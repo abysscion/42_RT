@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:38:08 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/22 13:15:03 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/24 20:38:57 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ static void	validate_surface(char **params, char *name)
 {
 	char	**split;
 
-	check_param_num(params, 9, name);
+	check_param_num(params, 10, name);
 	check_floats(&params[4], 1, name);
 	check_floats(&params[5], 1, name);
 	check_floats(&params[6], 1, name);
 	check_floats(&params[7], 1, name);
+	check_floats(&params[8], 1, name);
 	split = ft_strsplit(params[1], ',');
 	check_param_num(split, 3, name);
 	free_words(split);
