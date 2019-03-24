@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/24 19:22:45 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/24 19:45:44 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 # define RAY_LENMAX				2147483647
 # define RAY_LENMIN				0.001
 # define ROT_STEP				15
-# define WIN_H					1024
-# define WIN_W					1024
+# define WIN_H					512
+# define WIN_W					512
 # define CLR_BACKGROUND			0
 # define T_PLANE				0
 # define T_SPHERE				1

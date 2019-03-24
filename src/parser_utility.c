@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 14:22:32 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/24 17:54:50 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/24 20:08:55 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 
 
 void		calc_basis_cylinder(t_surf *surf)
+{
+	surf->basis.y = surf->orientation;
+	if (surf->basis.y.x == 0 && surf->basis.y.y == 0 &&
+		(surf->basis.y.z == 1 || surf->basis.y.z == -1))
+		surf->basis.x = (t_v){0, 1, 0};
+	else
+		surf->basis.x = vecmult_vec(surf->basis.y, (t_v){0, 0, 1});
+}
+
+void		calc_basis_cone(t_surf *surf)
 {
 	surf->basis.y = surf->orientation;
 	if (surf->basis.y.x == 0 && surf->basis.y.y == 0 &&
@@ -44,6 +54,11 @@ void		calc_basis(t_surf *surf)
 	if (surf->type == T_CYLINDER)
 	{
 		calc_basis_cylinder(surf);
+		return ;
+	}
+	if (surf->type == T_CONE)
+	{
+		calc_basis_cone(surf);
 		return ;
 	}
 	if (surf->orientation.x == 0 && surf->orientation.y == 0 &&
