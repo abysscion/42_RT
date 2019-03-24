@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:22:30 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/11 17:17:38 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/24 19:33:31 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		intersect_cylinder(t_v start, t_v dest, t_surf *cyl, double *roots)
 		return (0);
 	roots[0] = (b * -1 + sqrt(discr)) / (2 * a);
 	roots[1] = (b * -1 - sqrt(discr)) / (2 * a);
-	return (1);
+	return (limit_cone_cyl(cyl, dest, start, roots));
 }
 
 int		intersect_cone(t_v start, t_v dest, t_surf *cone, double *roots)
@@ -83,7 +83,7 @@ int		intersect_cone(t_v start, t_v dest, t_surf *cone, double *roots)
 		return (0);
 	roots[0] = (b * -1 + sqrt(discr)) / (2 * a);
 	roots[1] = (b * -1 - sqrt(discr)) / (2 * a);
-	return (1);
+	return (limit_cone_cyl(cone, dest, start, roots));
 }
 
 int		intersect_plane(t_v start, t_v dest, t_surf *plane, double *roots)

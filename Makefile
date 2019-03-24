@@ -12,9 +12,9 @@ SRC		=	main.c \
 			light.c \
 			calc_normal.c \
 			initer.c \
-			utility.c \
 			render.c \
 			intersect.c \
+			intersect_utility.c \
 			light_utility.c \
 			parser.c \
 			parser_validation.c \
@@ -35,8 +35,8 @@ OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 # compiler
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra #-Werror
-#CFLAGS	+=	-Ofast
-CFLAGS	+=	-g
+CFLAGS	+=	-Ofast
+#CFLAGS	+=	-g
 
 #OSX frameworks
 FWS		=	-framework OpenCL -framework OpenGL -framework AppKit

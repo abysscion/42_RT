@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 21:03:53 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/22 17:15:37 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/24 19:33:50 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static void		calc_light(t_env *env, t_lst *surface,
 								double *intens, t_lc *lc)
 {
 	double	cosine;
+	double	intersect;
 	t_lst	*light;
 
 	light = env->lights;
@@ -58,7 +59,8 @@ static void		calc_light(t_env *env, t_lst *surface,
 		else
 		{
 			choose_light(env, lc, light);
-			if (closest_intersection(env, NULL) >= env->ray.max)
+			intersect = closest_intersection(env, NULL);
+			if (intersect <= env->ray.max && intersect >= env->ray.min)
 			{	
 				cosine = vecmult_scal(lc->surf_normal, lc->point_to_light);
 				if (cosine > 0)
@@ -81,8 +83,7 @@ t_clr			light_on(t_env *env, double closest, t_lst *surface, int rec)
 
 	lc.orig_dest = env->ray.dest;
 	lc.to_start = vecmult_num(env->ray.dest, -1);
-	lc.surf_point = vecsum(env->ray.start, vecmult_num(env->ray.dest, closest));
-	
+	lc.surf_point = vecsum(env->ray.start, vecmult_num(env->ray.dest, closest));	
 	calc_surf_normal(env, closest, surface, &lc);
 	lc.orig_norm = lc.surf_normal;
 	intensity = 0;

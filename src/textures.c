@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 17:16:20 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/23 20:29:49 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/24 17:46:45 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ static void	calc_cylinder_local_coords(t_v *surf_point, t_surf *surface, double 
 	t_v		sr_pt_base;
 	double	cen_to_p_len;
 	double	angle;
-	double	buff;
 
 	center_to_point = vecsub(*surf_point, surface->position);
 	cen_to_p_len = veclen(center_to_point);
 	angle = vecmult_scal(vecnorm(center_to_point), surface->basis.y);
-	if (angle > 0)
+	*v = angle * cen_to_p_len;
+	sr_pt_base = vecsub(*surf_point, vecmult_num(surface->basis.y, *v));
+	/*if (angle > 0)
 	{
 		*v = angle * cen_to_p_len;
 		sr_pt_base = vecsub(*surf_point, vecmult_num(surface->basis.y, *v));
@@ -38,15 +39,19 @@ static void	calc_cylinder_local_coords(t_v *surf_point, t_surf *surface, double 
 	{
 		*v = -angle * cen_to_p_len;
 		sr_pt_base = vecsub(*surf_point, vecmult_num(surface->basis.y, -(*v)));
-	}
+	}*/
 	center_to_point = vecnorm(vecsub(sr_pt_base, surface->position));
 	angle = vecmult_scal(center_to_point, surface->basis.x);
 	if (vecmult_scal(vecmult_vec(surface->basis.x, surface->basis.y), center_to_point) > 0)
-		*u = acos(vecmult_scal(center_to_point, surface->basis.x)) / (2 * M_PI);
+	{
+		*u = acos(vecmult_scal(center_to_point, surface->basis.x)) / (2 * M_PI);	
+
+	}
 	else
-		*u = (acos(vecmult_scal(center_to_point, surface->basis.x)) + M_PI) / (2 * M_PI); 
-	if ((*v = modf(*v, &buff)) < 0)
-		v = 1 + v;	
+	{
+		*u = (acos(vecmult_scal(center_to_point, surface->basis.x)) + M_PI) / (2 * M_PI);
+		*u = fabs(*u - 1) + 0.5;
+	}
 }
 
 static void get_cylinder_texture_color(t_surf *surface, t_lc *light)

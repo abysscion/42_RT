@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 14:22:32 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/23 19:58:23 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/24 17:54:50 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@
 void		calc_basis_cylinder(t_surf *surf)
 {
 	surf->basis.y = surf->orientation;
-	if (surf->basis.y.x == 0 && surf->basis.y.y == 0 && surf->basis.y.z == 1)
+	if (surf->basis.y.x == 0 && surf->basis.y.y == 0 &&
+		(surf->basis.y.z == 1 || surf->basis.y.z == -1))
 		surf->basis.x = (t_v){0, 1, 0};
 	else
 		surf->basis.x = vecmult_vec(surf->basis.y, (t_v){0, 0, 1});
-	printf("x %.2f %.2f %.2f y %.2f %.2f %.2f z %.2f %.2f %.2f\n", surf->basis.x.x, surf->basis.x.y, surf->basis.x.z,
-			surf->basis.y.x, surf->basis.y.y, surf->basis.y.z, surf->basis.z.x, surf->basis.z.y, surf->basis.z.z);
 }
 
 void		calc_basis_sphere(t_surf *surf)

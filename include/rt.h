@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/22 14:09:04 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/24 19:22:45 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void				anti_aliasing(t_env *env);
 
 void				get_texture_color(t_surf *surface, t_lc *light);
 void				calc_basis(t_surf *surf);
+
+int					limit_cone_cyl(t_surf *surf, t_v dest, t_v start, double *roots);
 /*=============================== END OF MAIN ===============================*/
 
 /*=================================== GUI ===================================*/

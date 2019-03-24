@@ -1,0 +1,17 @@
+light		0.0,0.0,0.0		0.2				0
+light		3.0,9.5,30.0		0.5				1
+light		0.0,9.5,10.0		0.5				1
+camera		1.5,7.5,30.0		0.0,3.14,0.0
+cylinder	255,0,0			0.0,0.0,10.0	0.0,-1.0,0.0		    1.0		10.0	0.0		0.0		textures/planets/earth.jpg
+cylinder	255,0,0			3.0,0.0,10.0	0.0,1.0,0.0		    1.0		10.0	0.0		0.0		textures/planets/earth.jpg
+cylinder	255,0,0			6.0,0.0,10.0	-1.0,0.0,0.0		    1.0		10.0	0.0		0.0		textures/planets/earth.jpg
+cylinder	255,0,0			9.0,0.0,10.0	1.0,0.0,0.0		    1.0		10.0	0.0		0.0		textures/planets/earth.jpg
+cylinder	255,0,0			-3.0,0.0,10.0	0.0,0.0,1.0		    1.0		10.0	0.0		0.0		none
+cylinder	255,0,0			-6.0,0.0,10.0	0.0,0.0,-1.0		    1.0		10.0	0.0		0.0		textures/planets/earth.jpg
+cone	255,0,0			0.0,3.0,10.0	0.0,-1.0,0.0		    1.0		10.0	0.0		0.0		textures/planets/earth.jpg
+cone	255,0,0			3.0,3.0,10.0	0.0,1.0,0.0		    1.0		10.0	0.0		0.0		textures/planets/earth.jpg
+cone	255,0,0			6.0,3.0,10.0	-1.0,0.0,0.0		    1.0		10.0	0.0		0.0		textures/planets/earth.jpg
+cone	255,0,0			9.0,3.0,10.0	1.0,0.0,0.0		    1.0		10.0	0.0		0.0		textures/planets/earth.jpg
+cone	255,0,0			-3.0,3.0,10.0	0.0,0.0,1.0		    1.0		10.0	0.0		0.0		none
+cone	255,0,0			-6.0,3.0,10.0	0.0,0.0,-1.0		    1.0		10.0	0.0		0.0		none
+plane		0,255,255		0.0,0.0,0.0 	0.0,0.0,1.0		    1.0		0.0		0.0		0.0		none
