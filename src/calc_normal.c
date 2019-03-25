@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:20:56 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/24 19:16:06 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/25 17:06:26 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,4 @@ void		calc_surf_normal(t_env *env, double closest,
 	else if (surface->type == T_CONE)
 		cone_normal(env, closest, surface->obj, light);
 	light->surf_normal = vecnorm(light->surf_normal);
-	if (vecmult_scal(vecnorm(light->orig_dest), light->surf_normal) > 0)
-		light->surf_normal = vecmult_num(light->surf_normal, -1);
 }

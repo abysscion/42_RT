@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:29:07 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/22 13:27:55 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/25 14:09:29 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,11 @@ int			main(int argc, char **argv)
 {
 	t_env *env;
 
-	int		 	state;
-
-	state = 0;
-
 	env = (t_env *)malloc(sizeof(t_env));
 	env->sdl.image = (int *)malloc(sizeof(int) * WIN_H * WIN_H);
 	SDL_CreateWindowAndRenderer(WIN_H, WIN_W, 0, &(env->sdl.window), &(env->sdl.renderer));
-
 	if (argc == 2)
 	{
-		//init_gui(env);
 		init_env(env);
 		parse_file(argv[1], env);
 		render(env);

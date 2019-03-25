@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 21:03:53 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/24 19:33:50 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/25 17:12:54 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static void		calc_light(t_env *env, t_lst *surface,
 								double *intens, t_lc *lc)
 {
 	double	cosine;
-	double	intersect;
 	t_lst	*light;
 
 	light = env->lights;
@@ -59,14 +58,14 @@ static void		calc_light(t_env *env, t_lst *surface,
 		else
 		{
 			choose_light(env, lc, light);
-			intersect = closest_intersection(env, NULL);
-			if (intersect <= env->ray.max && intersect >= env->ray.min)
+			if (closest_intersection(env, NULL) >= env->ray.max)
 			{	
-				cosine = vecmult_scal(lc->surf_normal, lc->point_to_light);
+				if (vecmult_scal(lc->surf_normal, vecnorm(lc->to_start)) < 0)
+				lc->surf_normal = vecmult_num(lc->surf_normal, -1);
+				cosine = vecmult_scal(lc->surf_normal, vecnorm(lc->point_to_light));
 				if (cosine > 0)
-					*intens += ((t_light *)light->obj)->intensity * cosine /
-						(veclen(lc->surf_normal) * veclen(lc->point_to_light));
-				if (((t_surf *)surface->obj)->specular > 0)
+					*intens += ((t_light *)light->obj)->intensity * cosine;
+				if (((t_surf *)surface->obj)->specular > 0 && cosine > 0)
 					*intens += calc_spec(lc, surface->obj, light->obj);
 			}
 		}
