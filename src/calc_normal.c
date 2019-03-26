@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:20:56 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/25 17:06:26 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/26 14:46:41 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	cone_normal(t_env *env, double closest, t_surf *cone, t_lc *light)
 	m = (vecmult_scal(env->ray.dest, cone->orientation) * closest +
 		vecmult_scal(vecsub(env->cam.position, cone->position),
 		cone->orientation));
-	k = tan(cone->radius / 2);
+	k = tan(cone->radius);
 	light->surf_normal = (vecsub(vecsub(light->surf_point, cone->position),
 		vecmult_num(vecmult_num(cone->orientation, m), 1 + k * k)));
 

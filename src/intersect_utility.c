@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 14:08:27 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/25 18:39:19 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/26 15:07:57 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,29 @@ static double	*max_root(double *roots)
 	return (&roots[1]);
 }
 
+/*
+** CONE NEED IT'S OWN LIMITS CHECK
+** OTHERWISE SHADOWS ARE NOT CALCULATED
+** PROPERLY, NO IDEA YET HOW TO DO IT
+*/
+
+int		check_max_root(t_surf *surf, t_v dest, t_v start, double *roots)
+{
+	double	*root;
+	double	angle;
+	t_v		position_to_point;
+	t_v		surf_point;
+
+	root = max_root(roots);
+	surf_point = vecsum(vecmult_num(dest, *root), start);
+	position_to_point = (vecsub(surf_point, surf->position));
+	angle = vecmult_scal(vecnorm(position_to_point), surf->orientation);
+	if (angle < 0 || (veclen(position_to_point) * angle) > surf->height)
+		return (0);
+	root = min_root(roots);
+	*root = +INFINITY;
+	return (1);
+}
 
 int		limit_cone_cyl(t_surf *surf, t_v dest, t_v start, double *roots)
 {	
@@ -35,35 +58,13 @@ int		limit_cone_cyl(t_surf *surf, t_v dest, t_v start, double *roots)
 	t_v		surf_point;
 
 	if (*(root = min_root(roots)) < RAY_LENMIN)
-	{
-		root = max_root(roots);
-		surf_point = vecsum(vecmult_num(dest, *root), start);
-		position_to_point = (vecsub(surf_point, surf->position));
-		angle = vecmult_scal(vecnorm(position_to_point), surf->orientation);
-		if (angle < 0 || (veclen(position_to_point) * angle) > surf->height)
-			return (0);
-		else
-		{
-			root = min_root(roots);
-			*root = +INFINITY;
-			return (1);
-		}
-	}
+		return (check_max_root(surf, dest, start, roots));
 	root = min_root(roots);
 	surf_point = vecsum(vecmult_num(dest, *root), start);
 	position_to_point = (vecsub(surf_point, surf->position));
 	angle = vecmult_scal(vecnorm(position_to_point), surf->orientation);
 	if (angle < 0 || (veclen(position_to_point) * angle) > surf->height)
-	{
-		root = max_root(roots);
-		surf_point = vecsum(vecmult_num(dest, *root), start);
-		position_to_point = (vecsub(surf_point, surf->position));
-		angle = vecmult_scal(vecnorm(position_to_point), surf->orientation);
-		if (angle < 0 || (veclen(position_to_point) * angle) > surf->height)
-			return (0);
-		root = min_root(roots);
-		*root = +INFINITY;
-	}
+		return (check_max_root(surf, dest, start, roots));
 	return (1);
 }
 /*int		check_max_root(t_surf *surf, t_v dest, t_v start, double *root)
