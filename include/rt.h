@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/26 13:34:40 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/27 15:16:59 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define T_AMBIENT				0
 # define T_POINT				1
 # define T_DIRECTIONAL			2
-# define RECURSION				3
+# define RECURSION				10
 
 t_clr				trace_ray(t_env *env, int rec);
 t_clr				light_on(t_env *env, double closest, t_lst *surface, int rec);
