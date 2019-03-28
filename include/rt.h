@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/26 13:34:40 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/28 20:55:47 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,17 @@
 # define WIN_H					512
 # define WIN_W					512
 # define CLR_BACKGROUND			0
-# define T_PLANE				0
-# define T_SPHERE				1
-# define T_CYLINDER				2
-# define T_CONE					3
-# define T_AMBIENT				0
-# define T_POINT				1
-# define T_DIRECTIONAL			2
+
+# define T_OBJECT				-1
+# define T_PLANE				1
+# define T_SPHERE				2
+# define T_CYLINDER				3
+# define T_CONE					4
+
+# define T_AMBIENT				1
+# define T_POINT				2
+# define T_DIRECTIONAL			3
+
 # define RECURSION				3
 
 t_clr				trace_ray(t_env *env, int rec);
@@ -88,12 +92,8 @@ int					intersect_plane(t_v start,
 t_lst				*lst_to_last(t_lst *lst);
 t_lst				*list_create();
 t_lst				*list_add(t_lst *lst);
-void				parse_file(char *name, t_env *env);
-void				parser_validation(char *name);
-void				check_floats(char **param, int i, char *name);
-void				check_param_num(char **param, int i, char *name);
-void				free_words(char **words);
-void				set_surf_type(char *surf, t_lst *lst);
+
+
 void				validate_sphere(char **params);
 void				validate_cylinder(char **params);
 void				validate_cone(char **params);
@@ -105,9 +105,39 @@ void				get_texture_color(t_surf *surface, t_lc *light);
 void				calc_basis(t_surf *surf);
 
 int					limit_cone_cyl(t_surf *surf, t_v dest, t_v start, double *roots);
-
-int		limit_cone(t_surf *surf, t_v dest, t_v start, double *roots);
 /*=============================== END OF MAIN ===============================*/
+
+/*================================= PARSER ==================================*/
+void				parse_file(char *name, t_env *env);
+void				parser_validation(char *name);
+
+void				add_surface(int fd, t_obj *obj);
+int					write_field(int fd, char ***split,
+						char **line, t_surf *surf);
+
+void				parse_next(int fd, char ***split, char **line);
+int					check_floats(char **param, int i);
+int					check_param_num(char **param, int i);
+void				free_words(char **words);
+void				invalid_syntax(int object);
+
+int					open_check(int fd, char ***split, char **line);
+int					close_check(int fd, char ***split, char **line);
+int					intensity_check(int fd, char ***split, char **line);
+int					texture_check(int fd, char ***split, char **line);
+int					color_check(int fd, char ***split, char **line);
+int					light_type_check(int fd, char ***split, char **line);
+int					surface_type_check(int fd, char ***split, char **line);
+
+int					check_surface(int fd, char ***split, char **line,
+						int *object);
+void				validate_surface(int fd, int object);
+
+int					check_single_float_field(int fd,
+						char ***split, char **line);
+int					check_triple_float_field(int fd,
+						char ***split, char **line);
+/*============================== END OF PARSER ==============================*/
 
 /*=================================== GUI ===================================*/
 

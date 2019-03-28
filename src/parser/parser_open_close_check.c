@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initer.c                                           :+:      :+:    :+:   */
+/*   parser_open_close_check.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/01 15:34:01 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/03/28 16:53:37 by eloren-l         ###   ########.fr       */
+/*   Created: 2019/03/26 19:40:45 by eloren-l          #+#    #+#             */
+/*   Updated: 2019/03/28 19:56:20 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void	init_ray(t_env *env, t_v dest)
-{
-	env->ray.start = env->cam.position;
-	env->ray.dest = dest;
-	env->ray.min = 1;
-	env->ray.max = RAY_LENMAX;
+int			open_check(int fd, char ***split, char **line)
+{	
+	if (strcmp((*split)[0], "{") == 0 && check_param_num(*split, 1))
+	{
+		parse_next(fd, split, line);
+		return (1);
+	}
+	return (0);
 }
 
-void	init_env(t_env *env)
+int		close_check(int fd, char ***split, char **line)
 {
-	env->cam.rotation = (t_v) {0, 0, 0};
-	env->cam.position = (t_v) {0, 0, 0};
+	if (strcmp((*split)[0], "}") == 0 && check_param_num(*split, 1))
+	{
+		free_words(*split);
+		free(*line);
+		return (1);
+	}
+	return (0);
 }

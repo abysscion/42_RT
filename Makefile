@@ -16,15 +16,19 @@ SRC		=	main.c \
 			intersect.c \
 			intersect_utility.c \
 			light_utility.c \
-			parser.c \
-			parser_validation.c \
-			parser_utility.c \
 			lists.c \
 			key_events.c \
 			anti_aliasing.c \
 			textures.c \
 			refract.c \
-			calc_basis.c
+			calc_basis.c \
+			parser/parser.c \
+			parser/parser_validation.c \
+			parser/parser_reading_utility.c \
+			parser/parser_writing_utility.c \
+			parser/parser_float_fields_check.c \
+			parser/parser_open_close_check.c \
+			parser/parser_other_fields_check.c
 
 OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
@@ -73,7 +77,7 @@ $(VEC_LIB):
 	make -C $(VEC)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) $(SDL_LNK) $(VEC_LNK) $(FT_LNK) -lpthread -lm -o $(NAME)
+	$(CC) $(OBJ) $(SDL_LNK) $(VEC_LNK) $(FT_LNK) -lpthread -lm -o $@
 
 clean:
 	rm -rf $(OBJDIR)

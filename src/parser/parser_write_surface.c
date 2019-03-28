@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initer.c                                           :+:      :+:    :+:   */
+/*   parser_write_surface.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/01 15:34:01 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/03/28 16:53:37 by eloren-l         ###   ########.fr       */
+/*   Created: 2019/03/28 20:09:40 by eloren-l          #+#    #+#             */
+/*   Updated: 2019/03/28 20:55:23 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void	init_ray(t_env *env, t_v dest)
+static void	parse_surface(int fd, t_lst *list, t_surf *surf)
 {
-	env->ray.start = env->cam.position;
-	env->ray.dest = dest;
-	env->ray.min = 1;
-	env->ray.max = RAY_LENMAX;
+
 }
 
-void	init_env(t_env *env)
+void		add_surface(int fd, t_obj *obj)
 {
-	env->cam.rotation = (t_v) {0, 0, 0};
-	env->cam.position = (t_v) {0, 0, 0};
+	t_lst	*current;
+
+	if (obj->surfaces->type == -2)
+		current = obj->surfaces;
+	else
+		current = list_add(obj->surfaces);
+	current->obj = (t_surf *)malloc(sizeof(t_surf));
+	parse_surface(fd, current, current->obj);
 }

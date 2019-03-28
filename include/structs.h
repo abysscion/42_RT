@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/03/24 20:32:16 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/28 20:51:55 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,61 +56,66 @@ typedef struct		s_clr
 	unsigned char	b;
 }					t_clr;
 
-typedef struct	s_basis
+typedef struct		s_basis
 {
-	t_v			x;
-	t_v			y;
-	t_v			z;
-}				t_basis;
+	t_v				x;
+	t_v				y;
+	t_v				z;
+}					t_basis;
 
-typedef struct	s_surface
+typedef struct		s_surface
 {
-	SDL_Surface	*texture;
-	t_basis		basis;
-	t_clr		color;
-	t_v			position;
-	t_v			orientation;
-	double		radius;
-	double		height;
-	double		specular;
-	double		reflect;
-	double		transp;
-	int			type;
-}				t_surf;
+	SDL_Surface		*texture;
+	t_basis			basis;
+	t_clr			color;
+	t_v				position_init;
+	t_v				orientation_init;
+	t_v				position;
+	t_v				orientation;
+	double			radius;
+	double			max_height;
+	double			min_height;
+	double			specular;
+	double			reflect;
+	double			transp;
+	int				type;
+}					t_surf;
 
-typedef	struct	s_light
+typedef struct		s_ls
 {
-	t_v			position;
-	double		intensity;
-}				t_light;
+	struct s_ls		*next;
+	void			*obj;
+	int				type;
+	int				id;
+}					t_lst;
 
-typedef struct	s_ls
+typedef struct		s_object
 {
-	struct s_ls	*next;
-	void		*obj;
-	int			type;
-	int			id;
-}				t_lst;
+	t_lst			*surfaces;
+	t_v				offset;
+	t_v				rotation;
+}					t_obj;
 
-typedef struct	s_sdl
+typedef	struct		s_light
+{
+	t_v				position;
+	double			intensity;
+}					t_light;
+
+typedef struct		s_sdl
 {
 	SDL_Window		*window;
 	SDL_Renderer	*renderer;
 	int				*image;
-}				t_sdl;
+}					t_sdl;
 
-typedef	struct	s_environment
+typedef	struct		s_environment
 {
-	t_lst		*lights;
-	t_lst		*surfaces;
-	t_cam		cam;
-	t_sdl		sdl;
-	t_ray		ray;
-	int			mouse_pressed;
-	int			need_rerender;
-	int			need_regui;
-	SDL_Surface *surface;
-	unsigned char *texture;
-}				t_env;
+	t_lst			*lights;
+	t_lst			*objects;
+	t_cam			cam;
+	t_sdl			sdl;
+	t_ray			ray;
+}					t_env;
 
 #endif

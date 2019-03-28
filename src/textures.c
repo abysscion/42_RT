@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 17:16:20 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/24 20:49:22 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/28 20:29:35 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	calc_cone_cyl_local_coords(t_v *surf_point, t_surf *surface, double 
 	center_to_point = vecsub(*surf_point, surface->position);
 	cen_to_p_len = veclen(center_to_point);
 	angle = vecmult_scal(vecnorm(center_to_point), surface->basis.y);
-	*v = angle * cen_to_p_len;
+	*v = angle * cen_to_p_len; /* substract (min_height) tip offset from cen_to_p_len */
 	sr_pt_base = vecsub(*surf_point, vecmult_num(surface->basis.y, *v));
 	center_to_point = vecnorm(vecsub(sr_pt_base, surface->position));
 	angle = vecmult_scal(center_to_point, surface->basis.x);
@@ -37,7 +37,7 @@ static void	calc_cone_cyl_local_coords(t_v *surf_point, t_surf *surface, double 
 		*u = (acos(vecmult_scal(center_to_point, surface->basis.x)) + M_PI) / (2 * M_PI);
 		*u = fabs(*u - 1) + 0.5;
 	}
-	*v = *v / surface->height;
+	*v = *v / surface->max_height; /* use (max_height - min_height)instead?*/
 }
 
 static void	calc_sphere_local_coords(t_v *surf_point, t_surf *surface, double *u, double *v)
