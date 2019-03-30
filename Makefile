@@ -25,7 +25,8 @@ SRC		=	main.c \
 			parser/parser.c \
 			parser/parser_validation.c \
 			parser/parser_reading_utility.c \
-			parser/parser_writing_utility.c \
+			parser/parser_write_surface.c \
+			parser/parser_writing_fields.c \
 			parser/parser_float_fields_check.c \
 			parser/parser_open_close_check.c \
 			parser/parser_other_fields_check.c
@@ -66,6 +67,7 @@ all: obj $(FT_LIB) $(VEC_LIB) $(MLX_LIB) $(NAME)
 
 obj:
 	mkdir -p $(OBJDIR)
+	mkdir -p $(OBJDIR)/parser
 
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(SDL_INC) $(VEC_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<

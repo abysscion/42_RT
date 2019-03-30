@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/28 21:00:37 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/29 15:58:51 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void				parse_file(char *name, t_env *env);
 void				parser_validation(char *name);
 
 void				add_surface(int fd, t_obj *obj);
-int					write_field(int fd, char ***split,
+void				write_field(int fd, char ***split,
 						char **line, t_surf *surf);
 
 void				parse_next(int fd, char ***split, char **line);
@@ -122,7 +122,7 @@ void				free_words(char **words);
 void				invalid_syntax(int object);
 
 int					open_check(int fd, char ***split, char **line);
-int					close_check(int fd, char ***split, char **line);
+int					close_check(char ***split, char **line);
 int					intensity_check(int fd, char ***split, char **line);
 int					texture_check(int fd, char ***split, char **line);
 int					color_check(int fd, char ***split, char **line);

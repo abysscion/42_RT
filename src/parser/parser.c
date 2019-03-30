@@ -6,36 +6,37 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:38:08 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/28 20:53:55 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/30 14:25:28 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void parse_object(int fd, t_lst *lst, t_obj *obj)
+static void	parse_object(int fd, t_lst *object_list, t_obj *object)
 {
 	char	*line;
 	char	**split;
 	char	**floats;
 
-	lst->type = T_OBJECT;
 	get_next_line(fd, &line);
 	split = ft_strsplit(line, '\t');
 	open_check(fd, &split, &line);
 	while (1)
 	{
-		if (close_check(fd, &split, &line))
+		if (close_check(&split, &line))
 			break ;
-		floats = ft_strsplit((*split)[2], ' ');
-		if (strcmp((*split)[0], "position") == 0)
-			obj->offset = (t_v){ft_atod(floats[0]),
+		if (strcmp(split[0], "surface") == 0)
+			add_surface(fd, object);
+		if (strcmp(split[0], "surface"))
+			floats = ft_strsplit(split[2], ' ');
+		if (strcmp(split[0], "position") == 0)
+			object->offset = (t_v){ft_atod(floats[0]),
 				ft_atod(floats[1]), ft_atod(floats[2])};
-		if (strcmp((*split)[0], "orientation") == 0)
-			obj->rotation = (t_v){ft_atod(floats[0]),
+		if (strcmp(split[0], "orientation") == 0)
+			object->rotation = (t_v){ft_atod(floats[0]),
 				ft_atod(floats[1]), ft_atod(floats[2])};
-		if (strcmp((*split)[0], "surface") == 0)
-			add_surface(fd, obj);
-		free_words(floats);
+		if (strcmp(split[0], "surface"))
+			free_words(floats);
 		parse_next(fd, &split, &line);
 	}
 }
@@ -51,19 +52,22 @@ static void	parse_light(int fd, t_lst *lst, t_light *light)
 	open_check(fd, &split, &line);
 	while (1)
 	{
-		if (close_check(fd, &split, &line))
+		if (close_check(&split, &line))
 			break ;
-		floats = ft_strsplit((*split)[2], ' ');
-		if (strcmp((*split)[0], "position") == 0)
+		floats = ft_strsplit(split[2], ' ');
+		if (strcmp(split[0], "position") == 0)
 			light->position = (t_v){ft_atod(floats[0]),
 				ft_atod(floats[1]), ft_atod(floats[2])};
-		if (strcmp((*split)[0], "intensity") == 0)
+		if (strcmp(split[0], "intensity") == 0)
 			light->intensity = ft_atod(floats[0]);
-		if (strcmp((*split)[0], "type") == 0)
+		if (strcmp(split[0], "type") == 0)
+		{
 			lst->type = light_type_check(fd, &split, &line);
+			free_words(floats);
+			continue ;
+		}
 		free_words(floats);
-		if (strcmp((*split)[0], "type"))
-			parse_next(fd, &split, &line);
+		parse_next(fd, &split, &line);
 	}
 }
 
@@ -78,13 +82,13 @@ static void	parse_cam(int fd, t_env *env)
 	open_check(fd, &split, &line);
 	while (1)
 	{
-		if (close_check(fd, &split, &line))
+		if (close_check(&split, &line))
 			break ;
-		floats = ft_strsplit((*split)[2], ' ');
-		if (strcmp((*split)[0], "position") == 0)
+		floats = ft_strsplit(split[2], ' ');
+		if (strcmp(split[0], "position") == 0)
 			env->cam.position = (t_v){ft_atod(floats[0]),
 				ft_atod(floats[1]), ft_atod(floats[2])};
-		if (strcmp((*split)[0], "orientation") == 0)
+		if (strcmp(split[0], "orientation") == 0)
 			env->cam.rotation = (t_v){ft_atod(floats[0]),
 				ft_atod(floats[1]), ft_atod(floats[2])};
 		free_words(floats);
@@ -105,16 +109,18 @@ static void	select_object(t_env *env, char **params, int fd)
 		else
 			current = list_add(env->lights);
 		current->obj = (t_light *)malloc(sizeof(t_light));
-		parse_light(params, current, current->obj);
+		parse_light(fd, current, current->obj);
 	}
 	else if (ft_strcmp(params[0], "object") == 0)
-	{	
+	{
 		if (env->objects->type == -2)
 			current = env->objects;
 		else
 			current = list_add(env->objects);
-		current->obj = (t_lst *)malloc(sizeof(t_lst));	
-		parse_object(params, current, current->obj);
+		current->obj = (t_obj *)malloc(sizeof(t_obj));
+		((t_obj *)current->obj)->surfaces = NULL;
+		current->type = T_OBJECT;
+		parse_object(fd, current, current->obj);
 	}
 }
 
@@ -134,4 +140,5 @@ void		parse_file(char *name, t_env *env)
 		select_object(env, split, fd);
 		free(line);
 	}
+	close(fd);
 }

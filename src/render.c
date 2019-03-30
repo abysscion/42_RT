@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/28 16:57:38 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/30 14:05:33 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,17 @@ double		closest_intersection(t_env *env, t_lst **closest_surf)
 	double	closest_dist;
 	double	roots[2];
 	int		intersect;
-	t_lst	*object;
-	t_list	*surface;
+	t_lst	*objects;
+	t_obj	*object;
+	t_lst	*surface;
 
 	intersect = 0;
-	object = env->objects;
+	objects = env->objects;
 	closest_dist = env->ray.max;
-	while (object)
+	while (objects)
 	{
-		surface = object->obj;
+		object = (t_obj *)objects->obj;
+		surface = object->surfaces;
 		while (surface)
 		{
 			intersect = choose_type(env, surface, roots);
@@ -60,7 +62,7 @@ double		closest_intersection(t_env *env, t_lst **closest_surf)
 			}
 			surface = surface->next;
 		}
-		object = object->next;
+		objects = objects->next;
 	}
 	return (closest_dist);
 }
@@ -71,7 +73,7 @@ t_clr		trace_ray(t_env *env, int recursion)
 	t_lst	*closest_surf;
 	t_clr	color;
 
-	closest_surf = 0x0;
+	closest_surf = NULL;
 	closest_dist = closest_intersection(env, &closest_surf);
 	if (closest_dist >= env->ray.max)
 		return ((t_clr){0, 0, 0});

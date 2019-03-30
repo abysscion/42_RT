@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 16:22:22 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/28 19:59:14 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/30 14:09:54 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		light_type_check(int fd, char ***split, char **line)
 		if (strcmp((*split)[2], "DIRECTIONAL") == 0)
 			flag = T_DIRECTIONAL;
 		parse_next(fd, split, line);
-		return(flag);
+		return (flag);
 	}
 	return (0);
 }
@@ -97,7 +97,7 @@ int		surface_type_check(int fd, char ***split, char **line)
 		if (strcmp((*split)[2], "PLANE") == 0)
 			flag = T_PLANE;
 		parse_next(fd, split, line);
-		return(flag);
+		return (flag);
 	}
 	return (0);
 }

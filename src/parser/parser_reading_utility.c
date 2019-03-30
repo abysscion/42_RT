@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 14:22:32 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/28 19:54:46 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/30 14:08:30 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		parse_next(int fd, char ***split, char **line)
 	free_words(*split);
 	free(*line);
 	get_next_line(fd, line);
-	*split = ft_strsplit(*line, "\t");
+	*split = ft_strsplit(*line, '\t');
 }
 
 void		invalid_syntax(int object)
@@ -56,7 +56,7 @@ int			check_floats(char **param, int i)
 			return (0);
 		free_words(num);
 	}
-	return(1);
+	return (1);
 }
 
 void		free_words(char **words)

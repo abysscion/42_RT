@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 15:03:55 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/28 19:55:41 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/30 14:09:24 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static int	single_float_fields(char ***split)
 {
-	if (strcmp((*split)[0], "radius") == 0		||
-		strcmp((*split)[0], "specular") == 0	||
-		strcmp((*split)[0], "refclect") == 0	||
-		strcmp((*split)[0], "transp") == 0		||
-		strcmp((*split)[0], "height") == 0		||
-		strcmp((*split)[0], "tip") == 0			||
+	if (strcmp((*split)[0], "radius") == 0 ||
+		strcmp((*split)[0], "specular") == 0 ||
+		strcmp((*split)[0], "reflect") == 0 ||
+		strcmp((*split)[0], "transp") == 0 ||
+		strcmp((*split)[0], "height") == 0 ||
+		strcmp((*split)[0], "tip") == 0 ||
 		strcmp((*split)[0], "angle") == 0)
 		return (1);
 	return (0);
@@ -27,7 +27,7 @@ static int	single_float_fields(char ***split)
 
 static int	triple_float_fields(char ***split)
 {
-	if (strcmp((*split)[0], "position") == 0	||
+	if (strcmp((*split)[0], "position") == 0 ||
 		strcmp((*split)[0], "orientation") == 0)
 		return (1);
 	return (0);
@@ -69,14 +69,13 @@ int			check_triple_float_field(int fd, char ***split, char **line)
 	return (0);
 }
 
-int		check_surface(int fd, char ***split, char **line, int *object)
+int			check_surface(int fd, char ***split, char **line, int *object)
 {
-	if (strcmp((*split)[0], "surface") == 0 && check_param_num(*split, 3))
+	if (strcmp((*split)[0], "surface") == 0 && check_param_num(*split, 1))
 	{
-		free_words(*split);
-		free(*line);
 		(*object)++;
 		validate_surface(fd, *object);
+		parse_next(fd, split, line);
 		return (1);
 	}
 	return (0);
