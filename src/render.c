@@ -6,7 +6,7 @@
 /*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/30 21:20:54 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/03/30 21:29:23 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void		render(t_env *env)
 	int		x;
 	int		y;
 
-	if (env->stereoscopy == 1)
+	if (env->stereoscopy == 0)
 	{
 		y = WIN_H / 2 * -1;
 		while (y < WIN_H / 2)
