@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 13:53:35 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/25 14:05:43 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/30 15:41:45 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,4 @@ void		calc_basis(t_surf *surf)
 		calc_basis_cyl_cone(surf);
 	if (surf->type == T_PLANE)
 		calc_basis_plane(surf);
-
 }

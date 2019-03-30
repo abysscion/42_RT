@@ -6,13 +6,13 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:38:08 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/30 14:25:28 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/30 16:34:50 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void	parse_object(int fd, t_lst *object_list, t_obj *object)
+static void	parse_object(int fd, t_obj *object)
 {
 	char	*line;
 	char	**split;
@@ -64,7 +64,7 @@ static void	parse_light(int fd, t_lst *lst, t_light *light)
 		{
 			lst->type = light_type_check(fd, &split, &line);
 			free_words(floats);
-			continue ;
+			continue;
 		}
 		free_words(floats);
 		parse_next(fd, &split, &line);
@@ -118,9 +118,9 @@ static void	select_object(t_env *env, char **params, int fd)
 		else
 			current = list_add(env->objects);
 		current->obj = (t_obj *)malloc(sizeof(t_obj));
-		((t_obj *)current->obj)->surfaces = NULL;
+		init_object(current->obj);
 		current->type = T_OBJECT;
-		parse_object(fd, current, current->obj);
+		parse_object(fd, current->obj);
 	}
 }
 

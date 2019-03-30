@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 18:46:21 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/30 14:11:24 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/30 16:18:18 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ static void	single_num_fields(char ***split, char **num, t_surf *surf)
 static void	triple_num_fields(char ***split, char **num, t_surf *surf)
 {
 	if (strcmp((*split)[0], "position") == 0)
-		surf->position = (t_v){ft_atod(num[0]),
+		surf->position_init = (t_v){ft_atod(num[0]),
 			ft_atod(num[1]), ft_atod(num[2])};
 	else if (strcmp((*split)[0], "orientation") == 0)
-		surf->orientation = (t_v){ft_atod(num[0]),
+		surf->orientation_init = (t_v){ft_atod(num[0]),
 			ft_atod(num[1]), ft_atod(num[2])};
 	else if (strcmp((*split)[0], "color") == 0)
 		surf->color = (t_clr){ft_atoi(num[0]),

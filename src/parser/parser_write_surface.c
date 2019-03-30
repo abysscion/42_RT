@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 20:09:40 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/30 14:19:19 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/30 16:35:17 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ static void	parse_surface(int fd, t_lst *list, t_surf *surf)
 			surf->type = list->type;
 			continue;
 		}
+		if (strcmp(split[0], "texture") == 0)
+		{
+			printf("%s\n", split[2]);
+			surf->texture = IMG_Load(split[2]);
+		}
 		write_field(fd, &split, &line, surf);
 	}
 }
@@ -41,12 +46,21 @@ static void	init_surface(t_surf *surf)
 	surf->min_height = 0;
 	surf->orientation = (t_v){0, 0, 0};
 	surf->position = (t_v){0, 0, 0};
+	surf->orientation_init = (t_v){0, 0, 0};
+	surf->position_init = (t_v){0, 0, 0};
 	surf->radius = 1;
 	surf->reflect = 0;
 	surf->specular = 0;
 	surf->texture = NULL;
 	surf->transp = 0;
 	surf->type = 0;
+}
+
+void		init_object(t_obj *obj)
+{
+	obj->surfaces = NULL;
+	obj->offset = (t_v){0, 0, 0};
+	obj->rotation = (t_v){0, 0, 0};
 }
 
 void		add_surface(int fd, t_obj *object)
@@ -56,8 +70,6 @@ void		add_surface(int fd, t_obj *object)
 	if (object->surfaces == NULL)
 	{
 		object->surfaces = list_create();
-		object->offset = (t_v){0, 0, 0};
-		object->rotation = (t_v){0, 0, 0};
 		current = object->surfaces;
 	}
 	else

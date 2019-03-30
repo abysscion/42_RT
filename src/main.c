@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:29:07 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/25 14:09:29 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/30 15:42:28 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int			main(int argc, char **argv)
 	{
 		init_env(env);
 		parse_file(argv[1], env);
+		adjust_objects(env);
 		render(env);
 		sdl_loop(env);
 	}

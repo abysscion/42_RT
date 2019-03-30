@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/29 15:58:51 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/30 16:35:38 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@
 # define T_DIRECTIONAL			3
 
 # define RECURSION				3
+
+
+void				init_object(t_obj *obj);
+void				adjust_objects(t_env *env);
 
 t_clr				trace_ray(t_env *env, int rec);
 t_clr				light_on(t_env *env, double closest, t_lst *surface, int rec);

@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 17:16:20 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/28 20:29:35 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/30 17:03:59 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,21 @@
 ** FOR BOTH CONE AND CYLINDER V SHOULD BE SCALED FOR MAX HEIGHT OF A SURFACE
 */
 
-static void	calc_cone_cyl_local_coords(t_v *surf_point, t_surf *surface, double *u, double *v)
+static void	calc_cone_cyl_local_coords(t_v *surf_p, t_surf *surface, double *u, double *v)
 {
+	t_v		surf_point;
 	t_v		center_to_point;
 	t_v		sr_pt_base;
 	double	cen_to_p_len;
 	double	angle;
 
-	center_to_point = vecsub(*surf_point, surface->position);
+	surf_point = vecsub(*surf_p,
+		vecmult_num(surface->orientation, surface->min_height));
+	center_to_point = vecsub(surf_point, surface->position);
 	cen_to_p_len = veclen(center_to_point);
 	angle = vecmult_scal(vecnorm(center_to_point), surface->basis.y);
-	*v = angle * cen_to_p_len; /* substract (min_height) tip offset from cen_to_p_len */
-	sr_pt_base = vecsub(*surf_point, vecmult_num(surface->basis.y, *v));
+	*v = angle * cen_to_p_len;
+	sr_pt_base = vecsub(surf_point, vecmult_num(surface->basis.y, *v));
 	center_to_point = vecnorm(vecsub(sr_pt_base, surface->position));
 	angle = vecmult_scal(center_to_point, surface->basis.x);
 	if (vecmult_scal(vecmult_vec(surface->basis.x, surface->basis.y), center_to_point) > 0)
@@ -37,7 +40,7 @@ static void	calc_cone_cyl_local_coords(t_v *surf_point, t_surf *surface, double 
 		*u = (acos(vecmult_scal(center_to_point, surface->basis.x)) + M_PI) / (2 * M_PI);
 		*u = fabs(*u - 1) + 0.5;
 	}
-	*v = *v / surface->max_height; /* use (max_height - min_height)instead?*/
+	*v = *v / (surface->max_height - surface->min_height);
 }
 
 static void	calc_sphere_local_coords(t_v *surf_point, t_surf *surface, double *u, double *v)
@@ -96,7 +99,9 @@ void		get_texture_color(t_surf *surface, t_lc *light)
 		surface->texture->format->BytesPerPixel;
 	y = (int)(v * surface->texture->h) *
 		surface->texture->pitch;
-	if (x < 0 || y < 0)
+	if (x < 0 || x > (surface->texture->w *
+		surface->texture->format->BytesPerPixel) || y < 0 ||
+		y > surface->texture->h * surface->texture->pitch)
 		return ;
 	surface->color.r = ((unsigned char *)surface->texture->pixels)[y + x];
 	surface->color.g = ((unsigned char *)surface->texture->pixels)[y + x + 1];

@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/30 14:05:33 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/30 15:45:14 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ double		closest_intersection(t_env *env, t_lst **closest_surf)
 	double	roots[2];
 	int		intersect;
 	t_lst	*objects;
-	t_obj	*object;
 	t_lst	*surface;
 
 	intersect = 0;
@@ -45,8 +44,7 @@ double		closest_intersection(t_env *env, t_lst **closest_surf)
 	closest_dist = env->ray.max;
 	while (objects)
 	{
-		object = (t_obj *)objects->obj;
-		surface = object->surfaces;
+		surface = ((t_obj *)objects->obj)->surfaces;
 		while (surface)
 		{
 			intersect = choose_type(env, surface, roots);
