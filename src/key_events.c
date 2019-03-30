@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_events.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 05:21:02 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/21 20:40:38 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/30 20:31:54 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void		sdl_key_press_events(int key, t_env *env)
 	char	redraw;
 
 	redraw = 0;
+	if (key == SDLK_s)
+		save_image(env->sdl.image, 0);
 	movement(key, env, &redraw);
 	rotation(key, env, &redraw);
 	if (redraw)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   anti_aliasing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 17:06:00 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/03/18 18:34:38 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/30 18:30:20 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,7 @@ void		anti_aliasing(t_env *env)
 			{
 				anti_aliasing_render(env, &aliasing[0], i * 2, j * 2);
 				sum_color(&aliasing[0], &color);
-				SDL_SetRenderDrawColor(env->sdl.renderer, color.r, color.g, color.b, 0);
-				SDL_RenderDrawPoint(env->sdl.renderer, j + WIN_W / 2, i + WIN_H / 2);
+				sdl_draw(env, color, j, i);
 			}
 			j++;
 		}

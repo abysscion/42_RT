@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/30 16:35:38 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/30 21:10:44 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,12 @@ void				validate_cone(char **params);
 void				validate_plane(char **params);
 double				ft_atod(char *str);
 void				anti_aliasing(t_env *env);
+void				sepia(t_env *env);
+void				sdl_draw(t_env *env, t_clr color, int x, int y);
+void				stereoscopy(t_env *env);
+void				save_image(int *mass, int iter);
+void				blur(t_env *env);
+void				sdl_help(t_env *env, int x, int y);
 
 void				get_texture_color(t_surf *surface, t_lc *light);
 void				calc_basis(t_surf *surf);

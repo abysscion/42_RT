@@ -29,7 +29,12 @@ SRC		=	main.c \
 			parser/parser_writing_fields.c \
 			parser/parser_float_fields_check.c \
 			parser/parser_open_close_check.c \
-			parser/parser_other_fields_check.c
+			parser/parser_other_fields_check.c \
+			sdl_draw.c \
+			sepia_effect.c \
+			stereoscopy.c \
+			image_saver.c \
+			blur.c
 
 OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 

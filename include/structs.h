@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/03/28 20:51:55 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/03/30 18:04:41 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@
 #  include <SDL2/SDL_image.h>
 # endif
 # include "libvec.h"
+
+typedef    struct        s_blur
+{
+	unsigned char	*vec;
+    int				*img;
+	int				*preprocess;
+	int				bheight;
+	int				bwidth;
+}                    t_blur;
 
 typedef struct		s_lc
 {
@@ -116,6 +125,7 @@ typedef	struct		s_environment
 	t_cam			cam;
 	t_sdl			sdl;
 	t_ray			ray;
+	char			stereoscopy;
 }					t_env;
 
 #endif
