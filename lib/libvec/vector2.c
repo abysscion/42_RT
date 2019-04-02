@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 10:49:41 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/07 07:00:26 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/01 12:08:13 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,4 @@ t_v		vecnorm(t_v v)
 	n = 1.0 / sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 	v = (t_v) {v.x * n, v.y * n, v.z * n};
 	return (v);
-}
-
-/*
-**	Returns vector rotated by radian angles stored in (t_v) a.
-*/
-
-t_v		vec_rotate(t_v a, t_v vec)
-{
-	t_v	retv;
-	t_v temp;
-
-	temp = vec;
-	retv.x = temp.x;
-	retv.y = temp.y * cos(a.x) - temp.z * sin(a.x);
-	retv.z = temp.y * sin(a.x) + temp.z * cos(a.x);
-	temp = retv;
-	retv.x = temp.x * cos(a.y) + temp.z * sin(a.y);
-	retv.y = temp.y;
-	retv.z = -temp.x * sin(a.y) + temp.z * cos(a.y);
-	return (retv);
 }

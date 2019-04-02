@@ -1,0 +1,61 @@
+camera
+{
+	position		:	0.0 0.0 -10.0
+	orientation		:	0.0 0.0 0.0
+}
+light
+{
+	type			:	AMBIENT
+	intensity		:	0.2
+}
+light
+{
+	type			:	POINT
+	intensity		:	0.8
+	position		:	0.0 10.0 -10.0
+}
+object
+{
+	position		:	0.0 0.0 0.0
+	orientation		:	0.0 0.0 0.0
+	surface
+	{
+		type		:	PLANE
+		texture		:	none
+		color		:	255 255 255
+		position	:	0.0 0.0 20.0
+		orientation	:	0.0 0.0 -1.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+}
+object
+{
+	position		:	0.0 0.0 0.0
+	orientation		:	0.0 0.0 0.0
+	surface
+	{
+		type		:	SPHERE
+		texture		:	none
+		color		:	255 255 0
+		position	:	0.0 0.0 0.0
+		orientation	:	0.0 1.0 0.0
+		radius		:	1.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	SPHERE
+		texture		:	none
+		color		:	255 0 255
+		position	:	1.5 0.0 0.0
+		orientation	:	0.0 0.0 0.0
+		radius		:	1.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+}

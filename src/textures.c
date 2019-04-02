@@ -6,15 +6,12 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 17:16:20 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/30 17:03:59 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/02 16:05:46 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-/*
-** FOR BOTH CONE AND CYLINDER V SHOULD BE SCALED FOR MAX HEIGHT OF A SURFACE
-*/
 
 static void	calc_cone_cyl_local_coords(t_v *surf_p, t_surf *surface, double *u, double *v)
 {

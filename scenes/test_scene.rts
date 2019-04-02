@@ -60,8 +60,8 @@ object
 }
 object
 {
-	position		:	-2.0 -2.0 2.0
-	orientation		:	0.0 0.0 0.0
+	position		:	-2.0 3.0 2.0
+	orientation		:	60.0 0.0 60.0	
 	surface
 	{
 		type		:	CYLINDER

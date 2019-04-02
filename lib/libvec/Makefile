@@ -1,7 +1,8 @@
 NAME	= libvec.a
 
 FILES	=	vector.c \
-			vector2.c
+			vector2.c \
+			vector3.c
 
 CFLAGS	= -Wall -Wextra -Werror
 

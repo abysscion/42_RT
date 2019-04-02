@@ -1,0 +1,208 @@
+camera
+{
+	position		:	0.0 0.0 -10.0
+	orientation		:	0.0 0.0 0.0
+}
+light
+{
+	type			:	AMBIENT
+	intensity		:	0.2
+}
+light
+{
+	type			:	POINT
+	intensity		:	0.8
+	position		:	0.0 10.0 -10.0
+}
+object
+{
+	position		:	0.0 0.0 0.0
+	orientation		:	0.0 0.0 0.0
+	surface
+	{
+		type		:	PLANE
+		texture		:	none
+		color		:	255 255 255
+		position	:	0.0 0.0 20.0
+		orientation	:	0.0 0.0 -1.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+}
+object
+{
+	position		:	0.0 0.0 0.0
+	orientation		:	0.0 0.0 0.0
+	surface
+	{
+		type		:	CYLINDER
+		texture		:	textures/planets/mars.jpg
+		color		:	255 255 0
+		position	:	0.0 0.0 0.0
+		orientation	:	0.0 1.0 0.0
+		radius		:	0.3
+		height		:	1.5
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	CYLINDER
+		texture		:	textures/planets/moon.jpg
+		color		:	255 0 255
+		position	:	0.0 0.0 0.0
+		orientation	:	1.0 0.0 0.0
+		radius		:	0.3
+		height		:	1.5
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	CYLINDER
+		texture		:	textures/planets/earth.jpg
+		color		:	0 255 255
+		position	:	0.0 0.0 0.0
+		orientation	:	0.0 0.0 -1.0
+		radius		:	0.3
+		height		:	1.5
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+}
+object
+{
+	position		:	3.0 0.0 0.0
+	orientation		:	90.0 0.0 0.0
+	surface
+	{
+		type		:	CYLINDER
+		texture		:	textures/planets/mars.jpg
+		color		:	255 255 0
+		position	:	0.0 0.0 0.0
+		orientation	:	0.0 1.0 0.0
+		radius		:	0.3
+		height		:	1.5
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	CYLINDER
+		texture		:	textures/planets/moon.jpg
+		color		:	255 0 255
+		position	:	0.0 0.0 0.0
+		orientation	:	1.0 0.0 0.0
+		radius		:	0.3
+		height		:	1.5
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	CYLINDER
+		texture		:	textures/planets/earth.jpg
+		color		:	0 255 255
+		position	:	0.0 0.0 0.0
+		orientation	:	0.0 0.0 -1.0
+		radius		:	0.3
+		height		:	1.5
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+}
+object
+{
+	position		:	6.0 0.0 0.0
+	orientation		:	0.0 90.0 0.0
+	surface
+	{
+		type		:	CYLINDER
+		texture		:	textures/planets/mars.jpg
+		color		:	255 255 0
+		position	:	0.0 0.0 0.0
+		orientation	:	0.0 1.0 0.0
+		radius		:	0.3
+		height		:	1.5
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	CYLINDER
+		texture		:	textures/planets/moon.jpg
+		color		:	255 0 255
+		position	:	0.0 0.0 0.0
+		orientation	:	1.0 0.0 0.0
+		radius		:	0.3
+		height		:	1.5
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	CYLINDER
+		texture		:	textures/planets/earth.jpg
+		color		:	0 255 255
+		position	:	0.0 0.0 0.0
+		orientation	:	0.0 0.0 -1.0
+		radius		:	0.3
+		height		:	1.5
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+}
+object
+{
+	position		:	-3.0 0.0 0.0
+	orientation		:	0.0 0.0 90.0
+	surface
+	{
+		type		:	CYLINDER
+		texture		:	textures/planets/mars.jpg
+		color		:	255 255 0
+		position	:	0.0 0.0 0.0
+		orientation	:	0.0 1.0 0.0
+		radius		:	0.3
+		height		:	1.5
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	CYLINDER
+		texture		:	textures/planets/moon.jpg
+		color		:	255 0 255
+		position	:	0.0 0.0 0.0
+		orientation	:	1.0 0.0 0.0
+		radius		:	0.3
+		height		:	1.5
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	CYLINDER
+		texture		:	textures/planets/earth.jpg
+		color		:	0 255 255
+		position	:	0.0 0.0 0.0
+		orientation	:	0.0 0.0 -1.0
+		radius		:	0.3
+		height		:	1.5
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+}

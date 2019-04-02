@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/30 21:29:23 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/01 14:38:52 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void		render(t_env *env)
 	int		x;
 	int		y;
 
-	if (env->stereoscopy == 0)
+	if (env->flags.stereo == 0)
 	{
 		y = WIN_H / 2 * -1;
 		while (y < WIN_H / 2)

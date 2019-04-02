@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/03/30 18:04:41 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/01 14:18:15 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@
 # endif
 # include "libvec.h"
 
-typedef    struct        s_blur
+typedef struct		s_blur
 {
 	unsigned char	*vec;
     int				*img;
 	int				*preprocess;
 	int				bheight;
 	int				bwidth;
-}                    t_blur;
+}					t_blur;
 
 typedef struct		s_lc
 {
@@ -118,14 +118,20 @@ typedef struct		s_sdl
 	int				*image;
 }					t_sdl;
 
+typedef struct		s_flags
+{
+	int				stereo;
+}					t_flg;
+
+
 typedef	struct		s_environment
 {
 	t_lst			*lights;
 	t_lst			*objects;
 	t_cam			cam;
 	t_sdl			sdl;
-	t_ray			ray;
-	char			stereoscopy;
+	t_flg			flags;
+	t_ray			ray;	
 }					t_env;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:34:01 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/03/30 19:37:29 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/02 16:06:49 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_env(t_env *env)
 {
 	env->cam.rotation = (t_v) {0, 0, 0};
 	env->cam.position = (t_v) {0, 0, 0};
-	env->stereoscopy = 0;
+	env->flags.stereo = 0;
 }
 
 void	adjust_objects(t_env *env)
@@ -42,8 +42,10 @@ void	adjust_objects(t_env *env)
 		while (surfs)
 		{
 			surf = (t_surf *)surfs->obj;
-			surf->orientation = surf->orientation_init;
-			surf->position = vecsum(surf->position_init, obj->offset);
+			surf->orientation = vec_rotate(obj->rotation,
+				surf->orientation_init);
+			surf->position = vec_rotate(obj->rotation, surf->position_init);
+			surf->position = vecsum(surf->position, obj->offset);
 			if (surf->type == T_CONE)
 				surf->position = vecsub(surf->position,
 					vecmult_num(surf->orientation, surf->min_height));

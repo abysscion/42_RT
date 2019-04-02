@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_events.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 05:21:02 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/30 20:31:54 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/01 15:33:52 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static void	rotation(int key, t_env *e, char *redraw)
 	else
 		return ;
 	if (key == SDLK_KP_4)
-		e->cam.rotation.y -= M_PI / 180 * ROT_STEP;
+		e->cam.rotation.y -= ROT_STEP;
 	else if (key == SDLK_KP_6)
-		e->cam.rotation.y += M_PI / 180 * ROT_STEP;
+		e->cam.rotation.y += ROT_STEP;
 	else if (key == SDLK_KP_2)
-		e->cam.rotation.x += M_PI / 180 * ROT_STEP;
+		e->cam.rotation.x += ROT_STEP;
 	else if (key == SDLK_KP_8)
-		e->cam.rotation.x -= M_PI / 180 * ROT_STEP;
+		e->cam.rotation.x -= ROT_STEP;
 }
 
 static void	movement(int key, t_env *e, char *redraw)
