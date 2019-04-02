@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/01 14:38:52 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/02 20:13:53 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ void		render(t_env *env)
 	}
 	else
 		stereoscopy(env);
-	// blur(env);
-	// sepia(env);
+	//blur(env);
+	//sepia(env);
 	//anti_aliasing(env);
 	SDL_RenderPresent(env->sdl.renderer);
 }

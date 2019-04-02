@@ -6,7 +6,7 @@
 /*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 18:18:17 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/03/30 21:12:54 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:43:52 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	sdl_help(t_env *env, int x, int y)
 {
 	t_clr color;
 
-	color.g = env->sdl.image[x + y * WIN_H] & 0xFF;
-	color.b = (env->sdl.image[x + y * WIN_H] & 0xFF00) >> 8;
-	color.r = (env->sdl.image[x + y * WIN_H] & 0xFF0000) >> 16;
+	color.g = env->sdl.image[x + y * WIN_W] & 0xFF;
+	color.b = (env->sdl.image[x + y * WIN_W] & 0xFF00) >> 8;
+	color.r = (env->sdl.image[x + y * WIN_W] & 0xFF0000) >> 16;
 	sdl_draw(env, color, x - WIN_W / 2, y - WIN_H / 2);
 }
 
