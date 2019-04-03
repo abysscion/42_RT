@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libvec.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 06:45:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/02/22 20:56:47 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/03/07 07:00:54 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ double				veclen(t_v v);
 t_v					vecmult_num(t_v v, double num);
 t_v					vecdiv_num(t_v v, double num);
 t_v					vecmult_vec(t_v v1, t_v v2);
+t_v					vec_rotate(t_v a, t_v vec);
 t_v					vecsum(t_v v1, t_v v2);
 t_v					vecsub(t_v v1, t_v v2);
 t_v					vecnorm(t_v v);

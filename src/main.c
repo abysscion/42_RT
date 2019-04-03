@@ -3,34 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:29:07 by cschuste          #+#    #+#             */
-/*   Updated: 2019/02/23 16:53:00 by emayert          ###   ########.fr       */
+/*   Updated: 2019/04/02 18:13:29 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/rt.h"
+#include "rt.h"
 
-int		main(int ac, char **av)
+static void	sdl_loop(t_env *env)
 {
-	t_env *e;
+	char		quit;
+	SDL_Event	event;
 
-	e = (t_env *)malloc(sizeof(t_env));
-	init_env(e);
-	if (ac == 2)
+	quit = 0;
+	while(!quit)
 	{
-		init_mlx(e);
-		create_objects(e, av[1]);
-		render(e);
-		mlx_hook(e->win, 2, 1L, key_hook, e);
-		mlx_hook(e->win, 4, ButtonPressMask, mouse_press, e);
-		mlx_hook(e->win, 5, ButtonReleaseMask, mouse_release, e);
-		mlx_hook(e->win, 6, PointerMotionMask, mouse_move, e);
-		mlx_hook(e->win, 12, 1L, expose_hook, e);
-		mlx_hook(e->win, 17, 1L, clean_n_close, e);
-		mlx_loop(e->mlx);
+		while(SDL_PollEvent(&event) != 0)
+			if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
+				quit = 1;
+			else if (event.type == SDL_KEYDOWN)
+				sdl_key_press_events(event.key.keysym.sym, env);
+	}
+	SDL_DestroyWindow(env->sdl.window);
+	SDL_Quit();
+	exit(0);
+}
+
+int			main(int argc, char **argv)
+{
+	t_env *env;
+
+	env = (t_env *)malloc(sizeof(t_env));
+	env->sdl.image = (int *)malloc(sizeof(int) * WIN_H * WIN_W);
+	SDL_CreateWindowAndRenderer(WIN_W, WIN_H, 0, &(env->sdl.window), &(env->sdl.renderer));
+	if (argc == 2)
+	{
+		init_env(env);
+		parse_file(argv[1], env);
+		adjust_objects(env);
+		render(env);
+		sdl_loop(env);
 	}
 	ft_putendl(MSG_USAGE);
-	clean_n_close(e);
+	exit(0);
 }

@@ -8,27 +8,41 @@ OBJDIR	= ./obj
 
 # sources
 SRC		=	main.c \
-			scener.c \
-			freer.c \
-			debug.c \
+			ft_atod.c \
 			light.c \
+			calc_normal.c \
 			initer.c \
-			supply.c \
-			hooker.c \
 			render.c \
-			test_0.c \
-			test_1.c \
-			test_2.c \
-			test_3.c \
-			test_4.c \
 			intersect.c \
-			find_normal.c
+			intersect_utility.c \
+			light_utility.c \
+			lists.c \
+			key_events.c \
+			anti_aliasing.c \
+			textures.c \
+			refract.c \
+			calc_basis.c \
+			parser/parser.c \
+			parser/parser_validation.c \
+			parser/parser_reading_utility.c \
+			parser/parser_write_surface.c \
+			parser/parser_writing_fields.c \
+			parser/parser_float_fields_check.c \
+			parser/parser_open_close_check.c \
+			parser/parser_other_fields_check.c \
+			sdl_draw.c \
+			sepia_effect.c \
+			stereoscopy.c \
+			image_saver.c \
+			blur.c
 
 OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 # compiler
 CC		=	gcc
-CFLAGS	=	-g -Ofast -Wall -Wextra #-Werror
+CFLAGS	=	-Wall -Wextra #-Werror
+CFLAGS	+=	-Ofast
+#CFLAGS	+=	-g
 
 #OSX frameworks
 FWS		=	-framework OpenCL -framework OpenGL -framework AppKit
@@ -45,24 +59,23 @@ VEC		=	./lib/libvec/
 VEC_INC	=	-I ./lib/libvec
 VEC_LNK	=	-L ./lib/libvec -lvec
 
-# mlx lib
+# sdl lib
 ifeq ($(OS), Linux)
-MLX 	=	./lib/libmlx/
-MLX_LNK	=	-L $(MLX) -lmlx -lXext -lX11 -lOpenCL
+SDL_INC	=	-I /usr/include/SDL2
+SDL_LNK	=	-L /use/include/SDL2 -lSDL2_image -lSDL2
 else
-MLX		=	./lib/libmlx_macos/
-MLX_LNK =	-L ./lib/libmlx_macos/ -lmlx $(FWS)
+SDL_INC	=	-I ~/.brew/include/SDL2
+SDL_LNK	=	-L ~/.brew/lib -lSDL2-2.0.0 -lSDL2_image-2.0.0
 endif
-MLX_INC =	-I $(MLX)
-MLX_LIB =	$(addprefix $(MLX),mlx.a)
 
 all: obj $(FT_LIB) $(VEC_LIB) $(MLX_LIB) $(NAME)
 
 obj:
 	mkdir -p $(OBJDIR)
+	mkdir -p $(OBJDIR)/parser
 
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
-	$(CC) $(CFLAGS) $(MLX_INC) $(VEC_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
+	$(CC) $(CFLAGS) $(SDL_INC) $(VEC_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
 
 $(FT_LIB):
 	make -C $(FT)
@@ -70,17 +83,13 @@ $(FT_LIB):
 $(VEC_LIB):
 	make -C $(VEC)
 
-$(MLX_LIB):
-	make -C $(MLX)
-
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) $(MLX_LNK) $(VEC_LNK) $(FT_LNK) -lpthread -lm -o $(NAME)
+	$(CC) $(OBJ) $(SDL_LNK) $(VEC_LNK) $(FT_LNK) -lpthread -lm -o $@
 
 clean:
 	rm -rf $(OBJDIR)
 	make -C $(FT) clean
 	make -C $(VEC) clean
-	make -C $(MLX) clean
 
 fclean: clean
 	rm -rf $(NAME)

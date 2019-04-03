@@ -3,39 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   initer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/01 15:34:01 by cschuste          #+#    #+#             */
-/*   Updated: 2019/02/23 17:04:03 by emayert          ###   ########.fr       */
+/*   Created: 2019/02/01 15:34:01 by sb_fox            #+#    #+#             */
+/*   Updated: 2019/04/02 19:09:01 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/rt.h"
+#include "rt.h"
 
-void	init_env(t_env *e)
+void	init_ray(t_env *env, t_v dest)
 {
-	e->objs = (t_oc *)malloc(sizeof(t_oc));
-	e->cam = (t_cam *)malloc(sizeof(t_cam));
-	e->hitobj = (t_ho *)malloc(sizeof(t_ho));
-	e->lit_var = (t_lc *)malloc(sizeof(t_lc));
-	e->ren_var = (t_ren *)malloc(sizeof(t_ren));
-	e->cam->rot = (t_v) {0, 0, 0};
-	e->objs->n_obj = 0;
-	e->cam->pos = (t_v) {0, 0, 0};
-	e->hitobj->ishit = -1;
-	e->cam->view_port_addr = 0x0;
-	e->mlx = NULL;
-	e->win = NULL;
-	e->k = 0;
-	e->need_redraw = 1;
-	e->mouse_pressed = 0;
+	env->ray.start = env->cam.position;
+	env->ray.dest = dest;
+	env->ray.min = 1;
+	env->ray.max = RAY_LENMAX;
 }
 
-void	init_mlx(t_env *e)
+void	init_env(t_env *env)
 {
-	e->mlx = mlx_init();
-	e->win = mlx_new_window(e->mlx, WIN_W, WIN_H, "RTv1");
-	e->cam->ptr_vp = mlx_new_image(e->mlx, WIN_W, WIN_H);
-	e->cam->view_port_addr = (int *)mlx_get_data_addr(e->cam->ptr_vp,
-		&e->cam->bits_per_pixel, &e->cam->size_line, &e->cam->endian);
+	env->cam.rotation = (t_v) {0, 0, 0};
+	env->cam.position = (t_v) {0, 0, 0};
+	env->flags.stereo = 0;
+}
+
+void	adjust_objects(t_env *env)
+{
+	t_lst	*objs;
+	t_obj	*obj;
+	t_lst	*surfs;
+	t_surf	*surf;
+
+	objs = env->objects;
+	while (objs)
+	{
+		obj = (t_obj *)objs->obj;
+		surfs = obj->surfaces;
+		while (surfs)
+		{
+			surf = (t_surf *)surfs->obj;
+			surf->orientation = vec_rotate(obj->rotation,
+				surf->orientation_init);
+			surf->position = vec_rotate(obj->rotation, surf->position_init);
+			surf->position = vecsum(surf->position, obj->offset);
+			if (surf->type == T_CONE)
+				surf->position = vecsub(surf->position,
+					vecmult_num(surf->orientation, surf->min_height));
+			calc_basis(surf);
+			surfs = surfs->next;
+		}
+		objs = objs->next;
+	}
 }

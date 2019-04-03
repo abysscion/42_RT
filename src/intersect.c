@@ -3,88 +3,96 @@
 /*                                                        :::      ::::::::   */
 /*   intersect.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:22:30 by cschuste          #+#    #+#             */
-/*   Updated: 2019/02/22 16:17:56 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/03/26 14:53:44 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/rt.h"
+#include "rt.h"
 
-int		intersect_sphere(t_v start, t_v d, t_obj *sph, double *t)
+int		intersect_sphere(t_v start, t_v dest, t_surf *sph, double *roots)
 {
-	t_v		oc;
-	double	k1;
-	double	k2;
-	double	k3;
+	t_v		pos_to_start;
+	double	a;
+	double	b;
+	double	c;
 	double	discr;
 
-	oc = vecsub(start, sph->pos);
-	k1 = vecmult_scal(d, d);
-	k2 = 2 * vecmult_scal(oc, d);
-	k3 = vecmult_scal(oc, oc) - sph->radius * sph->radius;
-	discr = k2 * k2 - 4 * k1 * k3;
+	pos_to_start = vecsub(start, sph->position);
+	a = vecmult_scal(dest, dest);
+	b = 2 * vecmult_scal(pos_to_start, dest);
+	c = vecmult_scal(pos_to_start, pos_to_start)
+		- sph->radius * sph->radius;
+	discr = b * b - 4 * a * c;
 	if (discr < 0)
 		return (0);
-	t[0] = (k2 * -1 + sqrtf(discr)) / (2 * k1);
-	t[1] = (k2 * -1 - sqrtf(discr)) / (2 * k1);
+	roots[0] = (b * -1 + sqrt(discr)) / (2 * a);
+	roots[1] = (b * -1 - sqrt(discr)) / (2 * a);
 	return (1);
 }
 
-int		intersect_cylinder(t_v start, t_v d, t_obj *cyl, double *t)
+int		intersect_cylinder(t_v start, t_v dest, t_surf *cyl, double *roots)
 {
-	t_v		oc;
-	double	k1;
-	double	k2;
-	double	k3;
+	t_v		pos_to_start;
+	double	a;
+	double	b;
+	double	c;
 	double	discr;
 
-	oc = vecsub(start, cyl->pos);
-	cyl->rot = vecnorm(cyl->rot);
-	k1 = vecmult_scal(d, d) - pow(vecmult_scal(d, cyl->rot), 2);
-	k2 = 2 * (vecmult_scal(oc, d) -
-		(vecmult_scal(d, cyl->rot) * vecmult_scal(oc, cyl->rot)));
-	k3 = vecmult_scal(oc, oc) - pow(vecmult_scal(oc, cyl->rot), 2) -
-			cyl->radius * cyl->radius;
-	discr = k2 * k2 - 4 * k1 * k3;
+	pos_to_start = vecsub(start, cyl->position);
+	cyl->orientation = vecnorm(cyl->orientation);
+	a = vecmult_scal(dest, dest) -
+		pow(vecmult_scal(dest, cyl->orientation), 2);
+	b = 2 * (vecmult_scal(pos_to_start, dest) -
+		(vecmult_scal(dest, cyl->orientation) *
+		vecmult_scal(pos_to_start, cyl->orientation)));
+	c = vecmult_scal(pos_to_start, pos_to_start) -
+		pow(vecmult_scal(pos_to_start, cyl->orientation), 2) -
+		cyl->radius * cyl->radius;
+	discr = b * b - 4 * a * c;
 	if (discr < 0)
 		return (0);
-	t[0] = (k2 * -1 + sqrtf(discr)) / (2 * k1);
-	t[1] = (k2 * -1 - sqrtf(discr)) / (2 * k1);
-	return (1);
+	roots[0] = (b * -1 + sqrt(discr)) / (2 * a);
+	roots[1] = (b * -1 - sqrt(discr)) / (2 * a);
+	return (limit_cone_cyl(cyl, dest, start, roots));
 }
 
-int		intersect_cone(t_v start, t_v d, t_obj *cone, double *t)
+int		intersect_cone(t_v start, t_v dest, t_surf *cone, double *roots)
 {
-	t_v		oc;
-	double	k1;
-	double	k2;
-	double	k3;
+	t_v		pos_to_start;
+	double  a;
+	double	b;
+	double	c;
 	double	discr;
 
-	oc = vecsub(start, cone->pos);
-	cone->rot = vecnorm(cone->rot);
-	k1 = vecmult_scal(d, d) - (1 + pow(tan(cone->radius), 2)) *
-		pow(vecmult_scal(d, cone->rot), 2);
-	k2 = 2 * (vecmult_scal(d, oc) - (1 + pow(tan(cone->radius), 2)) *
-		vecmult_scal(d, cone->rot) * vecmult_scal(oc, cone->rot));
-	k3 = vecmult_scal(oc, oc) - (1 + pow(tan(cone->radius), 2)) *
-		pow(vecmult_scal(oc, cone->rot), 2);
-	discr = k2 * k2 - 4 * k1 * k3;
+	pos_to_start = vecsub(start, cone->position);
+	cone->orientation = vecnorm(cone->orientation);
+	a = vecmult_scal(dest, dest) - (1 + pow(tan(cone->radius), 2)) *
+		pow(vecmult_scal(dest, cone->orientation), 2);
+	b = 2 * (vecmult_scal(dest, pos_to_start) -
+		(1 + pow(tan(cone->radius), 2)) *
+		vecmult_scal(dest, cone->orientation) *
+		vecmult_scal(pos_to_start, cone->orientation));
+	c = vecmult_scal(pos_to_start, pos_to_start) -
+		(1 + pow(tan(cone->radius), 2)) *
+		pow(vecmult_scal(pos_to_start, cone->orientation), 2);
+	discr = b * b - 4 * a * c;
 	if (discr < 0)
 		return (0);
-	t[0] = (k2 * -1 + sqrtf(discr)) / (2 * k1);
-	t[1] = (k2 * -1 - sqrtf(discr)) / (2 * k1);
-	return (1);
+	roots[0] = (b * -1 + sqrt(discr)) / (2 * a);
+	roots[1] = (b * -1 - sqrt(discr)) / (2 * a);
+	return (limit_cone_cyl(cone, dest, start, roots));
 }
 
-int		intersect_plane(t_v start, t_v d, t_obj *plane, double *t)
+int		intersect_plane(t_v start, t_v dest, t_surf *plane, double *roots)
 {
-	t[0] = ((vecmult_scal(plane->rot, plane->pos) -
-			vecmult_scal(plane->rot, start)) /
-			vecmult_scal(plane->rot, d));
-	if (t[0] < RAY_LENMIN)
+	roots[0] = ((vecmult_scal(plane->orientation, plane->position) -
+			vecmult_scal(plane->orientation, start)) /
+			vecmult_scal(plane->orientation, dest));
+	roots[1] = +INFINITY;
+	if (roots[0] < RAY_LENMIN)
 		return (0);
 	return (1);
 }

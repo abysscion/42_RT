@@ -1,11 +1,13 @@
 #Other
+mlx-test
 .vscode
-RTv1
+RT
 README.md
 obj/
 log
 .backup.zip
 *~
+.DS_Store
 
 # Prerequisites
 *.d

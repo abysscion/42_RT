@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/02/23 16:08:40 by emayert          ###   ########.fr       */
+/*   Updated: 2019/04/02 20:14:42 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,175 +17,140 @@
 #  include <OpenCL/opencl.h>
 # else
 #  include <CL/cl.h>
-#  define M_PI			3.14159265359
+#  define M_PI					3.14159265359
 # endif
 # include "../lib/libft/libft.h"
-# include "../lib/libmlx/mlx.h"
 # include "../lib/libvec/libvec.h"
+# include "structs.h"
 # include "keys.h"
 # include <stdio.h>
 # include <pthread.h>
 # include <fcntl.h>
 # include <math.h>
 
+/*================================ MAIN =====================================*/
 # define MSG_USAGE	"usage: \e[33mThere's no usage yet :^)\e[0m"
-# define KeyPressMask			(1L<<0)
-# define KeyReleaseMask			(1L<<1)
-# define ButtonPressMask		(1L<<2)
-# define ButtonReleaseMask		(1L<<3)
-# define EnterWindowMask		(1L<<4)
-# define LeaveWindowMask		(1L<<5)
-# define PointerMotionMask		(1L<<6)
-# define PointerMotionHintMask	(1L<<7)
-# define Button1MotionMask		(1L<<8)
-# define Button2MotionMask		(1L<<9)
 # define RAY_LENMAX				2147483647
 # define RAY_LENMIN				0.001
 # define ROT_STEP				15
 # define WIN_H					512
 # define WIN_W					512
 # define CLR_BACKGROUND			0
-# define T_PLANE				0
-# define T_SPHERE				1
-# define T_CYLINDER				2
-# define T_CONE					3
 
-typedef	struct		s_camera
-{
-	t_v		rot;
-	t_v		pos;
-	void	*ptr_vp;
-	int		*view_port_addr;
-	int		bits_per_pixel;
-	int		size_line;
-	int		endian;
-}					t_cam;
+# define T_OBJECT				-1
+# define T_PLANE				1
+# define T_SPHERE				2
+# define T_CYLINDER				3
+# define T_CONE					4
 
-typedef	struct		s_light
-{
-	t_v		pos;
-	double	intensity;
-	char	*type;
-}					t_light;
+# define T_AMBIENT				1
+# define T_POINT				2
+# define T_DIRECTIONAL			3
 
-typedef struct		s_render
-{
-	t_v		start;
-	t_v		dest;
-	double	min;
-	int		max;
-}					t_ren;
+# define RECURSION				3
 
-typedef	struct		s_object
-{
-	t_v					pos;
-	t_v					rot;
-	unsigned	char	colour[3];
-	double				radius;
-	int					specular;
-	int					type;
-}					t_obj;
 
-typedef struct		s_light_container
-{
-	t_v		p;
-	t_v		n;
-	t_v		v;
-	t_v		l;
-	t_v		r;
-	int		temp;
-}					t_lc;
+void				init_object(t_obj *obj);
+void				adjust_objects(t_env *env);
 
-typedef	struct		s_objects_container
-{
-	t_obj	**objarr;
-	int		n_cylinders;
-	int		n_planes;
-	int		n_sphere;
-	int		n_cones;
-	int		n_obj;
-}					t_oc;
-
-typedef	struct		s_hitobject
-{
-	int	index;
-	int	ishit;
-	int	type;
-}					t_ho;
-
-typedef	struct		s_bullshit
-{
-	double				posx;
-	double				posy;
-	double				posz;
-	double				rotx;
-	double				roty;
-	double				rotz;
-	double				rad;
-	unsigned	char	r;
-	unsigned	char	g;
-	unsigned	char	b;
-	int					spec;
-	int					type;
-}					t_bs;
-
-typedef	struct		s_environment
-{
-	t_light	**light;
-	t_cam	*cam;
-	t_ren	*ren_var;
-	t_lc	*lit_var;
-	t_oc	*objs;
-	t_ho	*hitobj;
-	void	*mlx;
-	void	*win;
-	int		need_redraw;
-	int		mouse_pressed;
-	int		lnum;
-	int		k;
-}					t_env;
-
-t_v					normal2plane(t_env	*e, int i);
-t_v					normal2cone(t_env *e, t_v dest, double closest, int i);
-t_v					normal2cyl(t_env *e, t_v dest, double closest, int i);
+t_clr				trace_ray(t_env *env, int rec);
+t_clr				light_on(t_env *env, double closest, t_lst *surface, int rec);
+void				calc_surf_normal(t_env *env, double closest,
+							t_lst *surface, t_lc *light);
 t_v					vec_rotate(t_v a, t_v vec);
-t_v					vp_to_global(t_v vp_p);
-double				close_intersection(t_env *e, t_ren *r_v, int *num_obj);
+t_v					reflect_ray(t_v n, t_v l);
+t_v					calc_reflected_ray(t_v bisect, t_v direction);
+void				render(t_env *e);
+double				closest_intersection(t_env *env, t_lst **closest_surf);
+void				calc_ref_color(t_clr *color, t_clr *ref_color, t_surf *surface);
+void    			count_rgb(unsigned char *rgb, unsigned char *ref_col, t_env *e, int i);
+void				calc_color(t_clr *color, double intens, t_surf *surface);
+t_clr   			calc_refract(t_env *env, t_lc lc, t_lst *surface, int rec);
+void				create_objects(t_env *e, char *av);
+void				print_info_about_hitobj(t_env *e);
+void				rayhit_obj(t_v dest, t_env *e);
 void				create_any_ob(t_env *e,
 									unsigned char *arr, t_v pos, int spec);
-void				light_abuse(int *i, double *intens);
-void				ppx_on_img(int x, int y, int color, t_env *e);
-void				cr_obj(t_bs bs, int i, t_env *e);
-void				create_objects(t_env *e, char *av);
-void				rayhit_obj(t_v dest, t_env *e);
-void				print_info_about_hitobj(t_env *e);
-void				key_handler(int key, t_env *e);
-void				create_scene_0(t_env *e);
-void				create_scene_1(t_env *e);
-void				create_scene_2(t_env *e);
-void				create_scene_3(t_env *e);
-void				create_scene_4(t_env *e);
 void				init_mlx(t_env *e);
 void				init_env(t_env *e);
-void				render(t_env *e);
-int					choose_type(t_env *e, int i, t_ren *r_v, double *t);
-int					light_on(t_env *e, t_v dest, double closest, int i);
-int					mouse_release(int key, int x, int y, t_env *e);
-int					mouse_press(int key, int x, int y, t_env *e);
+void				init_ray(t_env *env, t_v dest);
 int					trace_ray_cylinder(t_v dest, t_env *e);
 int					trace_ray_sphere(t_v dest, t_env *e);
 int					trace_ray_plane(t_v dest, t_env *e);
-int					mouse_move(int x, int y, t_env *e);
 int					trace_ray_cone(t_v dest, t_env *e);
+void				sdl_key_press_events(int key, t_env *env);
 int					key_hook(int key, t_env *e);
+int					mouse_release(int key, int x, int y, t_env *e);
+int					mouse_press(int key, int x, int y, t_env *e);
+int					mouse_move(int x, int y, t_env *e);
 int					clean_n_close(t_env *e);
 int					expose_hook(t_env *e);
 int					intersect_cylinder(t_v start,
-										t_v dest, t_obj *cyl, double *t);
+										t_v dest, t_surf *cyl, double *t);
 int					intersect_sphere(t_v start,
-										t_v dest, t_obj *sph, double *t);
+										t_v dest, t_surf *sph, double *t);
 int					intersect_cone(t_v start,
-										t_v dest, t_obj *cone, double *t);
+										t_v dest, t_surf *cone, double *t);
 int					intersect_plane(t_v start,
-										t_v dest, t_obj *plane, double *t);
+										t_v dest, t_surf *plane, double *t);
+t_lst				*lst_to_last(t_lst *lst);
+t_lst				*list_create();
+t_lst				*list_add(t_lst *lst);
+
+
+void				validate_sphere(char **params);
+void				validate_cylinder(char **params);
+void				validate_cone(char **params);
+void				validate_plane(char **params);
+double				ft_atod(char *str);
+void				anti_aliasing(t_env *env);
+void				sepia(t_env *env);
+void				sdl_draw(t_env *env, t_clr color, int x, int y);
+void				stereoscopy(t_env *env);
+void				save_image(int *mass, int iter);
+void				blur(t_env *env);
+void				sdl_help(t_env *env, int x, int y);
+
+void				get_texture_color(t_surf *surface, t_lc *light);
+void				calc_basis(t_surf *surf);
+
+int					limit_cone_cyl(t_surf *surf, t_v dest, t_v start, double *roots);
+/*=============================== END OF MAIN ===============================*/
+
+/*================================= PARSER ==================================*/
+void				parse_file(char *name, t_env *env);
+void				parser_validation(char *name);
+
+void				add_surface(int fd, t_obj *obj);
+void				write_field(int fd, char ***split,
+						char **line, t_surf *surf);
+
+void				parse_next(int fd, char ***split, char **line);
+int					check_floats(char **param, int i);
+int					check_param_num(char **param, int i);
+void				free_words(char **words);
+void				invalid_syntax(int object);
+
+int					open_check(int fd, char ***split, char **line);
+int					close_check(char ***split, char **line);
+int					intensity_check(int fd, char ***split, char **line);
+int					texture_check(int fd, char ***split, char **line);
+int					color_check(int fd, char ***split, char **line);
+int					light_type_check(int fd, char ***split, char **line);
+int					surface_type_check(int fd, char ***split, char **line);
+
+int					check_surface(int fd, char ***split, char **line,
+						int *object);
+void				validate_surface(int fd, int object);
+
+int					check_single_float_field(int fd,
+						char ***split, char **line);
+int					check_triple_float_field(int fd,
+						char ***split, char **line);
+/*============================== END OF PARSER ==============================*/
+
+/*=================================== GUI ===================================*/
+
+/*================================ END OF GUI ===============================*/
+
 #endif
