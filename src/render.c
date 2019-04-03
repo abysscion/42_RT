@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/02 20:13:53 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/03 10:41:42 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,26 @@ t_clr		trace_ray(t_env *env, int recursion)
 	return (color);
 }
 
+void		draw_rt(t_env *env)
+{
+	int		x;
+	int		y;
+	t_clr	color;
+
+	y = -1;
+	while (++y < RT__H)
+	{
+		x = -1;
+		while (++x < RT__W)
+		{
+			color.g = env->sdl.image[x + y * RT__W] & 0xFF;
+			color.b = (env->sdl.image[x + y * RT__W] & 0xFF00) >> 8;
+			color.r = (env->sdl.image[x + y * RT__W] & 0xFF0000) >> 16;
+			sdl_draw(env, color, x - env->abuse.hrw, y - env->abuse.hrh);
+		}
+	}
+}
+
 /*	Casts rays in every viewport pixel and calculated the appropriate color
 **	for the pixel, saves into image array and sets it into renderer. */
 
@@ -91,17 +111,18 @@ void		render(t_env *env)
 
 	if (env->flags.stereo == 0)
 	{
-		y = WIN_H / 2 * -1;
-		while (y < WIN_H / 2)
+		y = env->abuse.hrh * -1;
+		while (y < env->abuse.hrh)
 		{
-			x = WIN_W / 2 * -1;
-			while (x < WIN_W / 2)
+			x = env->abuse.hrw * -1;
+			while (x < env->abuse.hrw)
 			{
-				dest = (t_v){x * 1.0 / WIN_W, y * -1.0 / WIN_H, 1.0};
+				dest = (t_v){x * 1.0 / RT__W, y * -1.0 / RT__H, 1.0};
 				dest = vecnorm(vec_rotate(env->cam.rotation, dest));
 				init_ray(env, dest);
 				color = trace_ray(env, RECURSION);
-				env->sdl.image[WIN_W * (y + WIN_H / 2) + (x + WIN_W / 2)] =
+				env->sdl.image[RT__W *
+					(y + env->abuse.hrh) + (x + env->abuse.hrw)] =
 					(color.r << 16) + (color.b << 8) + (color.g);
 				sdl_draw(env, color, x, y);
 				x++;
@@ -111,8 +132,8 @@ void		render(t_env *env)
 	}
 	else
 		stereoscopy(env);
-	//blur(env);
-	//sepia(env);
-	//anti_aliasing(env);
+	// blur(env);
+	// sepia(env);
+	// anti_aliasing(env);
 	SDL_RenderPresent(env->sdl.renderer);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sepia_effect.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 18:31:31 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/03/30 19:55:33 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/03 10:01:30 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,17 @@ void			sepia(t_env *env)
 	int		y;
 	t_clr	color;
 
-	y = WIN_H / 2 * -1;
-	while (y < WIN_H / 2)
+	y = env->abuse.hrh * -1;
+	while (y < env->abuse.hrh)
 	{
-		x = WIN_W / 2 * -1;
-		while (x < WIN_W / 2)
+		x = env->abuse.hrw * -1;
+		while (x < env->abuse.hrw)
 		{
-			color = cast_in_sepia(env->sdl.image[WIN_W *
-					(y + WIN_H / 2) + (x + WIN_W / 2)]);
-			env->sdl.image[WIN_W * (y + WIN_H / 2) + (x + WIN_W / 2)] =
-				(color.r << 16) + (color.b << 8) + (color.g);
+			color = cast_in_sepia(env->sdl.image[RT__W *
+					(y + env->abuse.hrh) + (x + env->abuse.hrw)]);
+			env->sdl.image[RT__W *
+					(y + env->abuse.hrh) + (x + env->abuse.hrw)] =
+					(color.r << 16) + (color.b << 8) + (color.g);
 			sdl_draw(env, color, x, y);
 			x++;
 		}

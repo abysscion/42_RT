@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:34:01 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/02 19:09:01 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/03 10:43:32 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,14 @@ void	init_ray(t_env *env, t_v dest)
 	env->ray.max = RAY_LENMAX;
 }
 
-void	init_env(t_env *env)
+void	init_env(t_env *env, char **argv)
 {
+	env->sdl.image = (int *)malloc(sizeof(int) * WIN_H * WIN_W);
+	env->gui = (t_gui *)malloc(sizeof(t_gui));
+	kiss_array_new(&env->gui->objarr);
+	env->sdl.renderer = kiss_init(argv[1], &env->gui->objarr, WIN_W, WIN_H);
+	env->abuse.hrw = RT__W / 2;
+	env->abuse.hrh = RT__H / 2;
 	env->cam.rotation = (t_v) {0, 0, 0};
 	env->cam.position = (t_v) {0, 0, 0};
 	env->flags.stereo = 0;

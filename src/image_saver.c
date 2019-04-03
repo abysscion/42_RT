@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 19:38:25 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/04/03 07:27:17 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/03 09:26:07 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ void		init_ppm(int *fd)
 	if (*fd == -1)
 		exit(0);
 	muff = write(*fd, "P3\n", 3);
-	str = itoa_fd(WIN_H);
+	str = itoa_fd(RT__H);
 	ft_putstr_fd(str, *fd);
 	free(str);
 	muff = write(*fd, " ", 1);
-	str = itoa_fd(WIN_W);
+	str = itoa_fd(RT__W);
 	ft_putstr_fd(str, *fd);
 	free(str);
 	muff = write(*fd, "\n255\n", 5);
@@ -78,14 +78,14 @@ void		save_image(int *mass, int iter)
 
 	init_ppm(&fd);
 	y = -1;
-	while (++y < WIN_H)
+	while (++y < RT__H)
 	{
 		x = -1;
-		while (++x < WIN_W)
+		while (++x < RT__W)
 		{
-			color[0] = (mass[x + y * WIN_H] >> 16) & 0xFF;
-			color[1] = mass[x + y * WIN_H] & 0xFF;
-			color[2] = (mass[x + y * WIN_H] >> 8) & 0xFF;
+			color[0] = (mass[x + y * RT__H] >> 16) & 0xFF;
+			color[1] = mass[x + y * RT__H] & 0xFF;
+			color[2] = (mass[x + y * RT__H] >> 8) & 0xFF;
 			iter = -1;
 			while (++iter < 3)
 			{

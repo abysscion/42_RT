@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   anti_aliasing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 17:06:00 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/04/02 19:06:48 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/03 10:05:44 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,22 @@ static int	check_pixel(t_env *env, int i, int j)
 {
 	int mass;
 
-	mass = env->sdl.image[j + (i * WIN_W)];
+	mass = env->sdl.image[j + (i * RT__W)];
 	if (i - 1 >= 0)
 		if (check_difference(mass,
-			env->sdl.image[j + ((i - 1) * WIN_W)]))
+			env->sdl.image[j + ((i - 1) * RT__W)]))
 			return (1);
 	if (j - 1 >= 0)
 		if (check_difference(mass,
-			env->sdl.image[j - 1 + (i * WIN_W)]))
+			env->sdl.image[j - 1 + (i * RT__W)]))
 			return (1);
-	if (j + 1 < WIN_W)
+	if (j + 1 < RT__W)
 		if (check_difference(mass,
-			env->sdl.image[j + 1 + (i * WIN_W)]))
+			env->sdl.image[j + 1 + (i * RT__W)]))
 			return (1);
-	if (i + 1 < WIN_H)
+	if (i + 1 < RT__H)
 		if (check_difference(mass,
-			env->sdl.image[j + ((i + 1) * WIN_W)]))
+			env->sdl.image[j + ((i + 1) * RT__W)]))
 			return (1);
 	return (0);
 }
@@ -85,7 +85,7 @@ static void	anti_aliasing_render(t_env *env, t_clr *aliasing, int i, int j)
 		x = j;
 		while (x <= j + 1)
 		{
-			dest = (t_v){x * 1.0 / (WIN_W * 2), y * -1.0 / (WIN_H * 2), 1.0};
+			dest = (t_v){x * 1.0 / (RT__W * 2), y * -1.0 / (RT__H * 2), 1.0};
 			dest = vecnorm(vec_rotate(env->cam.rotation, dest));
 			init_ray(env, dest);
 			aliasing[k] = trace_ray(env, RECURSION);
@@ -103,13 +103,13 @@ void		anti_aliasing(t_env *env)
 	t_clr	color;
 	t_clr	aliasing[4];
 
-	i = WIN_H / 2 * -1;
-	while (i < WIN_H / 2)
+	i = env->abuse.hrh * -1;
+	while (i < env->abuse.hrh)
 	{
-		j = WIN_W / 2 * -1;
-		while (j < WIN_W / 2)
+		j = env->abuse.hrw * -1;
+		while (j < env->abuse.hrw)
 		{
-			if (check_pixel(env, i + WIN_H / 2, j + WIN_W / 2))
+			if (check_pixel(env, i + env->abuse.hrh, j + env->abuse.hrw))
 			{
 				anti_aliasing_render(env, &aliasing[0], i * 2, j * 2);
 				sum_color(&aliasing[0], &color);

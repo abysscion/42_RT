@@ -3,30 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:29:07 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/02 18:13:29 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/03 10:41:09 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
+void 		button_event(kiss_button *button, SDL_Event *e, int *draw, int *quit)
+{
+	if (kiss_button_event(button, e, draw))
+		*quit = 1;
+}
+
 static void	sdl_loop(t_env *env)
 {
-	char		quit;
 	SDL_Event	event;
+	int			quit;
+	int			draw;
 
 	quit = 0;
 	while(!quit)
 	{
+		SDL_Delay(10);
 		while(SDL_PollEvent(&event) != 0)
-			if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
+		{
+			if ((event.type == SDL_KEYDOWN &&
+				event.key.keysym.sym == SDLK_ESCAPE) || event.type == SDL_QUIT)
 				quit = 1;
 			else if (event.type == SDL_KEYDOWN)
 				sdl_key_press_events(event.key.keysym.sym, env);
+			kiss_window_event(&env->gui->rblock, &event, &draw);
+			kiss_window_event(&env->gui->lblock, &event, &draw);
+			kiss_window_event(&env->gui->bar, &event, &draw);
+			button_event(&env->gui->bt_arrup, &event, &draw, &quit);
+		}
+		if (draw == 0)
+			continue;
+		/*
+		**	Atm there's one issue. draw_rt draws just a rendered picture without
+		**		any effects. So it should get smth like flags to draw specific
+		**		rendered picture.
+		*/
+		SDL_RenderClear(env->sdl.renderer);
+		draw_gui(env);
+		draw_rt(env);
+		SDL_RenderPresent(env->sdl.renderer);
+		draw = 0;
 	}
 	SDL_DestroyWindow(env->sdl.window);
+	kiss_clean(&env->gui->objarr);
 	SDL_Quit();
 	exit(0);
 }
@@ -35,14 +63,14 @@ int			main(int argc, char **argv)
 {
 	t_env *env;
 
-	env = (t_env *)malloc(sizeof(t_env));
-	env->sdl.image = (int *)malloc(sizeof(int) * WIN_H * WIN_W);
-	SDL_CreateWindowAndRenderer(WIN_W, WIN_H, 0, &(env->sdl.window), &(env->sdl.renderer));
 	if (argc == 2)
 	{
-		init_env(env);
+		env = (t_env *)malloc(sizeof(t_env));
+		init_env(env, argv);
+		init_gui(env);
 		parse_file(argv[1], env);
 		adjust_objects(env);
+		draw_gui(env);
 		render(env);
 		sdl_loop(env);
 	}
