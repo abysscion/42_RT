@@ -70,7 +70,7 @@ KISS_LNK	=	-L ./lib/libkiss -lkiss
 # sdl lib
 ifeq ($(OS), Linux)
 SDL_INC	=	-I /usr/include/SDL2
-SDL_LNK	=	-L /use/include/SDL2 -lSDL2_image -lSDL2 -lSDL2_ttf
+SDL_LNK	=	-L /usr/include/SDL2 -lSDL2_image -lSDL2 -lSDL2_ttf
 else
 SDL_INC	=	-I ~/.brew/include/SDL2
 SDL_LNK	=	-L ~/.brew/lib -lSDL2-2.0.0 -lSDL2_image-2.0.0 -lSDL2_ttf-2.0.0
