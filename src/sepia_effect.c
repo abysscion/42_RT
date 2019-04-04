@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 18:31:31 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/04/03 10:01:30 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/04 03:16:39 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void			sepia(t_env *env)
 			env->sdl.image[RT__W *
 					(y + env->abuse.hrh) + (x + env->abuse.hrw)] =
 					(color.r << 16) + (color.b << 8) + (color.g);
-			sdl_draw(env, color, x, y);
 			x++;
 		}
 		y++;

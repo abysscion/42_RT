@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/03 09:52:25 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/04 02:26:44 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,9 @@ typedef struct		s_sdl
 typedef struct		s_flags
 {
 	int				stereo;
+	int				sepia;
+	int				blur;
+	int				aa;
 }					t_flg;
 
 typedef	struct		s_environment

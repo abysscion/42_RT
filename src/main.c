@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:29:07 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/03 10:41:09 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/04 03:07:58 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ static void	sdl_loop(t_env *env)
 		**		any effects. So it should get smth like flags to draw specific
 		**		rendered picture.
 		*/
-		SDL_RenderClear(env->sdl.renderer);
-		draw_gui(env);
-		draw_rt(env);
-		SDL_RenderPresent(env->sdl.renderer);
+		draw_all(env);
 		draw = 0;
 	}
 	SDL_DestroyWindow(env->sdl.window);
@@ -63,7 +60,7 @@ int			main(int argc, char **argv)
 {
 	t_env *env;
 
-	if (argc == 2)
+	if (argc == 2 || argc == 3)
 	{
 		env = (t_env *)malloc(sizeof(t_env));
 		init_env(env, argv);

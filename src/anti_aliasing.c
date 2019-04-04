@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 17:06:00 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/04/03 10:05:44 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/04 03:19:12 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,9 @@ void		anti_aliasing(t_env *env)
 			{
 				anti_aliasing_render(env, &aliasing[0], i * 2, j * 2);
 				sum_color(&aliasing[0], &color);
-				sdl_draw(env, color, j, i);
+				env->sdl.image[RT__W *
+					(i + env->abuse.hrh) + (j + env->abuse.hrw)] =
+					(color.r << 16) + (color.b << 8) + (color.g);
 			}
 			j++;
 		}

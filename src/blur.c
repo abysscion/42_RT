@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 20:38:13 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/04/03 09:24:07 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/04 03:17:28 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static void	motion_blur(t_env *e, t_blur *blur, int motx, int moty)
 			e->sdl.image[x + y * RT__W] = weights[0] / weights[3] +
 				((int)(weights[1] / weights[4]) << 8) +
 				((int)(weights[2] / weights[5]) << 16);
-			sdl_help(e, x, y);
 		}
 	}
 }

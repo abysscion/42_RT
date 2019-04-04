@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 13:47:08 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/03 10:29:37 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/04 03:22:04 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,16 @@ void	draw_gui(t_env *e)
 	kiss_window_draw(&e->gui->lblock, e->sdl.renderer);
 	kiss_window_draw(&e->gui->bar, e->sdl.renderer);
 	kiss_button_draw(&e->gui->bt_arrup, e->sdl.renderer);
+}
+
+/*
+**	Clears render content -> draws everything in order -> updates render view.
+*/
+
+void	draw_all(t_env *e)
+{
+	SDL_RenderClear(e->sdl.renderer);
+	draw_gui(e);
+	draw_rt(e);
+	SDL_RenderPresent(e->sdl.renderer);
 }

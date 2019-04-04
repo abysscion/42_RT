@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/03 10:41:42 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/04 03:20:50 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,10 @@ t_clr		trace_ray(t_env *env, int recursion)
 	return (color);
 }
 
+/*
+**	Takes sdl.image content and draws every pixel of it on renderer.
+*/
+
 void		draw_rt(t_env *env)
 {
 	int		x;
@@ -99,8 +103,10 @@ void		draw_rt(t_env *env)
 	}
 }
 
-/*	Casts rays in every viewport pixel and calculated the appropriate color
-**	for the pixel, saves into image array and sets it into renderer. */
+/*
+**	Casts rays in every viewport pixel and calculates appropriate color
+**	of the pixel then saves pixel color into sdl.image.
+*/
 
 void		render(t_env *env)
 {
@@ -124,7 +130,6 @@ void		render(t_env *env)
 				env->sdl.image[RT__W *
 					(y + env->abuse.hrh) + (x + env->abuse.hrw)] =
 					(color.r << 16) + (color.b << 8) + (color.g);
-				sdl_draw(env, color, x, y);
 				x++;
 			}
 			y++;
@@ -132,8 +137,11 @@ void		render(t_env *env)
 	}
 	else
 		stereoscopy(env);
-	// blur(env);
-	// sepia(env);
-	// anti_aliasing(env);
-	SDL_RenderPresent(env->sdl.renderer);
+	if (env->flags.aa == 0 && env->flags.blur == 1)
+		blur(env);
+	if (env->flags.sepia)
+		sepia(env);
+	if (env->flags.aa == 1 && env->flags.blur == 0)
+		anti_aliasing(env);
+	draw_all(env);
 }

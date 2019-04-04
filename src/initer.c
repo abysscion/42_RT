@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:34:01 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/03 10:43:32 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/04 03:10:31 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ void	init_env(t_env *env, char **argv)
 	env->cam.rotation = (t_v) {0, 0, 0};
 	env->cam.position = (t_v) {0, 0, 0};
 	env->flags.stereo = 0;
+	if (argv[2] != NULL)
+	{
+		env->flags.sepia = ft_strcmp(argv[2], "-se") == 0 ? 1 : 0;
+		env->flags.stereo = ft_strcmp(argv[2], "-st") == 0 ? 1 : 0;
+		env->flags.blur = ft_strcmp(argv[2], "-b") == 0 ? 1 : 0;
+		env->flags.aa = ft_strcmp(argv[2], "-aa") == 0 ? 1 : 0;
+	}
 }
 
 void	adjust_objects(t_env *env)
