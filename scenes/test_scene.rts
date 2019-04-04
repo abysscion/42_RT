@@ -166,7 +166,62 @@ object
 		texture		:	none
 		color		:	255 255 255
 		position	:	0.0 0.0 10.0
-		orientation	:	0.0 0.0 -1.0
+		orientation	:	0.0 0.0 1.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	PLANE
+		texture		:	none
+		color		:	255 127 127
+		position	:	0.0 0.0 -20.0
+		orientation	:	0.0 0.0 1.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	PLANE
+		texture		:	none
+		color		:	127 255 127
+		position	:	0.0 10.0 0.0
+		orientation	:	0.0 1.0 0.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	PLANE
+		texture		:	none
+		color		:	0 255 255
+		position	:	0.0 -10.0 0.0
+		orientation	:	0.0 1.0 0.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	PLANE
+		texture		:	none
+		color		:	255 0 255
+		position	:	10.0 0.0 0.0
+		orientation	:	1.0 0.0 0.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	PLANE
+		texture		:	none
+		color		:	255 255 0
+		position	:	-10.0 0.0 0.0
+		orientation	:	1.0 0.0 0.0
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0

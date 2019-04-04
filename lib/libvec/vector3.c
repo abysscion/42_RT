@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/25 23:38:43 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/02 16:07:06 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/04 12:54:09 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	rotate_x(double angle, t_v *vec)
 	rad = M_PI / 180 * angle;
 	cosine = cos(rad);
 	sine = sin(rad);
+	vec->x = temp.x;
 	vec->y = temp.y * cosine - temp.z * sine;
 	vec->z = temp.y * sine + temp.z * cosine;
 }
@@ -39,6 +40,7 @@ static void	rotate_y(double angle, t_v *vec)
 	cosine = cos(rad);
 	sine = sin(rad);
 	vec->x = temp.x * cosine + temp.z * sine;
+	vec->y = temp.y;
 	vec->z = -temp.x * sine + temp.z * cosine;
 }
 
