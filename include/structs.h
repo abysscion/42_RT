@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/04 02:26:44 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/05 01:38:50 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ typedef	struct		s_gui
 	kiss_window		rblock;
 	kiss_window		lblock;
 	kiss_window		bar;
-	kiss_button		bt_arrup;
 	kiss_array		objarr;
+	kiss_button		bt_arrup;
+	kiss_textbox	tbx_obj;
+	kiss_array		tbx_obj_arr;
+	kiss_label		lab_tbx_obj;
 }					t_gui;
 
 typedef struct		s_blur
@@ -115,6 +118,21 @@ typedef struct		s_ls
 	int				id;
 }					t_lst;
 
+/*
+**							environment					(t_lst)  ——  objects;
+**								 |						(t_obj)  ——  obj;
+**							  objects					(t_surf) ——  surfaces;
+**							/         \
+**						 obj           obj->next
+**					    /   \         |         \
+**					   /     |        |          \
+**	      surfaces ————      |         \           ——— surfaces->next
+**	         |        surfaces->next    surfaces              |
+**	        obj              |             |                 obj
+**           |              obj           obj                 |
+**      [obj->data]          |             |             [obj->data]
+**                      [obj->data]   [obj->data]
+*/
 typedef struct		s_object
 {
 	t_lst			*surfaces;

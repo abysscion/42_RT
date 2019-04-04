@@ -44,7 +44,7 @@ CC		=	gcc
 CFLAGS	=	-Wall -Wextra #-Werror
 CFLAGS	+=	-Ofast
 # CFLAGS	+=	-O0
-# CFLAGS	+=	-g
+CFLAGS	+=	-g
 
 #OSX frameworks
 FWS		=	-framework OpenCL -framework OpenGL -framework AppKit

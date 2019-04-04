@@ -28,7 +28,7 @@ int kiss_window_new(kiss_window *window, kiss_window *wdw, int decorate,
 	int x, int y, int w, int h)
 {
 	if (!window) return -1;
-	window->bg = kiss_white;
+	window->bg = color_bg;
 	kiss_makerect(&window->rect, x, y, w, h);
 	window->decorate = decorate;
 	window->visible = 0;
@@ -59,7 +59,7 @@ int kiss_window_draw(kiss_window *window, SDL_Renderer *renderer)
 	if (!window || !window->visible || !renderer) return 0;
 	kiss_fillrect(renderer, &window->rect, window->bg);
 	if (window->decorate)
-		kiss_decorate(renderer, &window->rect, kiss_blue, kiss_edge);
+		kiss_decorate(renderer, &window->rect, color_frame, kiss_edge);
 	return 1;
 }
 
@@ -68,7 +68,7 @@ int kiss_label_new(kiss_label *label, kiss_window *wdw, char *text,
 {
 	if (!label || !text) return -1;
 	if (label->font.magic != KISS_MAGIC) label->font = kiss_textfont;
-	label->textcolor = kiss_black;
+	label->textcolor = color_font;
 	kiss_makerect(&label->rect, x, y, 0, 0);
 	kiss_string_copy(label->text, KISS_MAX_LABEL, text, NULL);
 	label->visible = 0;
@@ -514,7 +514,7 @@ int kiss_progressbar_new(kiss_progressbar *progressbar, kiss_window *wdw,
 	if (!progressbar || w < 2 * kiss_border + 1) return -1;
 	if (progressbar->bar.magic != KISS_MAGIC)
 		progressbar->bar = kiss_bar;
-	progressbar->bg = kiss_white;
+	progressbar->bg = color_bg;
 	kiss_makerect(&progressbar->rect, x, y, w,
 		progressbar->bar.h + 2 * kiss_border);
 	kiss_makerect(&progressbar->barrect, x + kiss_border,
@@ -559,7 +559,7 @@ int kiss_progressbar_draw(kiss_progressbar *progressbar,
 	if (!progressbar || !progressbar->visible || !renderer)
 		return 0;
 	kiss_fillrect(renderer, &progressbar->rect, progressbar->bg);
-	kiss_decorate(renderer, &progressbar->rect, kiss_blue, kiss_edge);
+	kiss_decorate(renderer, &progressbar->rect, color_frame, kiss_edge);
 	progressbar->barrect.w = (int) (progressbar->width *
 		progressbar->fraction + 0.5);
 	kiss_makerect(&clip, 0, 0, progressbar->barrect.w,
@@ -575,7 +575,7 @@ int kiss_entry_new(kiss_entry *entry, kiss_window *wdw, int decorate,
 	if (!entry || !text) return -1;
 	if (entry->font.magic != KISS_MAGIC) entry->font = kiss_textfont;
 	if (w < 2 * kiss_border + entry->font.advance) return -1;
-	entry->bg = kiss_white;
+	entry->bg = color_bg;
 	entry->normalcolor = kiss_black;
 	entry->activecolor = kiss_blue;
 	entry->textwidth = w - 2 * kiss_border;
@@ -667,9 +667,9 @@ int kiss_textbox_new(kiss_textbox *textbox, kiss_window *wdw, int decorate,
 	if (!textbox || !a) return -1;
 	if (textbox->font.magic != KISS_MAGIC) textbox->font = kiss_textfont;
 	if (h - 2 * kiss_border < textbox->font.lineheight) return -1;
-	textbox->bg = kiss_white;
-	textbox->textcolor = kiss_black;
-	textbox->hlcolor = kiss_lightblue;
+	textbox->bg = color_bg;
+	textbox->textcolor = color_font;
+	textbox->hlcolor = color_hl;
 	kiss_makerect(&textbox->rect, x, y, w, h);
 	kiss_makerect(&textbox->textrect, x + kiss_border,
 		y + kiss_border, w - 2 * kiss_border, h - 2 * kiss_border);
@@ -751,7 +751,7 @@ int kiss_textbox_draw(kiss_textbox *textbox, SDL_Renderer *renderer)
 	if (!textbox || !textbox->visible || !renderer) return 0;
 	kiss_fillrect(renderer, &textbox->rect, textbox->bg);
 	if (textbox->decorate)
-		kiss_decorate(renderer, &textbox->rect, kiss_blue,
+		kiss_decorate(renderer, &textbox->rect, color_frame,
 			kiss_edge);
 	if (textbox->highlightline >= 0) {
 		kiss_makerect(&highlightrect, textbox->textrect.x,

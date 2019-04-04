@@ -6,16 +6,33 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:29:07 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/04 03:07:58 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/04 22:50:49 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
+/*
+**	Called when button is being pressed.
+*/
+
 void 		button_event(kiss_button *button, SDL_Event *e, int *draw, int *quit)
 {
 	if (kiss_button_event(button, e, draw))
+	{
+		printf("button pressed\n");
 		*quit = 1;
+	}
+}
+
+/*
+**	Called when text entry is being clicked.
+*/
+
+static void tbx_obj_event(kiss_textbox *textbox, SDL_Event *ev, int *draw)
+{
+	if (kiss_textbox_event(textbox, ev, draw))
+		printf("cant touch this\n");
 }
 
 static void	sdl_loop(t_env *env)
@@ -38,15 +55,11 @@ static void	sdl_loop(t_env *env)
 			kiss_window_event(&env->gui->rblock, &event, &draw);
 			kiss_window_event(&env->gui->lblock, &event, &draw);
 			kiss_window_event(&env->gui->bar, &event, &draw);
+			tbx_obj_event(&env->gui->tbx_obj, &event, &draw);
 			button_event(&env->gui->bt_arrup, &event, &draw, &quit);
 		}
 		if (draw == 0)
 			continue;
-		/*
-		**	Atm there's one issue. draw_rt draws just a rendered picture without
-		**		any effects. So it should get smth like flags to draw specific
-		**		rendered picture.
-		*/
 		draw_all(env);
 		draw = 0;
 	}

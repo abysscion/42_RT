@@ -116,7 +116,7 @@ char *kiss_backspace(char *str)
 	if (!(len = strlen(str))) return NULL;
 	str[len - 1] = 0;
 	kiss_utf8fix(str);
-	return str; 
+	return str;
 }
 
 int kiss_array_new(kiss_array *a)
