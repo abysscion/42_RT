@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/04 08:57:22 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/05 13:12:07 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ static int	choose_type(t_env *env, t_lst *surface , double *roots)
 			surface->obj, roots));
 	else if (surface->type == T_CONE)
 		return (intersect_cone(env->ray.start, env->ray.dest,
+			surface->obj, roots));
+	else if (surface->type == T_PARAB)
+		return (intersect_paraboloid(env->ray.start, env->ray.dest,
 			surface->obj, roots));
 	return (0);
 }

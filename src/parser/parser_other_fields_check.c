@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_other_fields_check.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 16:22:22 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/30 14:09:54 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/05 13:11:34 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int		surface_type_check(int fd, char ***split, char **line)
 			flag = T_CYLINDER;
 		if (strcmp((*split)[2], "PLANE") == 0)
 			flag = T_PLANE;
+		if (strcmp((*split)[2], "PARABOLOID") == 0)
+			flag = T_PARAB;	
 		parse_next(fd, split, line);
 		return (flag);
 	}

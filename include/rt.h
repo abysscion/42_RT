@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/04 22:00:14 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/05 13:10:10 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void				draw_all(t_env *e);
 # define T_SPHERE				2
 # define T_CYLINDER				3
 # define T_CONE					4
+# define T_PARAB				5
 
 # define T_AMBIENT				1
 # define T_POINT				2
@@ -108,6 +109,8 @@ void				sepia(t_env *env);
 void				blur(t_env *env);
 int					limit_cone_cyl(t_surf *surf,
 										t_v dest, t_v start, double *roots);
+int					intersect_paraboloid(t_v start, t_v dest, t_surf *parab,
+										double *roots);
 int					intersect_cylinder(t_v start,
 										t_v dest, t_surf *cyl, double *t);
 int					intersect_sphere(t_v start,

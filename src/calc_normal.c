@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   calc_normal.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:20:56 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/26 14:46:41 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/05 13:12:44 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+static void	parab_normal(t_surf *parab, t_lc *light)
+{
+	double	m;
+	t_v 	cp;
+
+	cp = vecsub(light->surf_point, parab->position);
+	m = vecmult_scal(parab->orientation, cp);
+	light->surf_normal = vecsub(cp, vecmult_num(parab->orientation,
+		m + parab->radius));
+}
 
 static void	cone_normal(t_env *env, double closest, t_surf *cone, t_lc *light)
 {
@@ -50,5 +61,7 @@ void		calc_surf_normal(t_env *env, double closest,
 		cyl_normal(env, closest, surface->obj, light);
 	else if (surface->type == T_CONE)
 		cone_normal(env, closest, surface->obj, light);
+	else if (surface->type == T_PARAB)
+		parab_normal(surface->obj, light);
 	light->surf_normal = vecnorm(light->surf_normal);
 }

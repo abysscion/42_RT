@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:22:30 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/26 14:53:44 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/05 13:06:06 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,29 @@ int		intersect_plane(t_v start, t_v dest, t_surf *plane, double *roots)
 	if (roots[0] < RAY_LENMIN)
 		return (0);
 	return (1);
+}
+
+int		intersect_paraboloid(t_v start, t_v dest, t_surf *parab, double *roots)
+{
+	t_v		pos_to_start;
+	double  a;
+	double	b;
+	double	c;
+	double	discr;
+
+	pos_to_start = vecsub(start, parab->position);
+	parab->orientation = vecnorm(parab->orientation);
+	a = vecmult_scal(dest, dest) - pow(vecmult_scal(dest, parab->orientation), 2);
+	b = vecmult_scal(dest, parab->orientation) * (vecmult_scal(pos_to_start,
+		parab->orientation) + 2 * parab->radius);
+	b = 2 * (vecmult_scal(dest, pos_to_start) - b);
+	c = vecmult_scal(pos_to_start, parab->orientation) *
+		(vecmult_scal(pos_to_start, parab->orientation) + 4 * parab->radius);
+	c = vecmult_scal(pos_to_start, pos_to_start) - c;
+	discr = b * b - 4 * a * c;
+	if (discr < 0)
+		return (0);
+	roots[0] = (b * -1 + sqrt(discr)) / (2 * a);
+	roots[1] = (b * -1 - sqrt(discr)) / (2 * a);
+	return (limit_cone_cyl(parab, dest, start, roots));
 }
