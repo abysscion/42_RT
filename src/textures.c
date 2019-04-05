@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 17:16:20 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/03 08:49:26 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/05 13:18:54 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ void		get_texture_color(t_surf *surface, t_lc *light)
 		calc_plane_local_coords(&light->surf_point, surface, &u, &v);
 	else if (surface->type == T_SPHERE)
 		calc_sphere_local_coords(&light->surf_point, surface, &u, &v);
-	else if (surface->type == T_CYLINDER || surface->type == T_CONE)
+	else if (surface->type == T_CYLINDER || surface->type == T_CONE ||
+			surface->type == T_PARAB)
 		calc_cone_cyl_local_coords(&light->surf_point, surface, &u, &v);
 	x = (int)(u * surface->texture->w) *
 		surface->texture->format->BytesPerPixel;

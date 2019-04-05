@@ -161,7 +161,7 @@ object
 	surface
 	{
 		type		:	PARABOLOID
-		texture		:	none
+		texture		:	textures/planets/earth.jpg
 		color		:	0 255 255
 		position	:	0.0 0.0 0.0
 		orientation	:	0.0 -1.0 0.0
