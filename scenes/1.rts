@@ -6,13 +6,19 @@ camera
 light
 {
 	type			:	AMBIENT
-	intensity		:	0.2
+	intensity		:	0.3
 }
 light
 {
 	type			:	POINT
-	intensity		:	0.8
-	position		:	0.0 10.0 -10.0
+	intensity		:	0.35
+	position		:	-20.0 0.0 -10.0
+}
+light
+{
+	type			:	POINT
+	intensity		:	0.35
+	position		:	20.0 0.0 -10.0
 }
 object
 {
@@ -23,7 +29,7 @@ object
 		type		:	PLANE
 		texture		:	none
 		color		:	255 255 255
-		position	:	0.0 0.0 20.0
+		position	:	0.0 0.0 10.0
 		orientation	:	0.0 0.0 -1.0
 		specular	:	0.0
 		reflect		:	0.0
@@ -38,22 +44,61 @@ object
 	{
 		type		:	SPHERE
 		texture		:	none
-		color		:	255 255 0
+		color		:	255 255 255
 		position	:	0.0 0.0 0.0
-		orientation	:	0.0 1.0 0.0
-		radius		:	1.0
+		orientation	:	0.0 0.0 0.0
+		radius		:	2.5
 		specular	:	0.0
 		reflect		:	0.0
-		transp		:	0.0
+		transp		:	0.99
 	}
+}
+object
+{
+	position		:	2.5 -1.5 2.0
+	orientation		:	0.0 0.0 0.0
 	surface
 	{
 		type		:	SPHERE
 		texture		:	none
 		color		:	255 0 255
-		position	:	1.5 0.0 0.0
+		position	:	0.0 0.0 0.0
 		orientation	:	0.0 0.0 0.0
-		radius		:	1.0
+		radius		:	2.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+}
+object
+{
+	position		:	0.0 2.5 2.0
+	orientation		:	0.0 0.0 0.0
+	surface
+	{
+		type		:	SPHERE
+		texture		:	none
+		color		:	255 0 150
+		position	:	0.0 0.0 0.0
+		orientation	:	0.0 0.0 0.0
+		radius		:	2.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+}
+object
+{
+	position		:	-2.5 -1.5 2.0
+	orientation		:	0.0 0.0 0.0
+	surface
+	{
+		type		:	SPHERE
+		texture		:	none
+		color		:	80 0 150
+		position	:	0.0 0.0 0.0
+		orientation	:	0.0 0.0 0.0
+		radius		:	2.0
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0

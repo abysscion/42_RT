@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_saver.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 19:38:25 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/03/30 20:34:24 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/03 09:26:07 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,22 @@ char		*itoa_fd(int color)
 
 void		init_ppm(int *fd)
 {
-	char *str;
-
-	*fd = open("screenshot.ppm", O_RDWR | O_CREAT);
+	char	*str;
+	ssize_t	muff;
+	*fd = open("screenshot.ppm", O_RDWR | O_CREAT, 00070);
 	if (*fd == -1)
 		exit(0);
-	write(*fd, "P3\n", 3);
-	str = itoa_fd(WIN_H);
+	muff = write(*fd, "P3\n", 3);
+	str = itoa_fd(RT__H);
 	ft_putstr_fd(str, *fd);
 	free(str);
-	write(*fd, " ", 1);
-	str = itoa_fd(WIN_W);
+	muff = write(*fd, " ", 1);
+	str = itoa_fd(RT__W);
 	ft_putstr_fd(str, *fd);
 	free(str);
-	write(*fd, "\n255\n", 5);
+	muff = write(*fd, "\n255\n", 5);
+	if (muff == -1)
+		ft_putstr("something goes horribly wrong\n");
 }
 
 void		save_image(int *mass, int iter)
@@ -76,24 +78,26 @@ void		save_image(int *mass, int iter)
 
 	init_ppm(&fd);
 	y = -1;
-	while (++y < WIN_H)
+	while (++y < RT__H)
 	{
 		x = -1;
-		while (++x < WIN_W)
+		while (++x < RT__W)
 		{
-			color[0] = (mass[x + y * WIN_H] >> 16) & 0xFF;
-			color[1] = mass[x + y * WIN_H] & 0xFF;
-			color[2] = (mass[x + y * WIN_H] >> 8) & 0xFF;
+			color[0] = (mass[x + y * RT__H] >> 16) & 0xFF;
+			color[1] = mass[x + y * RT__H] & 0xFF;
+			color[2] = (mass[x + y * RT__H] >> 8) & 0xFF;
 			iter = -1;
 			while (++iter < 3)
 			{
 				str = itoa_fd(color[iter]);
 				ft_putstr_fd(str, fd);
 				free(str);
-				write(fd, " ", 1);
+				if (write(fd, " ", 1) == -1)
+					ft_putstr("smth goes horribly wrong with image saving\n");
 			}
 		}
-		write(fd, "\n", 1);
+		if (write(fd, "\n", 1) == -1)
+					ft_putstr("smth goes horribly wrong with image saving\n");
 	}
 	close(fd);
 }

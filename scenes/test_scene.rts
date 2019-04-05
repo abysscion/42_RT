@@ -158,6 +158,23 @@ object
 }
 object
 {
+	surface
+	{
+		type		:	PARABOLOID
+		texture		:	textures/planets/earth.jpg
+		color		:	0 255 255
+		position	:	0.0 0.0 0.0
+		orientation	:	0.0 -1.0 0.0
+		angle		:	0.5
+		tip			:	0.0
+		height		:	1.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+}
+object
+{
 	position		:	0.0 0.0 0.0
 	orientation		:	0.0 0.0 0.0
 	surface

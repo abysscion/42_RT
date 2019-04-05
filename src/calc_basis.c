@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calc_basis.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 13:53:35 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/02 16:05:25 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/05 13:18:31 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		calc_basis(t_surf *surf)
 {
 	if (surf->type == T_SPHERE)
 		calc_basis_sphere(surf);
-	if (surf->type == T_CYLINDER || surf->type == T_CONE)
+	if (surf->type == T_CYLINDER || surf->type == T_CONE || surf->type == T_PARAB)
 		calc_basis_cyl_cone(surf);
 	if (surf->type == T_PLANE)
 		calc_basis_plane(surf);

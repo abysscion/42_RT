@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 17:16:20 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/02 16:05:46 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/05 13:18:54 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	calc_cone_cyl_local_coords(t_v *surf_p, t_surf *surface, double *u, 
 	center_to_point = vecnorm(vecsub(sr_pt_base, surface->position));
 	angle = vecmult_scal(center_to_point, surface->basis.x);
 	if (vecmult_scal(vecmult_vec(surface->basis.x, surface->basis.y), center_to_point) > 0)
-		*u = acos(vecmult_scal(center_to_point, surface->basis.x)) / (2 * M_PI);	
+		*u = acos(vecmult_scal(center_to_point, surface->basis.x)) / (2 * M_PI);
 	else
 	{
 		*u = (acos(vecmult_scal(center_to_point, surface->basis.x)) + M_PI) / (2 * M_PI);
@@ -73,7 +73,7 @@ static void	calc_plane_local_coords(t_v *surf_point, t_surf *surface, double *u,
 }
 
 /*
-** need another way to handle u and v being NaN 
+** need another way to handle u and v being NaN
 ** other than x < 0 || y < 0 -> return
 */
 
@@ -90,7 +90,8 @@ void		get_texture_color(t_surf *surface, t_lc *light)
 		calc_plane_local_coords(&light->surf_point, surface, &u, &v);
 	else if (surface->type == T_SPHERE)
 		calc_sphere_local_coords(&light->surf_point, surface, &u, &v);
-	else if (surface->type == T_CYLINDER || surface->type == T_CONE)
+	else if (surface->type == T_CYLINDER || surface->type == T_CONE ||
+			surface->type == T_PARAB)
 		calc_cone_cyl_local_coords(&light->surf_point, surface, &u, &v);
 	x = (int)(u * surface->texture->w) *
 		surface->texture->format->BytesPerPixel;
@@ -119,7 +120,7 @@ void		get_texture_color(t_surf *surface, t_lc *light)
 	texture = IMG_Load("textures/wall.png");
 	pixel = (unsigned char *)texture->pixels;
 
-	SDL_CreateWindowAndRenderer(WIN_H, WIN_W, 0, &window, &render);
+	SDL_CreateWindowAndRenderer(RT__H, RT__W, 0, &window, &render);
 
 	printf("%d %d %d %d %d\n", texture->w, texture->h, texture->pitch, texture->format->format, texture->format->BitsPerPixel);
 	printf("%d %d %d %d\n", texture->format->Rmask, texture->format->Gmask, texture->format->Bmask, texture->format->Amask);

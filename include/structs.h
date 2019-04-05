@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/01 14:18:15 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/05 20:55:39 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,31 @@
 #  include <SDL2/SDL_image.h>
 # endif
 # include "libvec.h"
+
+typedef	struct		s_norme_abuse
+{
+	int				hrw;
+	int				hrh;
+}					t_na;
+
+typedef	struct		s_gui
+{
+	SDL_Event 		ev;
+	SDL_Renderer	*ren;
+	kiss_window		rblock;
+	kiss_window		lblock;
+	kiss_window		bar;
+	kiss_window		background;
+	kiss_window		win_obj_info;
+	kiss_array		objarr;
+	kiss_button		bt_arrup;
+	kiss_textbox	tbx_obj;
+	kiss_array		tbx_obj_arr;
+	kiss_label		lab_tbx_obj;
+	kiss_textbox	tbx_info;
+	kiss_array		tbx_info_arr;
+	kiss_label		lab_tbx_info;
+}					t_gui;
 
 typedef struct		s_blur
 {
@@ -98,6 +123,21 @@ typedef struct		s_ls
 	int				id;
 }					t_lst;
 
+/*
+**							environment					(t_lst)  ——  objects;
+**								 |						(t_obj)  ——  obj;
+**							  objects					(t_surf) ——  surfaces;
+**							/         \
+**						 obj           obj->next
+**					    /   \         |         \
+**					   /     |        |          \
+**	      surfaces ————      |         \           ——— surfaces->next
+**	         |        surfaces->next    surfaces              |
+**	        obj              |             |                 obj
+**           |              obj           obj                 |
+**      [obj->data]          |             |             [obj->data]
+**                      [obj->data]   [obj->data]
+*/
 typedef struct		s_object
 {
 	t_lst			*surfaces;
@@ -121,8 +161,10 @@ typedef struct		s_sdl
 typedef struct		s_flags
 {
 	int				stereo;
+	int				sepia;
+	int				blur;
+	int				aa;
 }					t_flg;
-
 
 typedef	struct		s_environment
 {
@@ -131,7 +173,9 @@ typedef	struct		s_environment
 	t_cam			cam;
 	t_sdl			sdl;
 	t_flg			flags;
-	t_ray			ray;	
+	t_ray			ray;
+	t_gui			*gui;
+	t_na			abuse;
 }					t_env;
 
 #endif
