@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:29:07 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/04 22:50:49 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/05 21:58:34 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,16 @@ void 		button_event(kiss_button *button, SDL_Event *e, int *draw, int *quit)
 **	Called when text entry is being clicked.
 */
 
-static void tbx_obj_event(kiss_textbox *textbox, SDL_Event *ev, int *draw)
+static void tbx_obj_event(kiss_textbox *tbx, SDL_Event *ev, int *draw, t_env *e)
 {
-	if (kiss_textbox_event(textbox, ev, draw))
-		printf("cant touch this\n");
+	if (kiss_textbox_event(tbx, ev, draw))
+	{
+		if (e->gui->win_obj_info.visible == 0)
+			e->gui->win_obj_info.visible = 1;
+		else if (e->gui->win_obj_info.visible == 1)
+			e->gui->win_obj_info.visible = 0;
+	}
+	*draw = 1;
 }
 
 static void	sdl_loop(t_env *env)
@@ -52,10 +58,10 @@ static void	sdl_loop(t_env *env)
 				quit = 1;
 			else if (event.type == SDL_KEYDOWN)
 				sdl_key_press_events(event.key.keysym.sym, env);
-			kiss_window_event(&env->gui->rblock, &event, &draw);
-			kiss_window_event(&env->gui->lblock, &event, &draw);
-			kiss_window_event(&env->gui->bar, &event, &draw);
-			tbx_obj_event(&env->gui->tbx_obj, &event, &draw);
+			// kiss_window_event(&env->gui->rblock, &event, &draw);
+			// kiss_window_event(&env->gui->lblock, &event, &draw);
+			// kiss_window_event(&env->gui->bar, &event, &draw);
+			tbx_obj_event(&env->gui->tbx_obj, &event, &draw, env);
 			button_event(&env->gui->bt_arrup, &event, &draw, &quit);
 		}
 		if (draw == 0)

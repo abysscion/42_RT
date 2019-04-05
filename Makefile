@@ -42,7 +42,7 @@ OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 # compiler
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra #-Werror
-CFLAGS	+=	-Ofast
+# CFLAGS	+=	-Ofast
 # CFLAGS	+=	-O0
 CFLAGS	+=	-g
 

@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 05:21:02 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/05 01:57:40 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/05 22:02:45 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,8 @@ static void	rotation(int key, t_env *e, char *redraw)
 
 static void	movement(int key, t_env *e, char *redraw)
 {
-	t_lst	*objects;
-	t_lst	*objsurfs;
-	t_surf	*target;
-
-	objects = e->objects;
-	objsurfs = ((t_obj *) objects->obj)->surfaces;
-	target = (t_surf *) objsurfs->obj;
-	// ((t_surf*)((t_lst *)((t_obj *)e->objects->obj)->surfaces)->obj)->color.r -= 50;
 	if (key == SDLK_UP || key == SDLK_DOWN || key == SDLK_RIGHT ||
-		key == SDLK_LEFT || key == SDLK_RSHIFT || key == SDLK_RCTRL ||
-		key == SDLK_SPACE)
+		key == SDLK_LEFT || key == SDLK_RSHIFT || key == SDLK_RCTRL)
 		*redraw = 1;
 	else
 		return ;
@@ -63,12 +54,6 @@ static void	movement(int key, t_env *e, char *redraw)
 	else if (key == SDLK_DOWN)
 		e->cam.position = vecsub(e->cam.position,
 			vec_rotate(e->cam.rotation, (t_v){0, 0, 1}));
-	else if (key == SDLK_SPACE)
-	{
-		target->color.g -= 25;
-		kiss_array_appendstring(&e->gui->tbx_obj_arr, 0,
-					"1st surf green value: ", ft_itoa(target->color.g));
-	}
 }
 
 void		sdl_key_press_events(int key, t_env *env)
@@ -78,9 +63,33 @@ void		sdl_key_press_events(int key, t_env *env)
 	redraw = 0;
 	if (key == SDLK_s)
 		save_image(env->sdl.image, 0);
+	else if (key == SDLK_SPACE)
+	{
+		kiss_array_assign(&env->gui->tbx_obj_arr, 0, 0,
+												ft_strjoin("", "La cameria"));
+		redraw = 1;
+	}
+	else if (key == SDLK_f)
+		printf("Objs: [%d]\nSurfs: [%d]\nLights: [%d]\n",
+						numOfObjs(env), numOfSurfs(env), numOfLights(env));
 	movement(key, env, &redraw);
 	rotation(key, env, &redraw);
 	if (redraw)
 		render(env);
 }
 
+/*									temp shit
+	// t_lst	*objects;
+	// t_lst	*objsurfs;
+	// t_surf	*target;
+
+	// objects = env->objects;
+	// objsurfs = ((t_obj *) objects->obj)->surfaces;
+	// target = (t_surf *) objsurfs->obj;
+	// ((t_surf*)((t_lst *)((t_obj *)e->objects->obj)->surfaces)->obj)->color.r -= 50;
+
+	// kiss_array_appendstring(&env->gui->tbx_obj_arr, 0,
+	// 			"1st surf green value: ", ft_itoa(target->color.g));
+
+	// printf("data [%s]", (char *)kiss_array_data(&env->gui->tbx_obj_arr, 3));
+*/

@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/05 01:38:50 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/05 20:55:39 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,16 @@ typedef	struct		s_gui
 	kiss_window		rblock;
 	kiss_window		lblock;
 	kiss_window		bar;
+	kiss_window		background;
+	kiss_window		win_obj_info;
 	kiss_array		objarr;
 	kiss_button		bt_arrup;
 	kiss_textbox	tbx_obj;
 	kiss_array		tbx_obj_arr;
 	kiss_label		lab_tbx_obj;
+	kiss_textbox	tbx_info;
+	kiss_array		tbx_info_arr;
+	kiss_label		lab_tbx_info;
 }					t_gui;
 
 typedef struct		s_blur

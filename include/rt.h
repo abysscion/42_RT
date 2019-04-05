@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/05 13:10:10 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/05 16:37:33 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,18 @@
 # include <math.h>
 
 /*=================================== GUI ===================================*/
-# define	GUI_BAR_H			128
-# define	GUI_LBLOCK_W		256
-# define	GUI_RBLOCK_W		256
-# define	GUI_LBLOCK_H		(RT__H)//- GUI_BAR_H)
-# define	GUI_RBLOCK_H		(RT__H)// - GUI_BAR_H)
+# define	GUI_BAR_H			74
+# define	GUI_LBLOCK_W		350
+# define	GUI_RBLOCK_W		350
+# define	GUI_LBLOCK_H		(RT__H + 200)//- GUI_BAR_H)
+# define	GUI_RBLOCK_H		(RT__H + 200)// - GUI_BAR_H)
+
 void				init_gui(t_env *e);
 void				draw_gui(t_env *e);
 void				draw_all(t_env *e);
+int					numOfLights(t_env *e);
+int					numOfSurfs(t_env *e);
+int					numOfObjs(t_env *e);
 
 /*================================ END OF GUI ===============================*/
 
@@ -47,7 +51,7 @@ void				draw_all(t_env *e);
 # define ROT_STEP				15
 # define RT__W					600
 # define RT__H					600
-# define WIN_H					(RT__H + GUI_BAR_H)
+# define WIN_H					(RT__H + GUI_BAR_H + 200)
 # define WIN_W					(RT__W + GUI_LBLOCK_W + GUI_RBLOCK_W)
 # define CLR_BACKGROUND			0
 
