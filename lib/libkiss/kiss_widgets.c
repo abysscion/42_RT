@@ -754,10 +754,10 @@ int kiss_textbox_draw(kiss_textbox *textbox, SDL_Renderer *renderer)
 		kiss_decorate(renderer, &textbox->rect, color_frame,
 			kiss_edge);
 	if (textbox->highlightline >= 0) {
-		kiss_makerect(&highlightrect, textbox->textrect.x,
-			textbox->textrect.y +
+		kiss_makerect(&highlightrect, textbox->textrect.x + kiss_edge,
+			textbox->textrect.y + kiss_edge +
 			textbox->highlightline * textbox->font.lineheight,
-			textbox->textrect.w, textbox->font.lineheight);
+			textbox->textrect.w - kiss_edge * 2, textbox->font.lineheight);
 		kiss_fillrect(renderer, &highlightrect, textbox->hlcolor);
 	}
 	if (!textbox->array || !textbox->array->length) return 0;
@@ -769,9 +769,9 @@ int kiss_textbox_draw(kiss_textbox *textbox, SDL_Renderer *renderer)
 			textbox->firstline + i), NULL),
 			(char *) kiss_array_data(textbox->array,
 			textbox->firstline + i), NULL);
-		kiss_rendertext(renderer, buf, textbox->textrect.x,
+		kiss_rendertext(renderer, buf, textbox->textrect.x + kiss_edge,
 			textbox->textrect.y + i * textbox->font.lineheight +
-			textbox->font.spacing / 2, textbox->font,
+			textbox->font.spacing / 2 + kiss_edge, textbox->font,
 			textbox->textcolor);
 	}
 	return 1;

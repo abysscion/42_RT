@@ -6,17 +6,17 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 05:21:02 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/05 22:02:45 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/08 14:05:55 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void	rotation(int key, t_env *e, char *redraw)
+static void	rotation(int key, t_env *e)
 {
 	if (key == SDLK_KP_4 || key == SDLK_KP_2 ||
 		key == SDLK_KP_6 || key == SDLK_KP_8)
-		*redraw = 1;
+		e->flags.need_render = 1;
 	else
 		return ;
 	if (key == SDLK_KP_4)
@@ -29,11 +29,11 @@ static void	rotation(int key, t_env *e, char *redraw)
 		e->cam.rotation.x -= ROT_STEP;
 }
 
-static void	movement(int key, t_env *e, char *redraw)
+static void	movement(int key, t_env *e)
 {
 	if (key == SDLK_UP || key == SDLK_DOWN || key == SDLK_RIGHT ||
 		key == SDLK_LEFT || key == SDLK_RSHIFT || key == SDLK_RCTRL)
-		*redraw = 1;
+		e->flags.need_render = 1;
 	else
 		return ;
 	if (key == SDLK_RSHIFT)
@@ -58,24 +58,14 @@ static void	movement(int key, t_env *e, char *redraw)
 
 void		sdl_key_press_events(int key, t_env *env)
 {
-	char	redraw;
-
-	redraw = 0;
 	if (key == SDLK_s)
 		save_image(env->sdl.image, 0);
-	else if (key == SDLK_SPACE)
-	{
-		kiss_array_assign(&env->gui->tbx_obj_arr, 0, 0,
-												ft_strjoin("", "La cameria"));
-		redraw = 1;
-	}
 	else if (key == SDLK_f)
 		printf("Objs: [%d]\nSurfs: [%d]\nLights: [%d]\n",
 						numOfObjs(env), numOfSurfs(env), numOfLights(env));
-	movement(key, env, &redraw);
-	rotation(key, env, &redraw);
-	if (redraw)
-		render(env);
+	movement(key, env);
+	rotation(key, env);
+	render(env);
 }
 
 /*									temp shit
@@ -90,6 +80,9 @@ void		sdl_key_press_events(int key, t_env *env)
 
 	// kiss_array_appendstring(&env->gui->tbx_obj_arr, 0,
 	// 			"1st surf green value: ", ft_itoa(target->color.g));
+
+	// kiss_array_assign(&env->gui->tbx_obj_arr, 0, 0,
+											// ft_strjoin("", "La cameria"));
 
 	// printf("data [%s]", (char *)kiss_array_data(&env->gui->tbx_obj_arr, 3));
 */

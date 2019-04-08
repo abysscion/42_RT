@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 13:47:08 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/05 22:20:09 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/08 14:05:45 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,46 +17,83 @@ void	init_gui(t_env *e)
 	t_gui	*g;
 	int		txtw0;
 	int		txtw1;
+	int		txtw2;
 	int		shit;
+	int		i;
 
 	g = e->gui;
+	g->eff_num = sizeof(g->sbt_eff_arr) / sizeof(kiss_selectbutton);
 	txtw0 = kiss_textwidth(kiss_textfont, ("Objects overwiew"), 0x0);
 	txtw1 = kiss_textwidth(kiss_textfont, ("Object info"), 0x0);
+	txtw2 = kiss_textwidth(kiss_textfont, ("Effects"), 0x0);
 	shit = GUI_BAR_H + kiss_edge + kiss_textfont.lineheight;
+	i = -1;
+
 	kiss_array_new(&g->tbx_obj_arr);
 	kiss_array_new(&g->tbx_info_arr);
+	kiss_array_new(&g->tbx_eff_arr);
+
 	kiss_array_append(&g->objarr, ARRAY_TYPE, &g->tbx_obj_arr);
 	kiss_array_append(&g->objarr, ARRAY_TYPE, &g->tbx_info_arr);
+	kiss_array_append(&g->objarr, ARRAY_TYPE, &g->tbx_eff_arr);
 	kiss_button_new(&g->bt_arrup, &g->lblock, "Exit", 10, 10);
+
 	kiss_window_new(&g->background, NULL, 0, 0, 0, WIN_W, WIN_H);
 	kiss_window_new(&g->bar, NULL, 1, 0, 0, WIN_W, GUI_BAR_H);
 	kiss_window_new(&g->rblock, NULL, 1,
-		RT__W + GUI_LBLOCK_W,						GUI_BAR_H - kiss_edge,
-		GUI_RBLOCK_W,								GUI_RBLOCK_H + kiss_edge);
+		RT__W + GUI_LBLOCK_W, GUI_BAR_H - kiss_edge,
+		GUI_RBLOCK_W, GUI_RBLOCK_H + kiss_edge);
 	kiss_window_new(&g->lblock, NULL, 1,
-		0, 											GUI_BAR_H - kiss_edge,
-		GUI_LBLOCK_W,								GUI_LBLOCK_H + kiss_edge);
-	kiss_window_new(&g->win_obj_info, NULL, 1,
-		WIN_W - GUI_RBLOCK_W + kiss_edge * 2,		shit,
-		GUI_RBLOCK_W - kiss_edge * 4,		 		GUI_LBLOCK_H * 0.5);
-	kiss_label_new(&g->lab_tbx_obj, &g->lblock, "Objects overwiew",
-		(GUI_LBLOCK_W - txtw0) / 2,					GUI_BAR_H + kiss_edge);
-	kiss_label_new(&g->lab_tbx_info, &g->lblock, "Object info",
-		WIN_W - (GUI_LBLOCK_W + txtw1) / 2,			GUI_BAR_H + kiss_edge);
+		0, GUI_BAR_H - kiss_edge,
+		GUI_LBLOCK_W, GUI_LBLOCK_H + kiss_edge);
+	kiss_window_new(&g->win_info, NULL, 1,
+		WIN_W - GUI_RBLOCK_W + kiss_edge * 2, shit,
+		GUI_RBLOCK_W - kiss_edge * 4, GUI_LBLOCK_H * 0.5);
 	kiss_textbox_new(&g->tbx_obj, &g->lblock, 1, &g->tbx_obj_arr,
-		kiss_edge * 2,								shit,
-		GUI_LBLOCK_W - kiss_edge * 4,				GUI_LBLOCK_H * 0.5);
-	kiss_textbox_new(&g->tbx_info, &g->win_obj_info, 1, &g->tbx_info_arr,
-		WIN_W - GUI_RBLOCK_W + kiss_edge * 2,		shit,
-		GUI_RBLOCK_W - kiss_edge * 4,		 		GUI_LBLOCK_H * 0.5);
+		kiss_edge * 2, shit,
+		GUI_LBLOCK_W - kiss_edge * 4, GUI_LBLOCK_H * 0.5);
+	kiss_textbox_new(&g->tbx_info, &g->win_info, 1, &g->tbx_info_arr,
+		WIN_W - GUI_RBLOCK_W + kiss_edge * 2, shit,
+		GUI_RBLOCK_W - kiss_edge * 4, GUI_LBLOCK_H * 0.5);
+	kiss_textbox_new(&g->tbx_eff, &g->rblock, 1, &g->tbx_eff_arr,
+		g->win_info.rect.x,
+			g->win_info.rect.y + g->win_info.rect.h + kiss_textfont.lineheight,
+		GUI_EFF_W,
+			(g->eff_num + 1) * (g->tbx_obj.font.lineheight +
+			g->tbx_obj.font.spacing));
+
+	kiss_label_new(&g->lab_tbx_obj, &g->lblock, "Objects overwiew",
+		g->tbx_obj.rect.x + (g->tbx_obj.rect.w - txtw0) / 2,
+		g->tbx_obj.rect.y - kiss_textfont.lineheight);
+	kiss_label_new(&g->lab_tbx_info, &g->lblock, "Object info",
+		g->tbx_info.rect.x + (g->tbx_info.rect.w - txtw1) / 2,
+		g->tbx_info.rect.y - kiss_textfont.lineheight);
+	kiss_label_new(&g->lab_eff, &g->rblock, "Effects",
+		g->tbx_eff.rect.x + (g->tbx_eff.rect.w - txtw2) / 2,
+		g->tbx_eff.rect.y - kiss_textfont.lineheight);
+
+	while (++i < g->eff_num)
+		kiss_selectbutton_new(&g->sbt_eff_arr[i], &g->rblock,
+			g->tbx_eff.rect.x + g->tbx_eff.rect.w - kiss_edge * 2 - GUI_SBT_SIZE,
+			g->tbx_eff.rect.y + kiss_edge * 2.5 + g->tbx_eff.font.lineheight * i);
+	e->gui->sbt_eff_arr[e->gui->eff_num - 1].selected = 1;
+
 	e->gui->background.visible = 1;
 	e->gui->rblock.visible = 1;
 	e->gui->lblock.visible = 1;
 	e->gui->bar.visible = 1;
-	e->gui->win_obj_info.visible = 1;
+	e->gui->win_info.visible = 1;
+
 	kiss_array_appendstring(&g->tbx_obj_arr, 0, "Main camera", 0x0);
+
 	kiss_array_appendstring(&g->tbx_info_arr, 0, "Position: ", 0x0);
 	kiss_array_appendstring(&g->tbx_info_arr, 1, "Rotation: ", 0x0);
+
+	kiss_array_appendstring(&g->tbx_eff_arr, 0, "Antialiasing", 0x0);
+	kiss_array_appendstring(&g->tbx_eff_arr, 1, "Stereo", 0x0);
+	kiss_array_appendstring(&g->tbx_eff_arr, 2, "Sepia", 0x0);
+	kiss_array_appendstring(&g->tbx_eff_arr, 3, "Blur", 0x0);
+	kiss_array_appendstring(&g->tbx_eff_arr, 4, "No effects", 0x0);
 }
 
 void	draw_gui(t_env *e)
@@ -64,18 +101,28 @@ void	draw_gui(t_env *e)
 	t_gui	*g;
 	t_v		p;
 	char	*str;
+	int		i;
 
 	g = e->gui;
+	i = -1;
 	kiss_window_draw(&g->background, e->sdl.renderer);
 	kiss_window_draw(&g->rblock, e->sdl.renderer);
 	kiss_window_draw(&g->lblock, e->sdl.renderer);
 	kiss_window_draw(&g->bar, e->sdl.renderer);
-	kiss_window_draw(&g->win_obj_info, e->sdl.renderer);
+	kiss_window_draw(&g->win_info, e->sdl.renderer);
+
 	kiss_button_draw(&g->bt_arrup, e->sdl.renderer);
+
 	kiss_textbox_draw(&g->tbx_obj, e->sdl.renderer);
 	kiss_textbox_draw(&g->tbx_info, e->sdl.renderer);
+	kiss_textbox_draw(&g->tbx_eff, e->sdl.renderer);
+
+	while (++i < g->eff_num)
+		kiss_selectbutton_draw(&g->sbt_eff_arr[i], e->sdl.renderer);
+
 	kiss_label_draw(&g->lab_tbx_obj, e->sdl.renderer);
 	kiss_label_draw(&g->lab_tbx_info, e->sdl.renderer);
+	kiss_label_draw(&g->lab_eff, e->sdl.renderer);
 
 	str = (char *)malloc(50);
 	p = e->cam.position;
@@ -102,6 +149,7 @@ void	draw_all(t_env *e)
 {
 	SDL_RenderClear(e->sdl.renderer);
 	draw_gui(e);
+	render(e);
 	draw_rt(e);
 	SDL_RenderPresent(e->sdl.renderer);
 }

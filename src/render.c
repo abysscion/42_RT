@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/05 13:12:07 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/08 14:05:38 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,33 +118,37 @@ void		render(t_env *env)
 	int		x;
 	int		y;
 
-	if (env->flags.stereo == 0)
+	if (env->flags.need_render == 1)
 	{
-		y = env->abuse.hrh * -1;
-		while (y < env->abuse.hrh)
+		if (env->flags.stereo == 0)
 		{
-			x = env->abuse.hrw * -1;
-			while (x < env->abuse.hrw)
+			y = env->abuse.hrh * -1;
+			while (y < env->abuse.hrh)
 			{
-				dest = (t_v){x * 1.0 / RT__W, y * -1.0 / RT__H, 1.0};
-				dest = vecnorm(vec_rotate(env->cam.rotation, dest));
-				init_ray(env, dest);
-				color = trace_ray(env, RECURSION);
-				env->sdl.image[RT__W *
-					(y + env->abuse.hrh) + (x + env->abuse.hrw)] =
-					(color.r << 16) + (color.b << 8) + (color.g);
-				x++;
+				x = env->abuse.hrw * -1;
+				while (x < env->abuse.hrw)
+				{
+					dest = (t_v){x * 1.0 / RT__W, y * -1.0 / RT__H, 1.0};
+					dest = vecnorm(vec_rotate(env->cam.rotation, dest));
+					init_ray(env, dest);
+					color = trace_ray(env, RECURSION);
+					env->sdl.image[RT__W *
+						(y + env->abuse.hrh) + (x + env->abuse.hrw)] =
+						(color.r << 16) + (color.b << 8) + (color.g);
+					x++;
+				}
+				y++;
 			}
-			y++;
 		}
+		else
+			stereoscopy(env);
+		if (env->flags.blur == 1)
+			blur(env);
+		if (env->flags.sepia == 1)
+			sepia(env);
+		if (env->flags.aa == 1)
+			anti_aliasing(env);
+		env->flags.need_render ^= 1;
+		draw_all(env);
 	}
-	else
-		stereoscopy(env);
-	if (env->flags.aa == 0 && env->flags.blur == 1)
-		blur(env);
-	if (env->flags.sepia)
-		sepia(env);
-	if (env->flags.aa == 1 && env->flags.blur == 0)
-		anti_aliasing(env);
-	draw_all(env);
 }

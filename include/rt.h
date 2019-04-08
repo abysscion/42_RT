@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/05 16:37:33 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/08 11:50:50 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define	GUI_RBLOCK_W		350
 # define	GUI_LBLOCK_H		(RT__H + 200)//- GUI_BAR_H)
 # define	GUI_RBLOCK_H		(RT__H + 200)// - GUI_BAR_H)
+# define	GUI_EFF_W			175
+# define	GUI_SBT_SIZE		15
 
 void				init_gui(t_env *e);
 void				draw_gui(t_env *e);
