@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stereoscopy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 18:53:39 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/04/03 10:04:36 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/10 20:39:39 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	stereoscopy(t_env *env)
 
 	windows_w = RT__W / 2;
 	left_stereoscopy(env, windows_w);
-	printf("privet\n");
 	right_stereoscopy(env, windows_w);
 	env->cam.position.x -= 0.1;
 	env->cam.rotation.y += 0.2;

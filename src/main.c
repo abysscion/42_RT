@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:29:07 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/08 14:16:14 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/10 20:35:51 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ static	void	sdl_loop(t_env *env)
 	int			i;
 
 	quit = 0;
-	while(!quit)
+	while (!quit)
 	{
 		SDL_Delay(10);
-		while(SDL_PollEvent(&event) != 0)
+		while (SDL_PollEvent(&event) != 0)
 		{
 			i = -1;
 			if ((event.type == SDL_KEYDOWN &&
@@ -88,7 +88,7 @@ static	void	sdl_loop(t_env *env)
 				quit = 1;
 			else if (event.type == SDL_KEYDOWN)
 				sdl_key_press_events(event.key.keysym.sym, env);
-			while(++i < env->gui->eff_num)
+			while (++i < env->gui->eff_num)
 				sbt_event(&env->gui->sbt_eff_arr[i], &event, &draw, env);
 			tbx_obj_event(&env->gui->tbx_obj, &event, &draw, env);
 			button_event(&env->gui->bt_arrup, &event, &draw, &quit);
@@ -110,6 +110,7 @@ int				main(int argc, char **argv)
 
 	if (argc == 2 || argc == 3)
 	{
+		check_filename(argv[1]);
 		env = (t_env *)malloc(sizeof(t_env));
 		init_env(env, argv);
 		init_gui(env);

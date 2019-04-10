@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/08 11:50:50 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/10 20:37:19 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ int					expose_hook(t_env *e);
 /*=============================== END OF MAIN ===============================*/
 
 /*================================= PARSER ==================================*/
+void				check_filename(char *file_name);
 void				parse_file(char *name, t_env *env);
 void				parser_validation(char *name);
 

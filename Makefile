@@ -35,7 +35,8 @@ SRC		=	main.c \
 			parser/parser_open_close_check.c \
 			parser/parser_float_fields_check.c \
 			parser/parser_other_fields_check.c \
-			blur.c
+			blur.c \
+			check_file.c
 
 OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 

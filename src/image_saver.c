@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_saver.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 19:38:25 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/04/03 09:26:07 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/10 20:23:26 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void		init_ppm(int *fd)
 {
 	char	*str;
 	ssize_t	muff;
+
 	*fd = open("screenshot.ppm", O_RDWR | O_CREAT, 00070);
 	if (*fd == -1)
 		exit(0);
@@ -97,7 +98,7 @@ void		save_image(int *mass, int iter)
 			}
 		}
 		if (write(fd, "\n", 1) == -1)
-					ft_putstr("smth goes horribly wrong with image saving\n");
+			ft_putstr("smth goes horribly wrong with image saving\n");
 	}
 	close(fd);
 }
