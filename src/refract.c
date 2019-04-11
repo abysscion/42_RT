@@ -6,7 +6,7 @@
 /*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 05:21:02 by emayert           #+#    #+#             */
-/*   Updated: 2019/03/27 15:28:36 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/11 15:17:48 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,62 +95,27 @@ t_clr   calc_refract(t_env *env, t_lc lc, t_lst *surface, int rec)
 	t_clr	refr_color;
 	t_clr	refl_color;
 	t_v		trans_vec;
-	double	kr;
+	int		temp;
+	// double	kr;
 
-	kr = 0;
+	// kr = 0;
 	refr_color = (t_clr){0, 0, 0};
-	fresnel(lc.orig_dest, lc.orig_norm, ((t_surf *)surface->obj)->transp, &kr);
+	// fresnel(lc.orig_dest, lc.orig_norm, ((t_surf *)surface->obj)->transp, &kr);
 	env->ray.start = lc.surf_point;
 	env->ray.min = RAY_LENMIN;
 	env->ray.max = RAY_LENMAX;
-	if (kr < 1)
-	{
-		refract(lc.orig_dest, lc.orig_norm, &trans_vec, ((t_surf *)surface->obj)->transp);
+	// if (kr < 1)
+	// {
+		temp = refract(lc.orig_dest, lc.orig_norm, &trans_vec, ((t_surf *)surface->obj)->transp);
+		if (temp == 0)
+		{
+			env->ray.dest = calc_reflected_ray(lc.orig_norm, lc.orig_dest);
+			refl_color = trace_ray(env, rec - 1);
+			return (refl_color);
+		}
 		env->ray.dest = trans_vec;
 		refr_color = trace_ray(env, rec - 1);
-	}
-	env->ray.dest = calc_reflected_ray(lc.orig_norm, lc.orig_dest);
-	refl_color = trace_ray(env, rec - 1);
-	return (colorize(refl_color, refr_color, kr));
+		return (refr_color);
+	// }
+	// return (colorize(refl_color, refr_color, kr));
 }
-
-// t_clr   calc_refract(t_env *env, t_lc lc, t_lst *surface, int rec)
-// {
-//     t_clr   ref_color;
-//     t_v     trans_vec;
-//     double  closest;
-
-//     if ((refract(lc.orig_dest, lc.orig_norm, &trans_vec,
-// 			((t_surf *)surface->obj)->transp)) == 1)
-// 		{
-// 			env->ray.start = lc.surf_point;
-// 			env->ray.dest = trans_vec;
-// 			env->ray.min = RAY_LENMIN;
-// 			env->ray.max = RAY_LENMAX;
-// 			closest = closest_intersection(env, NULL);
-// 			lc.surf_point = vecsum(env->ray.start, vecmult_num(env->ray.dest, closest));
-// 			calc_surf_normal(env, closest, surface, &lc);
-// 			if ((refract(env->ray.dest, lc.surf_normal, &trans_vec,
-// 				((t_surf *)surface->obj)->transp)) == 1)
-// 			{
-// 				env->ray.start = lc.surf_point;
-// 				env->ray.dest = trans_vec;
-// 				env->ray.min = RAY_LENMIN;
-// 				env->ray.max = RAY_LENMAX;
-// 				ref_color = trace_ray(env, rec - 1);
-// 				return (ref_color);
-// 			}
-// 			env->ray.dest = lc.orig_dest;
-// 			ref_color = trace_ray(env, rec - 1);
-// 			return (ref_color);
-// 		}
-// 		else
-// 		{
-// 			env->ray.start = lc.surf_point;
-// 			env->ray.dest = calc_reflected_ray(lc.to_start, lc.surf_normal);
-// 			env->ray.min = RAY_LENMIN;
-// 			env->ray.max = RAY_LENMAX;
-// 			ref_color = trace_ray(env, rec - 1);
-// 			return (ref_color);
-// 		}
-// }
