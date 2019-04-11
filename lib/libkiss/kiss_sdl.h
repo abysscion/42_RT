@@ -208,6 +208,7 @@ typedef struct kiss_progressbar {
 typedef struct kiss_entry {
 	int visible;
 	int focus;
+	int	need_hl;
 	SDL_Rect rect;
 	int decorate;
 	int textx;
@@ -256,7 +257,8 @@ typedef struct kiss_combobox {
 	kiss_window *wdw;
 } kiss_combobox;
 
-extern SDL_Color color_bg, color_frame, color_font, color_hl,
+extern SDL_Color	color_bg, color_frame, color_font, color_hl, color_font_a,
+					color_frame_a,
 		kiss_white, kiss_black, kiss_green, kiss_blue, kiss_lightblue;
 extern	kiss_font kiss_textfont, kiss_buttonfont;
 extern	kiss_image kiss_normal, kiss_prelight, kiss_active, kiss_bar,

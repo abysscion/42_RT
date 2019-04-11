@@ -9,6 +9,8 @@ OBJDIR	= ./obj
 # sources
 SRC		=	main.c \
 			gui.c \
+			blur.c \
+			event.c \
 			lists.c \
 			light.c \
 			render.c \
@@ -18,12 +20,12 @@ SRC		=	main.c \
 			textures.c \
 			sdl_draw.c \
 			intersect.c \
-			key_events.c \
 			calc_basis.c \
 			calc_normal.c \
 			stereoscopy.c \
 			image_saver.c \
 			sepia_effect.c \
+			event_utility.c \
 			light_utility.c \
 			anti_aliasing.c \
 			parser/parser.c \
@@ -35,7 +37,6 @@ SRC		=	main.c \
 			parser/parser_open_close_check.c \
 			parser/parser_float_fields_check.c \
 			parser/parser_other_fields_check.c \
-			blur.c \
 			check_file.c
 
 OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))

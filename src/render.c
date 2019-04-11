@@ -6,13 +6,13 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/08 14:05:38 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/10 11:07:05 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static int	choose_type(t_env *env, t_lst *surface , double *roots)
+int			choose_type(t_env *env, t_lst *surface , double *roots)
 {
 	if (surface->type == T_PLANE)
 		return (intersect_plane(env->ray.start, env->ray.dest,
@@ -142,13 +142,15 @@ void		render(t_env *env)
 		}
 		else
 			stereoscopy(env);
-		if (env->flags.blur == 1)
-			blur(env);
-		if (env->flags.sepia == 1)
-			sepia(env);
-		if (env->flags.aa == 1)
-			anti_aliasing(env);
-		env->flags.need_render ^= 1;
-		draw_all(env);
+		env->flags.blur ? blur(env) : NULL;
+		env->flags.sepia ? sepia(env) : NULL;
+		env->flags.aa ? anti_aliasing(env) : NULL;
+		env->flags.need_render = 0;
 	}
 }
+		// if (env->flags.blur == 1)
+		// 	blur(env);
+		// if (env->flags.sepia == 1)
+		// 	sepia(env);
+		// if (env->flags.aa == 1)
+		// 	anti_aliasing(env);

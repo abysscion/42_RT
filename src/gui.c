@@ -6,9 +6,25 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 13:47:08 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/08 14:05:45 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/11 10:31:11 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+
+/*
+**	Possible text entries boundaries check for mouse pointer:
+**		add edge to rect x/y, remove from w/h
+**
+**	Need to invent smth about entries check and text replacing
+**		atm its anchored to movements.
+**
+**	Rerender flag after entry value applying should be changed
+**		from ENTER key to kiss lib insides. (or not, lol)
+**
+*/
+
+
 
 #include "rt.h"
 
@@ -18,6 +34,7 @@ void	init_gui(t_env *e)
 	int		txtw0;
 	int		txtw1;
 	int		txtw2;
+	int		txtw3;
 	int		shit;
 	int		i;
 
@@ -26,6 +43,7 @@ void	init_gui(t_env *e)
 	txtw0 = kiss_textwidth(kiss_textfont, ("Objects overwiew"), 0x0);
 	txtw1 = kiss_textwidth(kiss_textfont, ("Object info"), 0x0);
 	txtw2 = kiss_textwidth(kiss_textfont, ("Effects"), 0x0);
+	txtw3 = kiss_textwidth(kiss_textfont, ("2147483647x"), 0x0) + 7 + kiss_edge;
 	shit = GUI_BAR_H + kiss_edge + kiss_textfont.lineheight;
 	i = -1;
 
@@ -47,13 +65,13 @@ void	init_gui(t_env *e)
 		0, GUI_BAR_H - kiss_edge,
 		GUI_LBLOCK_W, GUI_LBLOCK_H + kiss_edge);
 	kiss_window_new(&g->win_info, NULL, 1,
-		WIN_W - GUI_RBLOCK_W + kiss_edge * 2, shit,
+		g->rblock.rect.x + kiss_edge * 2, shit,
 		GUI_RBLOCK_W - kiss_edge * 4, GUI_LBLOCK_H * 0.5);
 	kiss_textbox_new(&g->tbx_obj, &g->lblock, 1, &g->tbx_obj_arr,
 		kiss_edge * 2, shit,
 		GUI_LBLOCK_W - kiss_edge * 4, GUI_LBLOCK_H * 0.5);
 	kiss_textbox_new(&g->tbx_info, &g->win_info, 1, &g->tbx_info_arr,
-		WIN_W - GUI_RBLOCK_W + kiss_edge * 2, shit,
+		g->rblock.rect.x + kiss_edge * 2, shit,
 		GUI_RBLOCK_W - kiss_edge * 4, GUI_LBLOCK_H * 0.5);
 	kiss_textbox_new(&g->tbx_eff, &g->rblock, 1, &g->tbx_eff_arr,
 		g->win_info.rect.x,
@@ -72,6 +90,19 @@ void	init_gui(t_env *e)
 		g->tbx_eff.rect.x + (g->tbx_eff.rect.w - txtw2) / 2,
 		g->tbx_eff.rect.y - kiss_textfont.lineheight);
 
+	kiss_entry_new(&g->ent_pos_x, &g->win_info, 1, "2147483647",
+		g->win_info.rect.x + kiss_edge * 2,
+		g->win_info.rect.y + kiss_edge * 2 + kiss_textfont.lineheight,
+		txtw3);
+	kiss_entry_new(&g->ent_pos_y, &g->win_info, 1, "2147483647",
+		g->win_info.rect.x + kiss_edge * 2 + txtw3,
+		g->win_info.rect.y + kiss_edge * 2 + kiss_textfont.lineheight,
+		txtw3);
+	kiss_entry_new(&g->ent_pos_z, &g->win_info, 1, "2147483647",
+		g->win_info.rect.x + kiss_edge * 2 + txtw3 * 2,
+		g->win_info.rect.y + kiss_edge * 2 + kiss_textfont.lineheight,
+		txtw3);
+
 	while (++i < g->eff_num)
 		kiss_selectbutton_new(&g->sbt_eff_arr[i], &g->rblock,
 			g->tbx_eff.rect.x + g->tbx_eff.rect.w - kiss_edge * 2 - GUI_SBT_SIZE,
@@ -87,20 +118,31 @@ void	init_gui(t_env *e)
 	kiss_array_appendstring(&g->tbx_obj_arr, 0, "Main camera", 0x0);
 
 	kiss_array_appendstring(&g->tbx_info_arr, 0, "Position: ", 0x0);
-	kiss_array_appendstring(&g->tbx_info_arr, 1, "Rotation: ", 0x0);
+	// kiss_array_appendstring(&g->tbx_info_arr, 1, "Rotation: ", 0x0);
 
 	kiss_array_appendstring(&g->tbx_eff_arr, 0, "Antialiasing", 0x0);
 	kiss_array_appendstring(&g->tbx_eff_arr, 1, "Stereo", 0x0);
 	kiss_array_appendstring(&g->tbx_eff_arr, 2, "Sepia", 0x0);
 	kiss_array_appendstring(&g->tbx_eff_arr, 3, "Blur", 0x0);
 	kiss_array_appendstring(&g->tbx_eff_arr, 4, "No effects", 0x0);
+
+	ft_strclr(&e->gui->ent_pos_x.text[0]);
+	ft_strcpy(&e->gui->ent_pos_x.text[0], ft_itoa((int)e->cam.position.x));
+	ft_strclr(&e->gui->ent_pos_y.text[0]);
+	ft_strcpy(&e->gui->ent_pos_y.text[0], ft_itoa((int)e->cam.position.y));
+	ft_strclr(&e->gui->ent_pos_z.text[0]);
+	ft_strcpy(&e->gui->ent_pos_z.text[0], ft_itoa((int)e->cam.position.z));
 }
+
+/*
+**	Draws every gui element.
+*/
 
 void	draw_gui(t_env *e)
 {
 	t_gui	*g;
-	t_v		p;
-	char	*str;
+	// t_v		p;
+	// char	*str;
 	int		i;
 
 	g = e->gui;
@@ -120,25 +162,32 @@ void	draw_gui(t_env *e)
 	while (++i < g->eff_num)
 		kiss_selectbutton_draw(&g->sbt_eff_arr[i], e->sdl.renderer);
 
+	kiss_entry_draw(&g->ent_pos_x, e->sdl.renderer);
+	kiss_entry_draw(&g->ent_pos_y, e->sdl.renderer);
+	kiss_entry_draw(&g->ent_pos_z, e->sdl.renderer);
+
 	kiss_label_draw(&g->lab_tbx_obj, e->sdl.renderer);
 	kiss_label_draw(&g->lab_tbx_info, e->sdl.renderer);
 	kiss_label_draw(&g->lab_eff, e->sdl.renderer);
 
-	str = (char *)malloc(50);
-	p = e->cam.position;
-	str = ft_strcat(ft_itoa((int)p.x), ", ");
-	str = ft_strcat(str, ft_itoa((int)p.y));
-	str = ft_strcat(str, ", ");
-	str = ft_strcat(str, ft_itoa((int)p.z));
-	kiss_array_assign(&g->tbx_info_arr, 0, 0, ft_strjoin("Position: ", str));
-	ft_strclr(str);
-	p = e->cam.rotation;
-	str = ft_strcat(ft_itoa((int)p.x), ", ");
-	str = ft_strcat(str, ft_itoa((int)p.y));
-	str = ft_strcat(str, ", ");
-	str = ft_strcat(str, ft_itoa((int)p.z));
-	kiss_array_assign(&g->tbx_info_arr, 1, 1, ft_strjoin("Rotation: ", str));
-	free(str);
+	// g->ent_pos_x.text = ft_strcpy(g->ent_pos_x.text, ft_itoa((int)e->cam.position.x));
+
+
+	// str = (char *)malloc(50);
+	// p = e->cam.position;
+	// str = ft_strcat(ft_itoa((int)p.x), ", ");
+	// str = ft_strcat(str, ft_itoa((int)p.y));
+	// str = ft_strcat(str, ", ");
+	// str = ft_strcat(str, ft_itoa((int)p.z));
+	// kiss_array_assign(&g->tbx_info_arr, 0, 0, ft_strjoin("Position: ", str));
+	// ft_strclr(str);
+	// p = e->cam.rotation;
+	// str = ft_strcat(ft_itoa((int)p.x), ", ");
+	// str = ft_strcat(str, ft_itoa((int)p.y));
+	// str = ft_strcat(str, ", ");
+	// str = ft_strcat(str, ft_itoa((int)p.z));
+	// kiss_array_assign(&g->tbx_info_arr, 1, 1, ft_strjoin("Rotation: ", str));
+	// free(str);
 }
 
 /*

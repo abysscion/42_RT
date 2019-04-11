@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/10 20:37:19 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/11 10:32:52 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 /*=================================== GUI ===================================*/
 # define	GUI_BAR_H			74
 # define	GUI_LBLOCK_W		350
-# define	GUI_RBLOCK_W		350
+# define	GUI_RBLOCK_W		350 + kiss_edge * 3
 # define	GUI_LBLOCK_H		(RT__H + 200)//- GUI_BAR_H)
 # define	GUI_RBLOCK_H		(RT__H + 200)// - GUI_BAR_H)
 # define	GUI_EFF_W			175
@@ -90,9 +90,10 @@ void    			count_rgb(unsigned char *rgb, unsigned char *ref_col,
 void				create_any_ob(t_env *e, unsigned char *arr, t_v pos,
 															int spec);
 void				calc_color(t_clr *color, double intens, t_surf *surface);
+void				sdl_key_press_events(SDL_Event *event, t_env *env);
 void				sdl_draw(t_env *env, t_clr color, int x, int y);
 void				get_texture_color(t_surf *surface, t_lc *light);
-void				sdl_key_press_events(int key, t_env *env);
+void				events_handler(SDL_Event *event, t_env *env);
 void				create_objects(t_env *e, char *av);
 void				sdl_help(t_env *env, int x, int y);
 void				print_info_about_hitobj(t_env *e);
@@ -125,6 +126,7 @@ int					intersect_cone(t_v start,
 										t_v dest, t_surf *cone, double *t);
 int					intersect_plane(t_v start,
 										t_v dest, t_surf *plane, double *t);
+int					choose_type(t_env *env, t_lst *surface , double *roots);
 int					mouse_release(int key, int x, int y, t_env *e);
 int					mouse_press(int key, int x, int y, t_env *e);
 int					trace_ray_cylinder(t_v dest, t_env *e);

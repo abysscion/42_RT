@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_events.c                                       :+:      :+:    :+:   */
+/*   event_utility.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/05 05:21:02 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/08 14:05:55 by sb_fox           ###   ########.fr       */
+/*   Created: 2019/04/10 09:30:02 by sb_fox            #+#    #+#             */
+/*   Updated: 2019/04/11 10:30:30 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void	rotation(int key, t_env *e)
+static	void	rotation_keys(int key, t_env *e)
 {
 	if (key == SDLK_KP_4 || key == SDLK_KP_2 ||
 		key == SDLK_KP_6 || key == SDLK_KP_8)
@@ -29,7 +29,7 @@ static void	rotation(int key, t_env *e)
 		e->cam.rotation.x -= ROT_STEP;
 }
 
-static void	movement(int key, t_env *e)
+static	void	movement_keys(int key, t_env *e)
 {
 	if (key == SDLK_UP || key == SDLK_DOWN || key == SDLK_RIGHT ||
 		key == SDLK_LEFT || key == SDLK_RSHIFT || key == SDLK_RCTRL)
@@ -56,16 +56,34 @@ static void	movement(int key, t_env *e)
 			vec_rotate(e->cam.rotation, (t_v){0, 0, 1}));
 }
 
-void		sdl_key_press_events(int key, t_env *env)
+void			sdl_key_press_events(SDL_Event *event, t_env *env)
 {
+	int			key;
+
+	key = event->key.keysym.sym;
 	if (key == SDLK_s)
 		save_image(env->sdl.image, 0);
 	else if (key == SDLK_f)
 		printf("Objs: [%d]\nSurfs: [%d]\nLights: [%d]\n",
 						numOfObjs(env), numOfSurfs(env), numOfLights(env));
-	movement(key, env);
-	rotation(key, env);
-	render(env);
+	else
+	{
+		movement_keys(key, env);
+		rotation_keys(key, env);
+	}
+	if (key == SDLK_RETURN)
+	{
+		env->flags.need_render = 1;
+	}
+	if (env->flags.need_render == 1)
+	{
+		ft_strclr(&env->gui->ent_pos_x.text[0]);
+		ft_strcpy(&env->gui->ent_pos_x.text[0], ft_itoa((int)env->cam.position.x));
+		ft_strclr(&env->gui->ent_pos_y.text[0]);
+		ft_strcpy(&env->gui->ent_pos_y.text[0], ft_itoa((int)env->cam.position.y));
+		ft_strclr(&env->gui->ent_pos_z.text[0]);
+		ft_strcpy(&env->gui->ent_pos_z.text[0], ft_itoa((int)env->cam.position.z));
+	}
 }
 
 /*									temp shit

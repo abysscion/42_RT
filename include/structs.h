@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/08 13:43:12 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/10 19:32:30 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ typedef	struct		s_gui
 	kiss_label			lab_tbx_obj;
 	kiss_label			lab_tbx_info;
 	kiss_label			lab_eff;
+	kiss_entry			ent_pos_x;
+	kiss_entry			ent_pos_y;
+	kiss_entry			ent_pos_z;
+	kiss_entry			ent_rot_x;
+	kiss_entry			ent_rot_y;
+	kiss_entry			ent_rot_z;
 	kiss_array			objarr;
 	kiss_array			tbx_obj_arr;
 	kiss_array			tbx_info_arr;
@@ -129,9 +135,9 @@ typedef	struct		s_ls
 }					t_lst;
 
 /*
-**							environment					(t_lst)  ——  objects;
-**								 |						(t_obj)  ——  obj;
-**							  objects					(t_surf) ——  surfaces;
+**							environment
+**								 |
+**							  objects
 **							/         \
 **						 obj           obj->next
 **					    /   \         |         \

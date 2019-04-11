@@ -576,8 +576,8 @@ int kiss_entry_new(kiss_entry *entry, kiss_window *wdw, int decorate,
 	if (entry->font.magic != KISS_MAGIC) entry->font = kiss_textfont;
 	if (w < 2 * kiss_border + entry->font.advance) return -1;
 	entry->bg = color_bg;
-	entry->normalcolor = kiss_black;
-	entry->activecolor = kiss_blue;
+	entry->normalcolor = color_font;
+	entry->activecolor = color_font_a;
 	entry->textwidth = w - 2 * kiss_border;
 	kiss_string_copy(entry->text, kiss_maxlength(entry->font,
 		entry->textwidth, text, NULL), text, NULL);
@@ -588,6 +588,7 @@ int kiss_entry_new(kiss_entry *entry, kiss_window *wdw, int decorate,
 	entry->texty = y + kiss_border;
 	entry->active = 0;
 	entry->visible = 0;
+	entry->need_hl = 0;
 	entry->focus = 0;
 	entry->wdw = wdw;
 	return 0;
@@ -595,6 +596,7 @@ int kiss_entry_new(kiss_entry *entry, kiss_window *wdw, int decorate,
 
 int kiss_entry_event(kiss_entry *entry, SDL_Event *event, int *draw)
 {
+	entry->need_hl = 0;
 	if (!entry || !entry->visible || !event) return 0;
 	if (event->type == SDL_WINDOWEVENT &&
 		event->window.event == SDL_WINDOWEVENT_EXPOSED)
@@ -639,24 +641,35 @@ int kiss_entry_event(kiss_entry *entry, SDL_Event *event, int *draw)
 		&entry->rect)) {
 		strcpy(entry->text, "");
 		*draw = 1;
+	} else if (event->type == SDL_MOUSEMOTION &&
+		kiss_pointinrect(event->motion.x, event->motion.y, &entry->rect)) {
+		entry->need_hl = 1;
+		*draw = 1;
 	}
 	return 0;
 }
 
 int kiss_entry_draw(kiss_entry *entry, SDL_Renderer *renderer)
 {
-	SDL_Color color;
+	SDL_Color	color;
+	SDL_Rect	hl_rect;
 
 	if (entry && entry->wdw) entry->visible = entry->wdw->visible;
 	if (!entry || !entry->visible || !renderer) return 0;
 	kiss_fillrect(renderer, &entry->rect, entry->bg);
-	color = kiss_blue;
-	if (entry->active) color = kiss_green;
+	color = color_frame;
+	if (entry->active) color = color_frame_a;
 	if (entry->decorate)
 		kiss_decorate(renderer, &entry->rect, color, kiss_edge);
 	color = entry->normalcolor;
+	if (entry->need_hl == 1){
+		kiss_makerect(&hl_rect,
+		entry->rect.x + kiss_edge, entry->rect.y + kiss_edge,
+		entry->rect.w - kiss_edge * 2, entry->rect.h - kiss_edge * 2);
+		kiss_fillrect(renderer, &hl_rect, color_hl);
+	}
 	if (entry->active) color = entry->activecolor;
-	kiss_rendertext(renderer, entry->text, entry->textx, entry->texty,
+	kiss_rendertext(renderer, entry->text, entry->textx + kiss_edge, entry->texty,
 		entry->font, color);
 	return 1;
 }

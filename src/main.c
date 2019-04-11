@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:29:07 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/10 20:35:51 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/11 10:34:21 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void 			button_event(kiss_button *button, SDL_Event *e, int *draw, int *quit)
 }
 
 /*
-**	Called when text entry is being clicked.
+**	Called when text entry in objects box is being clicked.
 */
 
 static	void	tbx_obj_event(kiss_textbox *tbx, SDL_Event *ev, int *draw, t_env *e)
@@ -69,6 +69,19 @@ static	void	sbt_event(kiss_selectbutton *sbt, SDL_Event *ev, int *draw, t_env *e
 	*draw = 1;
 }
 
+/*
+**	Called when text field on right info box is being clicked.
+*/
+
+static	void	ent_event(kiss_entry *ent, SDL_Event *ev, int *draw, t_env *e)
+{
+	if (kiss_entry_event(ent, ev, draw))
+		*draw = 1;
+	e->cam.position.x = ft_atoi(&ent->text[0]);
+	// e->cam.position.y = ft_atoi(&ent->text[0]);
+	// e->cam.position.z = ft_atoi(&ent->text[0]);
+}
+
 static	void	sdl_loop(t_env *env)
 {
 	SDL_Event	event;
@@ -87,10 +100,18 @@ static	void	sdl_loop(t_env *env)
 				event.key.keysym.sym == SDLK_ESCAPE) || event.type == SDL_QUIT)
 				quit = 1;
 			else if (event.type == SDL_KEYDOWN)
-				sdl_key_press_events(event.key.keysym.sym, env);
+				sdl_key_press_events(&event, env);
 			while (++i < env->gui->eff_num)
 				sbt_event(&env->gui->sbt_eff_arr[i], &event, &draw, env);
 			tbx_obj_event(&env->gui->tbx_obj, &event, &draw, env);
+			//	ill fix it later, probly will wrap it in array
+			ent_event(&env->gui->ent_pos_x, &event, &draw, env);
+			// ent_event(&env->gui->ent_pos_y, &event, &draw, env);
+			// ent_event(&env->gui->ent_pos_z, &event, &draw, env);
+			// ent_event(&env->gui->ent_rot_x, &event, &draw, env);
+			// ent_event(&env->gui->ent_rot_y, &event, &draw, env);
+			// ent_event(&env->gui->ent_rot_z, &event, &draw, env);
+			//=====================================================
 			button_event(&env->gui->bt_arrup, &event, &draw, &quit);
 		}
 		if (draw == 0)
