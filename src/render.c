@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/10 11:07:05 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/12 18:10:03 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,42 +111,33 @@ void		draw_rt(t_env *env)
 **	of the pixel then saves pixel color into sdl.image.
 */
 
-void		render(t_env *env)
+int			render(void *argv)
 {
+	t_env	*env;
 	t_v		dest;
 	t_clr	color;
 	int		x;
 	int		y;
 
-	if (env->flags.need_render == 1)
+	env = (t_env *)argv;
+	y = env->abuse.hrh * -1 + env->quarter;
+	while (y < env->abuse.hrh)
 	{
-		if (env->flags.stereo == 0)
+		x = env->abuse.hrw * -1;
+		while (x < env->abuse.hrw)
 		{
-			y = env->abuse.hrh * -1;
-			while (y < env->abuse.hrh)
-			{
-				x = env->abuse.hrw * -1;
-				while (x < env->abuse.hrw)
-				{
-					dest = (t_v){x * 1.0 / RT__W, y * -1.0 / RT__H, 1.0};
-					dest = vecnorm(vec_rotate(env->cam.rotation, dest));
-					init_ray(env, dest);
-					color = trace_ray(env, RECURSION);
-					env->sdl.image[RT__W *
-						(y + env->abuse.hrh) + (x + env->abuse.hrw)] =
-						(color.r << 16) + (color.b << 8) + (color.g);
-					x++;
-				}
-				y++;
-			}
+			dest = (t_v){x * 1.0 / RT__W, y * -1.0 / RT__H, 1.0};
+			dest = vecnorm(vec_rotate(env->cam.rotation, dest));
+			init_ray(env, dest);
+			color = trace_ray(env, RECURSION);
+			env->sdl.image[RT__W *
+				(y + env->abuse.hrh) + (x + env->abuse.hrw)] =
+				(color.r << 16) + (color.b << 8) + (color.g);
+			x++;
 		}
-		else
-			stereoscopy(env);
-		env->flags.blur ? blur(env) : NULL;
-		env->flags.sepia ? sepia(env) : NULL;
-		env->flags.aa ? anti_aliasing(env) : NULL;
-		env->flags.need_render = 0;
+		y += THREADS;
 	}
+	return (0);
 }
 		// if (env->flags.blur == 1)
 		// 	blur(env);

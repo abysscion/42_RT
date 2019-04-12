@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/11 10:32:52 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/12 18:09:00 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int					numOfObjs(t_env *e);
 # define T_POINT				2
 # define T_DIRECTIONAL			3
 
-# define RECURSION				3
+# define RECURSION				10
+# define THREADS				8
 
 t_clr				light_on(t_env *env, double closest, t_lst *surface, int rec);
 t_clr   			calc_refract(t_env *env, t_lc lc, t_lst *surface, int rec);
@@ -111,7 +112,9 @@ void				calc_basis(t_surf *surf);
 void				init_object(t_obj *obj);
 void				stereoscopy(t_env *env);
 void				draw_rt(t_env *env);
-void				render(t_env *e);
+void				create_and_run(t_env *e);
+void				check_stereo(t_env *e);
+int					render(void *argv);
 void				sepia(t_env *env);
 void				blur(t_env *env);
 int					limit_cone_cyl(t_surf *surf,

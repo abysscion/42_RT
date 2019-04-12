@@ -37,14 +37,15 @@ SRC		=	main.c \
 			parser/parser_open_close_check.c \
 			parser/parser_float_fields_check.c \
 			parser/parser_other_fields_check.c \
-			check_file.c
+			check_file.c \
+			multithreading.c
 
 OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 # compiler
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra #-Werror
-# CFLAGS	+=	-Ofast
+CFLAGS	+=	-Ofast
 # CFLAGS	+=	-O0
 CFLAGS	+=	-g
 

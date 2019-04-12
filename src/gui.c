@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gui.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 13:47:08 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/11 10:31:11 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/12 18:09:06 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,9 @@ void	draw_all(t_env *e)
 {
 	SDL_RenderClear(e->sdl.renderer);
 	draw_gui(e);
-	render(e);
+	// render(e);
+	if (e->flags.need_render == 1)
+		check_stereo(e);
 	draw_rt(e);
 	SDL_RenderPresent(e->sdl.renderer);
 }
