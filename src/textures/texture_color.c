@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 17:16:20 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/13 18:34:30 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/14 17:14:05 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	get_texture_color(t_surf *surface, t_lc *light)
 		calc_sphere_local_coords(&light->surf_point, surface, &u, &v);
 	else if (surface->type == T_CYLINDER || surface->type == T_CONE ||
 			surface->type == T_PARAB)
-		calc_cone_cyl_local_coords(&light->surf_point, surface, &u, &v);
+		calc_conic_local_coords(&light->surf_point, surface, &u, &v);
 	x = (int)(u * surface->texture->w) *
 		surface->texture->format->BytesPerPixel;
 	y = (int)(v * surface->texture->h) *

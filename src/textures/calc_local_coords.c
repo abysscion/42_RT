@@ -6,13 +6,13 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 14:59:38 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/14 15:45:31 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/14 16:51:23 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void	calc_cone_cyl_local_coords(t_v *surf_p, t_surf *surface, double *u, double *v)
+void	calc_conic_local_coords(t_v *surf_p, t_surf *surface, double *u, double *v)
 {
 	t_v		surf_point;
 	t_v		center_to_point;

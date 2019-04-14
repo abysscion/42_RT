@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/14 16:22:50 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/14 17:20:11 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@
 void				init_gui(t_env *e);
 void				draw_gui(t_env *e);
 void				draw_all(t_env *e);
+
 int					numOfLights(t_env *e);
 int					numOfSurfs(t_env *e);
 int					numOfObjs(t_env *e);
-
 /*================================ END OF GUI ===============================*/
 
 /*================================ MAIN =====================================*/
@@ -54,6 +54,7 @@ int					numOfObjs(t_env *e);
 # define RT__H					512
 # define WIN_H					(RT__H + GUI_BAR_H + 200)
 # define WIN_W					(RT__W + GUI_LBLOCK_W + GUI_RBLOCK_W)
+
 # define CLR_BACKGROUND			0
 
 # define T_OBJECT				-1
@@ -62,6 +63,7 @@ int					numOfObjs(t_env *e);
 # define T_CYLINDER				3
 # define T_CONE					4
 # define T_PARAB				5
+# define T_DISC					6
 
 # define T_AMBIENT				1
 # define T_POINT				2
@@ -70,51 +72,41 @@ int					numOfObjs(t_env *e);
 # define RECURSION				10
 # define THREADS				8
 
-t_clr				light_on(t_env *env, double closest, t_lst *surface, int rec);
-t_clr   			calc_refract(t_env *env, t_lc lc, t_lst *surface, int rec);
-t_clr				trace_ray(t_env *env, int rec);
-t_lst				*lst_to_last(t_lst *lst);
-t_lst				*list_add(t_lst *lst);
-t_lst				*list_create();
-t_v					calc_reflected_ray(t_v bisect, t_v direction);
-t_v					vec_rotate(t_v a, t_v vec);
-t_v					reflect_ray(t_v n, t_v l);
-double				closest_intersection(t_env *env, t_lst **closest_surf);
-void				calc_surf_normal(t_env *env, double closest, t_lst *surface,
-															t_lc *light);
-void				calc_ref_color(t_clr *color, t_clr *ref_color,
-															t_surf *surface);
-void    			count_rgb(unsigned char *rgb, unsigned char *ref_col,
-															t_env *e, int i);
 void				create_any_ob(t_env *e, unsigned char *arr, t_v pos,
-															int spec);
-void				calc_color(t_clr *color, double intens, t_surf *surface);
+						int spec);
 void				sdl_key_press_events(SDL_Event *event, t_env *env);
 void				sdl_draw(t_env *env, t_clr color, int x, int y);
-
 void				events_handler(SDL_Event *event, t_env *env);
-void				create_objects(t_env *e, char *av);
-void				sdl_help(t_env *env, int x, int y);
-void				print_info_about_hitobj(t_env *e);
-void				validate_cylinder(char **params);
-void				save_image(int *mass, int iter);
+
 void				init_env(t_env *e, char **argv);
-void				validate_sphere(char **params);
-void				init_ray(t_env *env, t_v dest);
-void				rayhit_obj(t_v dest, t_env *e);
-void				validate_plane(char **params);
-void				validate_cone(char **params);
-void				adjust_objects(t_env *env);
-void				anti_aliasing(t_env *env);
-void				calc_basis(t_surf *surf);
 void				init_object(t_obj *obj);
-void				stereoscopy(t_env *env);
-void				draw_rt(t_env *env);
+void				adjust_objects(t_env *env);
+
 void				create_and_run(t_env *e);
 void				check_stereo(t_env *e);
-int					render(void *argv);
-void				sepia(t_env *env);
-void				blur(t_env *env);
+void				sdl_help(t_env *env, int x, int y);
+t_clr				trace_ray(t_env *env, int rec);
+void				init_ray(t_env *env, t_v dest);
+void				draw_rt(t_env *env);
+int					render(void *environment);
+double				closest_intersection(t_env *env, t_lst **closest_surf);
+
+/*======================== COLORS, LIGHTS AND SHADOWS =======================*/
+t_clr				light_on(t_env *env, double closest, t_lst *surface, int rec);
+t_clr   			calc_refract(t_env *env, t_lc lc, t_lst *surface, int rec);
+
+void				calc_color(t_clr *color, double intens, t_surf *surface);
+void				calc_ref_color(t_clr *color, t_clr *ref_color,
+						t_surf *surface);
+
+void				calc_surf_normal(t_env *env, double closest, t_lst *surface,
+						t_lc *light);
+t_v					calc_reflected_ray(t_v bisect, t_v direction);
+/*===================== END OF COLORS, LIGHTS AND SHADOWS ===================*/
+
+/*========================= LIMITS AND INTERSECTIONS ========================*/
+int					choose_type(t_env *env, t_lst *surface , double *roots);
+
 
 int					intersect_paraboloid(t_v start, t_v dest, t_surf *parab,
 										double *roots);
@@ -127,29 +119,18 @@ int					intersect_cone(t_v start,
 int					intersect_plane(t_v start,
 										t_v dest, t_surf *plane, double *t);
 
-int					choose_type(t_env *env, t_lst *surface , double *roots);
-int					mouse_release(int key, int x, int y, t_env *e);
-int					mouse_press(int key, int x, int y, t_env *e);
-int					trace_ray_cylinder(t_v dest, t_env *e);
-int					trace_ray_sphere(t_v dest, t_env *e);
-int					trace_ray_plane(t_v dest, t_env *e);
-int					trace_ray_cone(t_v dest, t_env *e);
-int					mouse_move(int x, int y, t_env *e);
-int					key_hook(int key, t_env *e);
-int					clean_n_close(t_env *e);
-int					expose_hook(t_env *e);
-
-
-
-double				*min_root(double *roots);
-double				*max_root(double *roots);
-
 int					limit_conic(t_surf *surf, t_v *dest, t_v *start,
 						double *roots);
 int					limit_plane(t_surf *surf, t_v *dest, t_v *start,
 						double *roots);
 int					limit_sphere(t_surf *surf, t_v *dest, t_v *start,
 						double *roots);
+int					limit_disc(t_surf *surf, t_v *dest, t_v *start,
+						double *roots);
+/*===================== END OF LIMITS AND INTERSECTIONS =====================*/
+
+/*========================= TEXTURES AND COORDINATES ========================*/
+void				calc_basis(t_surf *surf);
 
 t_v					get_texture_normal(t_surf *surface, t_lc *light);
 void				get_texture_color(t_surf *surface, t_lc *light);
@@ -158,10 +139,9 @@ void				calc_plane_local_coords(t_v *surf_point, t_surf *surface,
 						double *u, double *v);
 void				calc_sphere_local_coords(t_v *surf_point, t_surf *surface,
 						double *u, double *v);
-void				calc_cone_cyl_local_coords(t_v *surf_p, t_surf *surface,
+void				calc_conic_local_coords(t_v *surf_p, t_surf *surface,
 						double *u, double *v);
-
-/*=============================== END OF MAIN ===============================*/
+/*===================== END OF TEXTURES AND COORDINATES =====================*/
 
 /*================================= PARSER ==================================*/
 void				check_filename(char *file_name);
@@ -194,5 +174,21 @@ int					check_single_float_field(int fd,
 int					check_triple_float_field(int fd,
 						char ***split, char **line);
 /*============================== END OF PARSER ==============================*/
+
+/*================================= EFFECTS =================================*/
+void				sepia(t_env *env);
+void				blur(t_env *env);
+void				stereoscopy(t_env *env);
+void				anti_aliasing(t_env *env);
+void				save_image(int *mass, int iter);
+/*============================== END OF EFFECTS =============================*/
+
+/*================================= UTILITY =================================*/
+double				*min_root(double *roots);
+double				*max_root(double *roots);
+
+t_lst				*list_add(t_lst *lst);
+t_lst				*list_create();
+/*============================== END OF UTILITY =============================*/
 
 #endif

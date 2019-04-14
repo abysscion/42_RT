@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:22:30 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/14 16:22:59 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/14 17:41:32 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,19 @@ int		intersect_sphere(t_v start, t_v dest, t_surf *sph, double *roots)
 	return (limit_sphere(sph, &dest, &start, roots));
 }
 
-int		intersect_plane(t_v start, t_v dest, t_surf *plane, double *roots)
+int		intersect_plane(t_v start, t_v dest, t_surf *surf, double *roots)
 {
-	roots[0] = ((vecmult_scal(plane->orientation, plane->position) -
-			vecmult_scal(plane->orientation, start)) /
-			vecmult_scal(plane->orientation, dest));
+	roots[0] = ((vecmult_scal(surf->orientation, surf->position) -
+			vecmult_scal(surf->orientation, start)) /
+			vecmult_scal(surf->orientation, dest));
 	roots[1] = +INFINITY;
 	if (roots[0] < RAY_LENMIN)
 		return (0);
-	return (limit_plane(plane, &dest, &start, roots));
+	if (surf->type == T_PLANE)	
+		return (limit_plane(surf, &dest, &start, roots));
+	if (surf->type == T_DISC)
+		return (limit_disc(surf, &dest, &start, roots));
+	return (0);
 }
+
+

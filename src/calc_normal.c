@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calc_normal.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:20:56 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/05 13:12:44 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/14 17:02:25 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		calc_surf_normal(t_env *env, double closest,
 	if (surface->type == T_SPHERE)
 		light->surf_normal = vecsub(light->surf_point,
 							((t_surf *)surface->obj)->position);
-	else if (surface->type == T_PLANE)
+	else if (surface->type == T_PLANE || surface->type == T_DISC)
 		light->surf_normal = ((t_surf *)surface->obj)->orientation;
 	else if (surface->type == T_CYLINDER)
 		cyl_normal(env, closest, surface->obj, light);

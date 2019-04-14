@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/12 18:10:03 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/14 17:49:27 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-int			choose_type(t_env *env, t_lst *surface , double *roots)
+int			choose_type(t_env *env, t_lst *surface, double *roots)
 {
-	if (surface->type == T_PLANE)
+	if (surface->type == T_PLANE || surface->type == T_DISC)
 		return (intersect_plane(env->ray.start, env->ray.dest,
 			surface->obj, roots));
 	else if (surface->type == T_SPHERE)
@@ -111,7 +111,7 @@ void		draw_rt(t_env *env)
 **	of the pixel then saves pixel color into sdl.image.
 */
 
-int			render(void *argv)
+int			render(void *environment)
 {
 	t_env	*env;
 	t_v		dest;
@@ -119,7 +119,7 @@ int			render(void *argv)
 	int		x;
 	int		y;
 
-	env = (t_env *)argv;
+	env = (t_env *)environment;
 	y = env->abuse.hrh * -1 + env->quarter;
 	while (y < env->abuse.hrh)
 	{
