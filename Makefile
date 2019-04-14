@@ -9,38 +9,40 @@ OBJDIR	= ./obj
 # sources
 SRC		=	main.c \
 			gui.c \
-			blur.c \
 			event.c \
 			lists.c \
 			light.c \
 			render.c \
 			initer.c \
 			refract.c \
-			ft_atod.c \
 			sdl_draw.c \
-			intersect.c \
 			calc_normal.c \
-			stereoscopy.c \
 			image_saver.c \
-			sepia_effect.c \
 			event_utility.c \
 			light_utility.c \
-			anti_aliasing.c \
-			parser/parser.c \
-			intersect_utility.c \
+			check_file.c \
+			multithreading.c \
+			intersects/intersect_utility.c \
+			intersects/intersect_conic.c \
+			intersects/intersect_limits.c \
+			intersects/intersect_other.c \
+			intersects/intersect_limits_flat.c \
+			effects/anti_aliasing.c \
+			effects/blur.c \
+			effects/sepia.c \
+			effects/stereoscopy.c \
 			textures/normal_map.c \
 			textures/texture_color.c \
 			textures/calc_basis.c \
 			textures/calc_local_coords.c \
+			parser/parser.c \
 			parser/parser_validation.c \
 			parser/parser_write_surface.c \
 			parser/parser_writing_fields.c \
 			parser/parser_reading_utility.c \
 			parser/parser_open_close_check.c \
 			parser/parser_float_fields_check.c \
-			parser/parser_other_fields_check.c \
-			check_file.c \
-			multithreading.c
+			parser/parser_other_fields_check.c
 
 OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
@@ -97,6 +99,8 @@ obj:
 	mkdir -p $(OBJDIR)
 	mkdir -p $(OBJDIR)/parser
 	mkdir -p $(OBJDIR)/textures
+	mkdir -p $(OBJDIR)/effects
+	mkdir -p $(OBJDIR)/intersects
 
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(INC) -I $(INCDIR) -o $@ -c $<
@@ -124,5 +128,10 @@ fclean: clean
 	make -C $(FT) fclean
 	make -C $(VEC) fclean
 	make -C $(KISS) fclean
+
+cleanobj:
+	rm -rf $(OBJDIR)
+
+repair: cleanobj all
 
 re: fclean all

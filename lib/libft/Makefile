@@ -66,6 +66,8 @@ FILES	= ft_memset.c \
 			ft_abs.c \
 			ft_memrepl.c \
 			ft_absd.c \
+			ft_atod.c \
+			free_words.c \
 			get_next_line.c
 
 CFLAGS	= -Wall -Wextra -Werror

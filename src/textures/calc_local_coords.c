@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 14:59:38 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/14 14:03:51 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/14 15:45:31 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	calc_sphere_local_coords(t_v *surf_point, t_surf *surface, double *u, doubl
 
 void	calc_plane_local_coords(t_v *surf_point, t_surf *surface, double *u, double *v)
 {
-	double	buff;
 	t_basis	*basis;
 
 	basis = &surface->basis;

@@ -84,7 +84,7 @@ object
 	surface
 	{
 		type		:	CYLINDER
-		texture		:	textures/planets/mars.jpg
+		texture		:	textures/planets/earth.jpg
 		color		:	255 255 0
 		position	:	0.0 0.0 0.0
 		orientation	:	0.0 1.0 0.0

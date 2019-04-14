@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 13:53:35 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/13 17:35:03 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/14 15:35:57 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,17 @@
 static void	calc_basis_cyl_cone(t_surf *surf)
 {
 	surf->basis.y = surf->orientation;
+	if (surf->orientation.x == 0 && surf->orientation.y == 0 &&
+		(surf->orientation.z == 1 || surf->orientation.z == -1))
+	{
+		surf->basis.x = (t_v){0, 1, 0};
+		return ;
+	}
 	surf->basis.x = vecnorm(vecmult_vec(surf->basis.y, (t_v){0, 0, 1}));
 	if ((int)(surf->basis.x.x * 1e6) == 0 &&
 		(int)(surf->basis.x.y * 1e6) == 0 &&
 		(int)(surf->basis.x.z * 1e6) == 0)
 		surf->basis.x = (t_v){0, 1, 0};
-
 }
 
 static void	calc_basis_sphere(t_surf *surf)

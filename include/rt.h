@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/14 14:03:48 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/14 16:22:50 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include "../lib/libvec/libvec.h"
 # include "kiss_sdl.h"
 # include "structs.h"
-# include "keys.h"
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
@@ -51,8 +50,8 @@ int					numOfObjs(t_env *e);
 # define RAY_LENMAX				2147483647
 # define RAY_LENMIN				0.001
 # define ROT_STEP				15
-# define RT__W					600
-# define RT__H					600
+# define RT__W					512
+# define RT__H					512
 # define WIN_H					(RT__H + GUI_BAR_H + 200)
 # define WIN_W					(RT__W + GUI_LBLOCK_W + GUI_RBLOCK_W)
 # define CLR_BACKGROUND			0
@@ -81,7 +80,6 @@ t_v					calc_reflected_ray(t_v bisect, t_v direction);
 t_v					vec_rotate(t_v a, t_v vec);
 t_v					reflect_ray(t_v n, t_v l);
 double				closest_intersection(t_env *env, t_lst **closest_surf);
-double				ft_atod(char *str);
 void				calc_surf_normal(t_env *env, double closest, t_lst *surface,
 															t_lc *light);
 void				calc_ref_color(t_clr *color, t_clr *ref_color,
@@ -143,11 +141,15 @@ int					expose_hook(t_env *e);
 
 
 
-int					limit_cone_cyl(t_surf *surf,
-										t_v dest, t_v start, double *roots);
-int					limit_plane(t_surf *surf, t_v dest, t_v start,
+double				*min_root(double *roots);
+double				*max_root(double *roots);
+
+int					limit_conic(t_surf *surf, t_v *dest, t_v *start,
 						double *roots);
-int					limit_sphere(t_surf *surf, t_v dest, t_v start, double *roots);
+int					limit_plane(t_surf *surf, t_v *dest, t_v *start,
+						double *roots);
+int					limit_sphere(t_surf *surf, t_v *dest, t_v *start,
+						double *roots);
 
 t_v					get_texture_normal(t_surf *surface, t_lc *light);
 void				get_texture_color(t_surf *surface, t_lc *light);
@@ -173,7 +175,6 @@ void				write_field(int fd, char ***split,
 void				parse_next(int fd, char ***split, char **line);
 int					check_floats(char **param, int i);
 int					check_param_num(char **param, int i);
-void				free_words(char **words);
 void				invalid_syntax(int object);
 
 int					open_check(int fd, char ***split, char **line);
