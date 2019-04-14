@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 15:03:55 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/30 14:09:24 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/13 17:47:27 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ static int	single_float_fields(char ***split)
 		strcmp((*split)[0], "specular") == 0 ||
 		strcmp((*split)[0], "reflect") == 0 ||
 		strcmp((*split)[0], "transp") == 0 ||
-		strcmp((*split)[0], "height") == 0 ||
-		strcmp((*split)[0], "tip") == 0 ||
+		strcmp((*split)[0], "max_height") == 0 ||
+		strcmp((*split)[0], "min_height") == 0 ||
+		strcmp((*split)[0], "max_width") == 0 ||
+		strcmp((*split)[0], "min_width") == 0 ||
 		strcmp((*split)[0], "angle") == 0)
 		return (1);
 	return (0);

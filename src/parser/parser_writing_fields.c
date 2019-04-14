@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 18:46:21 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/30 16:18:18 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/13 17:31:44 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,14 @@ static void	single_num_fields(char ***split, char **num, t_surf *surf)
 		surf->reflect = ft_atod(num[0]);
 	else if (strcmp((*split)[0], "transp") == 0)
 		surf->transp = ft_atod(num[0]);
-	else if (strcmp((*split)[0], "height") == 0)
-		surf->max_height = ft_atod(num[0]);
-	else if (strcmp((*split)[0], "tip") == 0)
-		surf->min_height = ft_atod(num[0]);
+	else if (strcmp((*split)[0], "max_height") == 0)
+		surf->limits.max_height = ft_atod(num[0]);
+	else if (strcmp((*split)[0], "min_height") == 0)
+		surf->limits.min_height = ft_atod(num[0]);
+	else if (strcmp((*split)[0], "max_width") == 0)
+		surf->limits.max_width = ft_atod(num[0]);
+	else if (strcmp((*split)[0], "min_width") == 0)
+		surf->limits.min_width = ft_atod(num[0]);
 	else if (strcmp((*split)[0], "angle") == 0)
 		surf->radius = ft_atod(num[0]);
 }

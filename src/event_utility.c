@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_utility.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 09:30:02 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/11 10:30:30 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/11 15:42:05 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,30 @@ static	void	movement_keys(int key, t_env *e)
 		e->flags.need_render = 1;
 	else
 		return ;
-	if (key == SDLK_RSHIFT)
+	if (key == SDLK_RSHIFT){
 		e->cam.position = vecsum(e->cam.position,
 			vec_rotate(e->cam.rotation, (t_v){0, 1, 0}));
-	else if (key == SDLK_RCTRL)
+		printf("up\n");}
+	else if (key == SDLK_RCTRL){
 		e->cam.position = vecsub(e->cam.position,
 			vec_rotate(e->cam.rotation, (t_v){0, 1, 0}));
+			printf("down\n");}
 	else if (key == SDLK_LEFT)
-		e->cam.position = vecsub(e->cam.position,
+	{	e->cam.position = vecsub(e->cam.position,
 			vec_rotate(e->cam.rotation, (t_v){1, 0, 0}));
-	else if (key == SDLK_RIGHT)
+			printf("left\n");}
+	else if (key == SDLK_RIGHT) {
 		e->cam.position = vecsum(e->cam.position,
 			vec_rotate(e->cam.rotation, (t_v){1, 0, 0}));
-	else if (key == SDLK_UP)
+			printf("right\n");}
+	else if (key == SDLK_UP){
 		e->cam.position = vecsum(e->cam.position,
 			vec_rotate(e->cam.rotation, (t_v){0, 0, 1}));
-	else if (key == SDLK_DOWN)
+			printf("forward\n");}
+	else if (key == SDLK_DOWN) {
 		e->cam.position = vecsub(e->cam.position,
 			vec_rotate(e->cam.rotation, (t_v){0, 0, 1}));
+			printf("backwards\n");}
 }
 
 void			sdl_key_press_events(SDL_Event *event, t_env *env)

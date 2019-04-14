@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 20:09:40 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/30 18:00:49 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/13 17:41:24 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ static void	parse_surface(int fd, t_lst *list, t_surf *surf)
 static void	init_surface(t_surf *surf)
 {
 	surf->color = (t_clr){255, 255, 255};
-	surf->max_height = 1;
-	surf->min_height = 0;
+	surf->limits.max_height = +INFINITY;
+	surf->limits.min_height = -INFINITY;
+	surf->limits.max_width = +INFINITY;
+	surf->limits.min_width = -INFINITY;
 	surf->orientation = (t_v){0, 0, 0};
 	surf->position = (t_v){0, 0, 0};
 	surf->orientation_init = (t_v){0, 0, 0};

@@ -17,10 +17,8 @@ SRC		=	main.c \
 			initer.c \
 			refract.c \
 			ft_atod.c \
-			textures.c \
 			sdl_draw.c \
 			intersect.c \
-			calc_basis.c \
 			calc_normal.c \
 			stereoscopy.c \
 			image_saver.c \
@@ -30,6 +28,10 @@ SRC		=	main.c \
 			anti_aliasing.c \
 			parser/parser.c \
 			intersect_utility.c \
+			textures/normal_map.c \
+			textures/texture_color.c \
+			textures/calc_basis.c \
+			textures/calc_local_coords.c \
 			parser/parser_validation.c \
 			parser/parser_write_surface.c \
 			parser/parser_writing_fields.c \
@@ -94,6 +96,7 @@ all: obj $(FT_LIB) $(VEC_LIB) $(KISS_LIB) $(NAME)
 obj:
 	mkdir -p $(OBJDIR)
 	mkdir -p $(OBJDIR)/parser
+	mkdir -p $(OBJDIR)/textures
 
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(INC) -I $(INCDIR) -o $@ -c $<

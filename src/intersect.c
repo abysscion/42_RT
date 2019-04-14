@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:22:30 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/05 13:06:06 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/13 18:55:32 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		intersect_sphere(t_v start, t_v dest, t_surf *sph, double *roots)
 		return (0);
 	roots[0] = (b * -1 + sqrt(discr)) / (2 * a);
 	roots[1] = (b * -1 - sqrt(discr)) / (2 * a);
-	return (1);
+	return (limit_sphere(sph, dest, start, roots));
 }
 
 int		intersect_cylinder(t_v start, t_v dest, t_surf *cyl, double *roots)
@@ -94,7 +94,7 @@ int		intersect_plane(t_v start, t_v dest, t_surf *plane, double *roots)
 	roots[1] = +INFINITY;
 	if (roots[0] < RAY_LENMIN)
 		return (0);
-	return (1);
+	return (limit_plane(plane, dest, start, roots));
 }
 
 int		intersect_paraboloid(t_v start, t_v dest, t_surf *parab, double *roots)

@@ -32,7 +32,7 @@
 #include <SDL_image.h>
 #elif defined(__APPLE__)
 #include <SDL.h>
-#include "/Users/cschuste/.brew/include/SDL2/SDL_ttf.h"
+#include <SDL_ttf.h>
 #include <SDL_image.h>
 #else
 #include <SDL2/SDL.h>

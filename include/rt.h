@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/12 18:09:00 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/14 14:03:48 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # endif
 # include "../lib/libft/libft.h"
 # include "../lib/libvec/libvec.h"
-# include "../lib/libkiss/kiss_sdl.h"
+# include "kiss_sdl.h"
 # include "structs.h"
 # include "keys.h"
 # include <stdio.h>
@@ -93,7 +93,7 @@ void				create_any_ob(t_env *e, unsigned char *arr, t_v pos,
 void				calc_color(t_clr *color, double intens, t_surf *surface);
 void				sdl_key_press_events(SDL_Event *event, t_env *env);
 void				sdl_draw(t_env *env, t_clr color, int x, int y);
-void				get_texture_color(t_surf *surface, t_lc *light);
+
 void				events_handler(SDL_Event *event, t_env *env);
 void				create_objects(t_env *e, char *av);
 void				sdl_help(t_env *env, int x, int y);
@@ -117,8 +117,7 @@ void				check_stereo(t_env *e);
 int					render(void *argv);
 void				sepia(t_env *env);
 void				blur(t_env *env);
-int					limit_cone_cyl(t_surf *surf,
-										t_v dest, t_v start, double *roots);
+
 int					intersect_paraboloid(t_v start, t_v dest, t_surf *parab,
 										double *roots);
 int					intersect_cylinder(t_v start,
@@ -129,6 +128,7 @@ int					intersect_cone(t_v start,
 										t_v dest, t_surf *cone, double *t);
 int					intersect_plane(t_v start,
 										t_v dest, t_surf *plane, double *t);
+
 int					choose_type(t_env *env, t_lst *surface , double *roots);
 int					mouse_release(int key, int x, int y, t_env *e);
 int					mouse_press(int key, int x, int y, t_env *e);
@@ -140,6 +140,25 @@ int					mouse_move(int x, int y, t_env *e);
 int					key_hook(int key, t_env *e);
 int					clean_n_close(t_env *e);
 int					expose_hook(t_env *e);
+
+
+
+int					limit_cone_cyl(t_surf *surf,
+										t_v dest, t_v start, double *roots);
+int					limit_plane(t_surf *surf, t_v dest, t_v start,
+						double *roots);
+int					limit_sphere(t_surf *surf, t_v dest, t_v start, double *roots);
+
+t_v					get_texture_normal(t_surf *surface, t_lc *light);
+void				get_texture_color(t_surf *surface, t_lc *light);
+
+void				calc_plane_local_coords(t_v *surf_point, t_surf *surface,
+						double *u, double *v);
+void				calc_sphere_local_coords(t_v *surf_point, t_surf *surface,
+						double *u, double *v);
+void				calc_cone_cyl_local_coords(t_v *surf_p, t_surf *surface,
+						double *u, double *v);
+
 /*=============================== END OF MAIN ===============================*/
 
 /*================================= PARSER ==================================*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/25 23:38:43 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/04 22:50:10 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/11 15:44:36 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	rotate_z(double angle, t_v *vec)
 	sine = sin(rad);
 	vec->x = temp.x * cosine - temp.y * sine;
 	vec->y = temp.x * sine + temp.y * cosine;
+	vec->z = temp.z;
 }
 
 t_v			vec_rotate(t_v angle, t_v vec)

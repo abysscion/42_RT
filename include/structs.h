@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/12 16:57:10 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/14 14:03:46 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,18 +108,28 @@ typedef	struct		s_basis
 	t_v					z;
 }					t_basis;
 
+typedef struct		s_limits
+{
+	double			max_height;
+	double			min_height;
+	double			max_width;
+	double			min_width;			
+}					t_lim;
+
+
+
 typedef	struct		s_surface
 {
 	SDL_Surface			*texture;
+	SDL_Surface			*normal_map;
 	t_basis				basis;
+	t_lim				limits;
 	t_clr				color;
 	t_v					position_init;
 	t_v					orientation_init;
 	t_v					position;
 	t_v					orientation;
 	double				radius;
-	double				max_height;
-	double				min_height;
 	double				specular;
 	double				reflect;
 	double				transp;

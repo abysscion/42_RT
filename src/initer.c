@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:34:01 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/08 13:59:59 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/13 18:49:36 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,17 @@ void	adjust_objects(t_env *env)
 			surf = (t_surf *)surfs->obj;
 			surf->orientation = vec_rotate(obj->rotation,
 				surf->orientation_init);
-			surf->position = vec_rotate(obj->rotation, surf->position_init);
-			surf->position = vecsum(surf->position, obj->offset);
+			if (surf->type != T_PLANE)
+			{
+				surf->position = vec_rotate(obj->rotation, surf->position_init);
+				surf->position = vecsum(surf->position, obj->offset);
+
+			}
+			else
+				surf->position = vecsum(surf->position_init, obj->offset);
 			if (surf->type == T_CONE)
 				surf->position = vecsub(surf->position,
-					vecmult_num(surf->orientation, surf->min_height));
+					vecmult_num(surf->orientation, surf->limits.min_height));
 			calc_basis(surf);
 			surfs = surfs->next;
 		}
