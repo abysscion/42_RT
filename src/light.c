@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 21:03:53 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/25 17:12:54 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/14 20:08:13 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void		choose_light(t_env *env, t_lc *lc, t_lst *light)
 	env->ray.start = lc->surf_point;
 }
 
-static void		calc_light(t_env *env, t_lst *surface,
+static void		calc_light(t_env *env, t_surf *surface,
 								double *intens, t_lc *lc)
 {
 	double	cosine;
@@ -59,21 +59,22 @@ static void		calc_light(t_env *env, t_lst *surface,
 		{
 			choose_light(env, lc, light);
 			if (closest_intersection(env, NULL) >= env->ray.max)
-			{	
+			{
 				if (vecmult_scal(lc->surf_normal, vecnorm(lc->to_start)) < 0)
-				lc->surf_normal = vecmult_num(lc->surf_normal, -1);
-				cosine = vecmult_scal(lc->surf_normal, vecnorm(lc->point_to_light));
+					lc->surf_normal = vecmult_num(lc->surf_normal, -1);
+				cosine = vecmult_scal(lc->surf_normal,
+					vecnorm(lc->point_to_light));
 				if (cosine > 0)
 					*intens += ((t_light *)light->obj)->intensity * cosine;
-				if (((t_surf *)surface->obj)->specular > 0 && cosine > 0)
-					*intens += calc_spec(lc, surface->obj, light->obj);
+				if (surface->specular > 0 && cosine > 0)
+					*intens += calc_spec(lc, surface, light->obj);
 			}
 		}
 		light = light->next;
 	}
 }
 
-t_clr			light_on(t_env *env, double closest, t_lst *surface, int rec)
+t_clr			light_on(t_env *env, double closest, t_surf *surface, int rec)
 {
 	t_lc				lc;
 	double				intensity;
@@ -82,25 +83,29 @@ t_clr			light_on(t_env *env, double closest, t_lst *surface, int rec)
 
 	lc.orig_dest = env->ray.dest;
 	lc.to_start = vecmult_num(env->ray.dest, -1);
-	lc.surf_point = vecsum(env->ray.start, vecmult_num(env->ray.dest, closest));	
-	calc_surf_normal(env, closest, surface, &lc);
+	lc.surf_point = vecsum(env->ray.start,
+		vecmult_num(env->ray.dest, closest));
+	if (surface->normal_map != NULL)
+		get_texture_normal(surface, &lc);
+	else
+		calc_surf_normal(env, closest, surface, &lc);
 	lc.orig_norm = lc.surf_normal;
 	intensity = 0;
 	calc_light(env, surface, &intensity, &lc);
-	if (((t_surf *)surface->obj)->texture)
-		get_texture_color((t_surf *)surface->obj, &lc);
-	calc_color(&color, intensity, (t_surf *)surface->obj);
-	if (rec > 0 && ((t_surf *)surface->obj)->reflect > 0)
+	if (surface->texture)
+		get_texture_color(surface, &lc);
+	calc_color(&color, intensity, surface);
+	if (rec > 0 && surface->reflect > 0)
 	{
 		env->ray.start = lc.surf_point;
 		env->ray.dest = calc_reflected_ray(lc.to_start, lc.surf_normal);
 		env->ray.min = RAY_LENMIN;
 		env->ray.max = RAY_LENMAX;
 		ref_color = trace_ray(env, rec - 1);
-		calc_ref_color(&color, &ref_color, surface->obj);
+		calc_ref_color(&color, &ref_color, surface);
 	}
-	else if (((t_surf *)surface->obj)->transp > 0 && rec > 0)
-	color = calc_refract(env, lc, surface, rec);
+	else if (surface->transp > 0 && rec > 0)
+		color = calc_refract(env, lc, surface, rec);
 	return (color);
 }
                                                 

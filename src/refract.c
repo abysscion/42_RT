@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   refract.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 05:21:02 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/12 17:59:28 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/14 20:12:39 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static	int		refract(t_v dest, t_v norm, t_v *ref_ray, double refr)
 	}
 }
 
-t_clr   calc_refract(t_env *env, t_lc lc, t_lst *surface, int rec)
+t_clr   calc_refract(t_env *env, t_lc lc, t_surf *surface, int rec)
 {
 	t_clr	refr_color;
 	t_clr	refl_color;
@@ -54,7 +54,7 @@ t_clr   calc_refract(t_env *env, t_lc lc, t_lst *surface, int rec)
 	env->ray.start = lc.surf_point;
 	env->ray.min = RAY_LENMIN;
 	env->ray.max = RAY_LENMAX;
-		temp = refract(lc.orig_dest, lc.orig_norm, &trans_vec, ((t_surf *)surface->obj)->transp);
+		temp = refract(lc.orig_dest, lc.orig_norm, &trans_vec, surface->transp);
 		if (temp == 0)
 		{
 			env->ray.dest = calc_reflected_ray(lc.orig_norm, lc.orig_dest);

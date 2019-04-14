@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:38:08 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/10 20:35:31 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/14 20:51:39 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void	parse_object(int fd, t_obj *object)
+static void	parse_object(int fd, t_obj *object, char *line)
 {
-	char	*line;
 	char	**split;
 	char	**floats;
 
@@ -41,9 +40,8 @@ static void	parse_object(int fd, t_obj *object)
 	}
 }
 
-static void	parse_light(int fd, t_lst *lst, t_light *light)
+static void	parse_light(int fd, t_lst *lst, t_light *light, char *line)
 {
-	char	*line;
 	char	**split;
 	char	**floats;
 
@@ -71,9 +69,8 @@ static void	parse_light(int fd, t_lst *lst, t_light *light)
 	}
 }
 
-static void	parse_cam(int fd, t_env *env)
+static void	parse_cam(int fd, t_env *env, char *line)
 {
-	char	*line;
 	char	**split;
 	char	**floats;
 
@@ -98,10 +95,11 @@ static void	parse_cam(int fd, t_env *env)
 
 static void	select_object(t_env *env, char **params, int fd)
 {
-	t_lst *current;
+	t_lst	*current;
+	char	*line;
 
 	if (ft_strcmp(params[0], "camera") == 0)
-		parse_cam(fd, env);
+		parse_cam(fd, env, line);
 	else if (ft_strcmp(params[0], "light") == 0)
 	{
 		if (env->lights->type == -2)
@@ -109,7 +107,7 @@ static void	select_object(t_env *env, char **params, int fd)
 		else
 			current = list_add(env->lights);
 		current->obj = (t_light *)malloc(sizeof(t_light));
-		parse_light(fd, current, current->obj);
+		parse_light(fd, current, current->obj, line);
 	}
 	else if (ft_strcmp(params[0], "object") == 0)
 	{
@@ -120,7 +118,7 @@ static void	select_object(t_env *env, char **params, int fd)
 		current->obj = (t_obj *)malloc(sizeof(t_obj));
 		init_object(current->obj);
 		current->type = T_OBJECT;
-		parse_object(fd, current->obj);
+		parse_object(fd, current->obj, line);
 	}
 }
 

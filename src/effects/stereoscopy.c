@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stereoscopy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 18:53:39 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/04/10 20:39:39 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/14 20:33:54 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ static void		right_stereoscopy(t_env *env, int w_w)
 			dest = vecnorm(vec_rotate(env->cam.rotation, dest));
 			init_ray(env, dest);
 			color = trace_ray(env, RECURSION);
-			env->sdl.image[RT__W * (y + env->abuse.hrh) + (x + (w_w + w_w / 2))] =
+			env->sdl.image[RT__W * (y + env->abuse.hrh) +
+				(x + (w_w + w_w / 2))] =
 				(color.r << 16) + (color.b << 8) + color.g;
 			sdl_draw(env, color, (x + w_w / 2), y);
 			x++;
@@ -68,7 +69,7 @@ static void		right_stereoscopy(t_env *env, int w_w)
 	}
 }
 
-void	stereoscopy(t_env *env)
+void			stereoscopy(t_env *env)
 {
 	int windows_w;
 

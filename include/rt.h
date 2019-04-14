@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/14 17:20:11 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/14 20:12:58 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,18 @@ t_clr				trace_ray(t_env *env, int rec);
 void				init_ray(t_env *env, t_v dest);
 void				draw_rt(t_env *env);
 int					render(void *environment);
-double				closest_intersection(t_env *env, t_lst **closest_surf);
+double				closest_intersection(t_env *env, t_surf **closest_surf);
+/*============================= END OF MAIN =================================*/
 
 /*======================== COLORS, LIGHTS AND SHADOWS =======================*/
-t_clr				light_on(t_env *env, double closest, t_lst *surface, int rec);
-t_clr   			calc_refract(t_env *env, t_lc lc, t_lst *surface, int rec);
+t_clr				light_on(t_env *env, double closest, t_surf *surface, int rec);
+t_clr   			calc_refract(t_env *env, t_lc lc, t_surf *surface, int rec);
 
 void				calc_color(t_clr *color, double intens, t_surf *surface);
 void				calc_ref_color(t_clr *color, t_clr *ref_color,
 						t_surf *surface);
 
-void				calc_surf_normal(t_env *env, double closest, t_lst *surface,
+void				calc_surf_normal(t_env *env, double closest, t_surf *surface,
 						t_lc *light);
 t_v					calc_reflected_ray(t_v bisect, t_v direction);
 /*===================== END OF COLORS, LIGHTS AND SHADOWS ===================*/
@@ -132,7 +133,7 @@ int					limit_disc(t_surf *surf, t_v *dest, t_v *start,
 /*========================= TEXTURES AND COORDINATES ========================*/
 void				calc_basis(t_surf *surf);
 
-t_v					get_texture_normal(t_surf *surface, t_lc *light);
+void				get_texture_normal(t_surf *surface, t_lc *light);
 void				get_texture_color(t_surf *surface, t_lc *light);
 
 void				calc_plane_local_coords(t_v *surf_point, t_surf *surface,

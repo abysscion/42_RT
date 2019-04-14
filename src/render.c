@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/14 17:49:27 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/14 20:25:48 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ int			choose_type(t_env *env, t_lst *surface, double *roots)
 	return (0);
 }
 
-/* split inner while cycle into another fucntion for norm */
-
-double		closest_intersection(t_env *env, t_lst **closest_surf)
+double		closest_intersection(t_env *env, t_surf **closest_surf)
 {
 	double	closest_dist;
 	double	roots[2];
@@ -54,12 +52,12 @@ double		closest_intersection(t_env *env, t_lst **closest_surf)
 			if (intersect && roots[0] > env->ray.min && roots[0] < closest_dist)
 			{
 				closest_dist = roots[0];
-				closest_surf == NULL ? 0 : (*closest_surf = surface);
+				closest_surf == NULL ? 0 : (*closest_surf = surface->obj);
 			}
 			if (intersect && roots[1] > env->ray.min && roots[1] < closest_dist)
 			{
 				closest_dist = roots[1];
-				closest_surf == NULL ? 0 : (*closest_surf = surface);
+				closest_surf == NULL ? 0 : (*closest_surf = surface->obj);
 			}
 			surface = surface->next;
 		}
@@ -71,7 +69,7 @@ double		closest_intersection(t_env *env, t_lst **closest_surf)
 t_clr		trace_ray(t_env *env, int recursion)
 {
 	double	closest_dist;
-	t_lst	*closest_surf;
+	t_surf	*closest_surf;
 	t_clr	color;
 
 	closest_surf = NULL;

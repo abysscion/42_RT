@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 20:09:40 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/13 17:41:24 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/14 19:52:43 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static void	parse_surface(int fd, t_lst *list, t_surf *surf)
 		}
 		if (strcmp(split[0], "texture") == 0)
 			surf->texture = IMG_Load(split[2]);
+		if (strcmp(split[0], "normal_map") == 0)
+			surf->normal_map = IMG_Load(split[2]);
 		write_field(fd, &split, &line, surf);
 	}
 }
@@ -51,6 +53,7 @@ static void	init_surface(t_surf *surf)
 	surf->reflect = 0;
 	surf->specular = 0;
 	surf->texture = NULL;
+	surf->normal_map = NULL;
 	surf->transp = 0;
 	surf->type = 0;
 }

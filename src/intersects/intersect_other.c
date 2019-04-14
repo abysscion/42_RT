@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:22:30 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/14 17:41:32 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/14 20:52:54 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,9 @@ int		intersect_plane(t_v start, t_v dest, t_surf *surf, double *roots)
 	roots[1] = +INFINITY;
 	if (roots[0] < RAY_LENMIN)
 		return (0);
-	if (surf->type == T_PLANE)	
+	if (surf->type == T_PLANE)
 		return (limit_plane(surf, &dest, &start, roots));
 	if (surf->type == T_DISC)
 		return (limit_disc(surf, &dest, &start, roots));
 	return (0);
 }
-
-

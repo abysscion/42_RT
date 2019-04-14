@@ -39,7 +39,7 @@ object
 	surface
 	{
 		type		:	DISC
-		texture		:	none
+		texture		:	textures/tiles_floor.jpg
 		color		:	0 255 0
 		position	:	0.0 0.0 5.0
 		orientation	:	0.0 0.0 -1.0
@@ -56,7 +56,7 @@ object
 	surface
 	{
 		type		:	PLANE
-		texture		:	none
+		texture		:	textures/tiles_floor.jpg
 		color		:	255 0 0
 		position	:	0.0 0.0 5.0
 		orientation	:	0.0 0.0 -1.0

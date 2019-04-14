@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 16:22:22 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/14 17:21:50 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/14 18:03:47 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int		surface_type_check(int fd, char ***split, char **line)
 		if (strcmp((*split)[2], "PARABOLOID") == 0)
 			flag = T_PARAB;
 		if (strcmp((*split)[2], "DISC") == 0)
-			flag = T_DISC;	
+			flag = T_DISC;
 		parse_next(fd, split, line);
 		return (flag);
 	}

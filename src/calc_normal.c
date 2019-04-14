@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:20:56 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/14 17:02:25 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/14 20:09:21 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,18 @@ static void	cyl_normal(t_env *env, double closest, t_surf *cyl, t_lc *light)
 }
 
 void		calc_surf_normal(t_env *env, double closest,
-							t_lst *surface, t_lc *light)
+							t_surf *surface, t_lc *light)
 {
 	if (surface->type == T_SPHERE)
 		light->surf_normal = vecsub(light->surf_point,
-							((t_surf *)surface->obj)->position);
+							surface->position);
 	else if (surface->type == T_PLANE || surface->type == T_DISC)
-		light->surf_normal = ((t_surf *)surface->obj)->orientation;
+		light->surf_normal = surface->orientation;
 	else if (surface->type == T_CYLINDER)
-		cyl_normal(env, closest, surface->obj, light);
+		cyl_normal(env, closest, surface, light);
 	else if (surface->type == T_CONE)
-		cone_normal(env, closest, surface->obj, light);
+		cone_normal(env, closest, surface, light);
 	else if (surface->type == T_PARAB)
-		parab_normal(surface->obj, light);
+		parab_normal(surface, light);
 	light->surf_normal = vecnorm(light->surf_normal);
 }

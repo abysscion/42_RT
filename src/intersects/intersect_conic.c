@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:56:29 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/14 15:59:29 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/14 20:54:05 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		intersect_cylinder(t_v start, t_v dest, t_surf *cyl, double *roots)
 int		intersect_cone(t_v start, t_v dest, t_surf *cone, double *roots)
 {
 	t_v		pos_to_start;
-	double  a;
+	double	a;
 	double	b;
 	double	c;
 	double	discr;
@@ -68,14 +68,15 @@ int		intersect_cone(t_v start, t_v dest, t_surf *cone, double *roots)
 int		intersect_paraboloid(t_v start, t_v dest, t_surf *parab, double *roots)
 {
 	t_v		pos_to_start;
-	double  a;
+	double	a;
 	double	b;
 	double	c;
 	double	discr;
 
 	pos_to_start = vecsub(start, parab->position);
 	parab->orientation = vecnorm(parab->orientation);
-	a = vecmult_scal(dest, dest) - pow(vecmult_scal(dest, parab->orientation), 2);
+	a = vecmult_scal(dest, dest) -
+		pow(vecmult_scal(dest, parab->orientation), 2);
 	b = vecmult_scal(dest, parab->orientation) * (vecmult_scal(pos_to_start,
 		parab->orientation) + 2 * parab->radius);
 	b = 2 * (vecmult_scal(dest, pos_to_start) - b);
