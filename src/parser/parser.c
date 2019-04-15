@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:38:08 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/14 20:51:39 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/15 15:07:05 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ static void	parse_cam(int fd, t_env *env, char *line)
 
 static void	select_object(t_env *env, char **params, int fd)
 {
-	t_lst	*current;
-	char	*line;
+	t_lst		*current;
+	static char	*line;
 
 	if (ft_strcmp(params[0], "camera") == 0)
 		parse_cam(fd, env, line);

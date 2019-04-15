@@ -3,45 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/15 16:44:55 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/15 20:04:54 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-int			choose_type(t_env *env, t_lst *surface, double *roots)
+int				choose_type(t_env *env, t_lst *surface, double *roots)
 {
 	if (surface->type == T_PLANE || surface->type == T_DISC)
-		return (intersect_plane(env->ray.start, env->ray.dest,
+		return (intersect_plane(&(env->ray.start), &(env->ray.dest),
 			surface->obj, roots));
 	else if (surface->type == T_SPHERE)
-		return (intersect_sphere(env->ray.start, env->ray.dest,
+		return (intersect_sphere(&(env->ray.start), &(env->ray.dest),
 			surface->obj, roots));
 	else if (surface->type == T_CYLINDER)
-		return (intersect_cylinder(env->ray.start, env->ray.dest,
+		return (intersect_cylinder(&(env->ray.start), &(env->ray.dest),
 			surface->obj, roots));
 	else if (surface->type == T_CONE)
-		return (intersect_cone(env->ray.start, env->ray.dest,
+		return (intersect_cone(&(env->ray.start), &(env->ray.dest),
 			surface->obj, roots));
 	else if (surface->type == T_PARAB)
-		return (intersect_paraboloid(env->ray.start, env->ray.dest,
+		return (intersect_paraboloid(&(env->ray.start), &(env->ray.dest),
 			surface->obj, roots));
 	else
 		return (0);
 }
 
-double		closest_intersection(t_env *env, t_surf **closest_surf)
+static void		intersect_surface(t_env *env, t_lst *surf_lst, t_surf **closest_surf, double *closest_dist)
 {
-	double	closest_dist;
+	t_surf	*curr_surf;
 	double	roots[2];
 	int		intersect;
+
+	curr_surf = (t_surf *)(surf_lst->obj);
+	intersect = choose_type(env, surf_lst, roots);
+	if (intersect && roots[0] > env->ray.min && roots[0] < *closest_dist)
+	{
+		*closest_dist = roots[0];
+		closest_surf == NULL ? 0 : (*closest_surf = curr_surf);
+	}
+	if (intersect && roots[1] > env->ray.min && roots[1] < *closest_dist)
+	{
+		*closest_dist = roots[1];
+		closest_surf == NULL ? 0 : (*closest_surf = curr_surf);
+	}
+}
+
+double			closest_intersection(t_env *env, t_surf **closest_surf)
+{
+	double	closest_dist;
 	t_lst	*objects;
 	t_lst	*surface;
 
-	intersect = 0;
 	objects = env->objects;
 	closest_dist = env->ray.max;
 	while (objects)
@@ -49,17 +66,7 @@ double		closest_intersection(t_env *env, t_surf **closest_surf)
 		surface = ((t_obj *)objects->obj)->surfaces;
 		while (surface)
 		{
-			intersect = choose_type(env, surface, roots);
-			if (intersect && roots[0] > env->ray.min && roots[0] < closest_dist)
-			{
-				closest_dist = roots[0];
-				closest_surf == NULL ? 0 : (*closest_surf = surface->obj);
-			}
-			if (intersect && roots[1] > env->ray.min && roots[1] < closest_dist)
-			{
-				closest_dist = roots[1];
-				closest_surf == NULL ? 0 : (*closest_surf = surface->obj);
-			}
+			intersect_surface(env, surface, closest_surf, &closest_dist);
 			surface = surface->next;
 		}
 		objects = objects->next;

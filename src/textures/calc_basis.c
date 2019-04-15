@@ -6,28 +6,54 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 13:53:35 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/14 20:44:40 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/15 15:50:55 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-//need to refactor calculations and swap variables so that everything is consistent
-
-static void	calc_basis_conic(t_surf *surf)
+void calc_basis(t_surf *surf)
 {
-	surf->basis.y = surf->orientation;
+	surf->basis.z = surf->orientation;
 	if (surf->orientation.x == 0 && surf->orientation.y == 0 &&
 		(surf->orientation.z == 1 || surf->orientation.z == -1))
 	{
-		surf->basis.x = (t_v){0, 1, 0};
+		surf->basis.x = (t_v){1, 0, 0};
+		surf->basis.y = (t_v){0, 1, 0};
+		return ;
+	}
+	surf->basis.y = vecnorm(vecmult_vec(surf->basis.z, (t_v){0, 0, 1}));
+	if ((int)(surf->basis.y.x * 1e6) == 0 &&
+		(int)(surf->basis.y.y * 1e6) == 0 &&
+		(int)(surf->basis.y.z * 1e6) == 0)
+	{
+		surf->basis.x = (t_v){1, 0, 0};
+		surf->basis.y = (t_v){0, 1, 0};
+		return ;
+	}
+	surf->basis.x = vecnorm(vecmult_vec(surf->basis.y, surf->basis.z));
+}
+
+/*LEGACY CODE */ /*
+static void	calc_basis_conic(t_surf *surf)
+{
+	surf->basis.y = surf->orientation;
+	if (surf->orientation.x == 0 && surf->orientation.z == 0 &&
+		(surf->orientation.y == 1 || surf->orientation.y == -1))
+	{
+		surf->basis.x = (t_v){1, 0, 0};
+		surf->basis.z = (t_v){0, 0, 1};
 		return ;
 	}
 	surf->basis.x = vecnorm(vecmult_vec(surf->basis.y, (t_v){0, 0, 1}));
+	surf->basis.z = vecnorm(vecmult_vec(surf->basis.y, surf->basis.x));
 	if ((int)(surf->basis.x.x * 1e6) == 0 &&
 		(int)(surf->basis.x.y * 1e6) == 0 &&
 		(int)(surf->basis.x.z * 1e6) == 0)
+	{
 		surf->basis.x = (t_v){0, 1, 0};
+		surf->basis.z = (t_v){0, 0, 1};
+	}
 }
 
 static void	calc_basis_sphere(t_surf *surf)
@@ -37,13 +63,18 @@ static void	calc_basis_sphere(t_surf *surf)
 		(surf->orientation.z == 1 || surf->orientation.z == -1))
 	{
 		surf->basis.x = (t_v){0, 1, 0};
+		surf->basis.z = (t_v){0, 0, 1};
 		return ;
 	}
 	surf->basis.x = vecnorm(vecmult_vec(surf->basis.y, (t_v){0, 0, 1}));
+	surf->basis.z = vecnorm(vecmult_vec(surf->basis.y, surf->basis.x));
 	if ((int)(surf->basis.x.x * 1e6) == 0 &&
 		(int)(surf->basis.x.y * 1e6) == 0 &&
 		(int)(surf->basis.x.z * 1e6) == 0)
+	{
 		surf->basis.x = (t_v){0, 1, 0};
+		surf->basis.z = (t_v){0, 0, 1};
+	}
 }
 
 static void	calc_basis_flat(t_surf *surf)
@@ -73,3 +104,5 @@ void		calc_basis(t_surf *surf)
 	if (surf->type == T_PLANE || surf->type == T_DISC)
 		calc_basis_flat(surf);
 }
+
+*/

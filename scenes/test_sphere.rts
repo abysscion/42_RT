@@ -27,10 +27,10 @@ object
 	surface
 	{
 		type		:	SPHERE
-		texture		:	none
+		texture		:	textures/planets/earth.jpg
 		color		:	255 255 0
 		position	:	0.0 0.0 5.0
-		orientation	:	0.0 1.0 0.0
+		orientation	:	0.0 1.0 1.0
 		radius		:	1.0
 		max_height	:	0.8
 		min_height	:	-0.8

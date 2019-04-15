@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/14 17:58:31 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/15 20:13:21 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef	struct		s_surface
 {
 	SDL_Surface			*texture;
 	SDL_Surface			*normal_map;
+	t_v					current_normal;
 	t_basis				basis;
 	t_lim				limits;
 	t_clr				color;

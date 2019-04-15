@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 20:09:40 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/14 19:52:43 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/15 20:17:01 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	init_surface(t_surf *surf)
 	surf->position = (t_v){0, 0, 0};
 	surf->orientation_init = (t_v){0, 0, 0};
 	surf->position_init = (t_v){0, 0, 0};
+	surf->current_normal = (t_v){0, 0, 1};
 	surf->radius = 1;
 	surf->reflect = 0;
 	surf->specular = 0;

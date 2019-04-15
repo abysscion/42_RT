@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/15 16:46:10 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/15 20:04:32 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int					numOfObjs(t_env *e);
 # define MSG_USAGE	"usage: \e[33mThere's no usage yet :^)\e[0m"
 # define RAY_LENMAX				2147483647
 # define RAY_LENMIN				0.001
-# define ROT_STEP				15
+# define ROT_STEP				5
 # define RT__W					512
 # define RT__H					512
 # define WIN_H					(RT__H + GUI_BAR_H + 200)
@@ -109,17 +109,16 @@ t_v					calc_reflected_ray(t_v bisect, t_v direction);
 /*========================= LIMITS AND INTERSECTIONS ========================*/
 int					choose_type(t_env *env, t_lst *surface , double *roots);
 
-
-int					intersect_paraboloid(t_v start, t_v dest, t_surf *parab,
-										double *roots);
-int					intersect_cylinder(t_v start,
-										t_v dest, t_surf *cyl, double *t);
-int					intersect_sphere(t_v start,
-										t_v dest, t_surf *sph, double *t);
-int					intersect_cone(t_v start,
-										t_v dest, t_surf *cone, double *t);
-int					intersect_plane(t_v start,
-										t_v dest, t_surf *plane, double *t);
+int					intersect_paraboloid(t_v *start, t_v *dest, t_surf *parab,
+						double *roots);
+int					intersect_cylinder(t_v *start, t_v *dest, t_surf *cyl,
+						double *roots);
+int					intersect_sphere(t_v *start, t_v *dest, t_surf *sph,
+						double *roots);
+int					intersect_cone(t_v *start, t_v *dest, t_surf *cone,
+						double *roots);
+int					intersect_plane(t_v *start, t_v *dest, t_surf *plane,
+						double *roots);
 
 int					limit_conic(t_surf *surf, t_v *dest, t_v *start,
 						double *roots);
