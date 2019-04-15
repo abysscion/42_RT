@@ -6,7 +6,7 @@
 /*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 16:49:07 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/12 18:15:49 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/15 15:15:16 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,33 @@ static	void	check_flags(t_env *env)
 	env->flags.need_render = 0;
 }
 
-void	create_and_run(t_env *e)
+static	void	create_image(t_env *e, SDL_Thread **thread, t_env *copy)
 {
-	t_env	copy[THREADS];
-	SDL_Thread	**thread;
 	int i;
-	int	j;
-	int	raw;
+	int j;
+	int raw;
+
+	i = -1;
+	while (++i < THREADS)
+	{
+		SDL_WaitThread(thread[i], NULL);
+		raw = copy[i].quarter;
+		while (raw < WIN_H)
+		{
+			j = -1;
+			while (++j < WIN_W)
+				e->sdl.image[j + raw * WIN_W] = copy[i].sdl.image[j +
+					raw * WIN_W];
+			raw += THREADS;
+		}
+	}
+}
+
+void			create_and_run(t_env *e)
+{
+	t_env		copy[THREADS];
+	SDL_Thread	**thread;
+	int			i;
 
 	i = -1;
 	while (++i < THREADS)
@@ -39,21 +59,10 @@ void	create_and_run(t_env *e)
 	while (++i < THREADS)
 		thread[i] = SDL_CreateThread(render, "abc", (void *)&copy[i]);
 	i = -1;
-	while (++i < THREADS)
-	{
-		SDL_WaitThread(thread[i], NULL);
-		raw = copy[i].quarter;
-		while (raw < WIN_H)
-		{
-			j = -1;
-			while (++j < WIN_W)
-				e->sdl.image[j + raw * WIN_W] = copy[i].sdl.image[j + raw * WIN_W];
-			raw += THREADS;
-		}
-	}
+	create_image(e, thread, &copy[0]);
 }
 
-void	check_stereo(t_env *e)
+void			check_stereo(t_env *e)
 {
 	if (e->flags.stereo == 0)
 		create_and_run(e);

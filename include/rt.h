@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/14 20:12:58 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/15 16:46:10 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ double				closest_intersection(t_env *env, t_surf **closest_surf);
 t_clr				light_on(t_env *env, double closest, t_surf *surface, int rec);
 t_clr   			calc_refract(t_env *env, t_lc lc, t_surf *surface, int rec);
 
+void				init_color_variables(t_env *env, t_lc *lc, double closest);
 void				calc_color(t_clr *color, double intens, t_surf *surface);
 void				calc_ref_color(t_clr *color, t_clr *ref_color,
 						t_surf *surface);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/14 20:25:48 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/15 16:44:55 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int			choose_type(t_env *env, t_lst *surface, double *roots)
 	else if (surface->type == T_PARAB)
 		return (intersect_paraboloid(env->ray.start, env->ray.dest,
 			surface->obj, roots));
-	return (0);
+	else
+		return (0);
 }
 
 double		closest_intersection(t_env *env, t_surf **closest_surf)
@@ -137,9 +138,3 @@ int			render(void *environment)
 	}
 	return (0);
 }
-		// if (env->flags.blur == 1)
-		// 	blur(env);
-		// if (env->flags.sepia == 1)
-		// 	sepia(env);
-		// if (env->flags.aa == 1)
-		// 	anti_aliasing(env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:34:01 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/14 17:50:16 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/15 16:45:48 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,6 @@ void	init_env(t_env *env, char **argv)
 	env->cam.rotation = (t_v) {0, 0, 0};
 	env->cam.position = (t_v) {0, 0, 0};
 	env->flags.need_render = 1;
-	// if (argv[2] != NULL)
-	// {
-	// 	env->flags.sepia = ft_strcmp(argv[2], "-se") == 0 ? 1 : 0;
-	// 	env->flags.stereo = ft_strcmp(argv[2], "-st") == 0 ? 1 : 0;
-	// 	env->flags.blur = ft_strcmp(argv[2], "-b") == 0 ? 1 : 0;
-	// 	env->flags.aa = ft_strcmp(argv[2], "-aa") == 0 ? 1 : 0;
-	// }
 }
 
 void	adjust_objects(t_env *env)
@@ -61,7 +54,6 @@ void	adjust_objects(t_env *env)
 			{
 				surf->position = vec_rotate(obj->rotation, surf->position_init);
 				surf->position = vecsum(surf->position, obj->offset);
-
 			}
 			else
 				surf->position = vecsum(surf->position_init, obj->offset);

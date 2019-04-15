@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light_utility.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 10:08:37 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/20 18:15:55 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/15 15:43:49 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,12 @@ t_v				calc_reflected_ray(t_v direction, t_v bisect)
 					vecmult_scal(bisect, direction));
 	reflected_ray = vecsub(reflected_ray, direction);
 	return (reflected_ray);
+}
+
+void			init_color_variables(t_env *env, t_lc *lc, double closest)
+{
+	lc->orig_dest = env->ray.dest;
+	lc->to_start = vecmult_num(env->ray.dest, -1);
+	lc->surf_point = vecsum(env->ray.start,
+		vecmult_num(env->ray.dest, closest));
 }

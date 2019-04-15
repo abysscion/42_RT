@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 21:03:53 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/14 20:08:13 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/15 15:45:07 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,18 @@ static void		calc_light(t_env *env, t_surf *surface,
 	}
 }
 
+static	t_clr	reflection(t_env *env, t_lc *lc, int rec)
+{
+	t_clr	color;
+
+	env->ray.start = lc->surf_point;
+	env->ray.dest = calc_reflected_ray(lc->to_start, lc->surf_normal);
+	env->ray.min = RAY_LENMIN;
+	env->ray.max = RAY_LENMAX;
+	color = trace_ray(env, rec - 1);
+	return (color);
+}
+
 t_clr			light_on(t_env *env, double closest, t_surf *surface, int rec)
 {
 	t_lc				lc;
@@ -81,10 +93,7 @@ t_clr			light_on(t_env *env, double closest, t_surf *surface, int rec)
 	t_clr				color;
 	t_clr				ref_color;
 
-	lc.orig_dest = env->ray.dest;
-	lc.to_start = vecmult_num(env->ray.dest, -1);
-	lc.surf_point = vecsum(env->ray.start,
-		vecmult_num(env->ray.dest, closest));
+	init_color_variables(env, &lc, closest);
 	if (surface->normal_map != NULL)
 		get_texture_normal(surface, &lc);
 	else
@@ -97,15 +106,10 @@ t_clr			light_on(t_env *env, double closest, t_surf *surface, int rec)
 	calc_color(&color, intensity, surface);
 	if (rec > 0 && surface->reflect > 0)
 	{
-		env->ray.start = lc.surf_point;
-		env->ray.dest = calc_reflected_ray(lc.to_start, lc.surf_normal);
-		env->ray.min = RAY_LENMIN;
-		env->ray.max = RAY_LENMAX;
-		ref_color = trace_ray(env, rec - 1);
+		ref_color = reflection(env, &lc, rec);
 		calc_ref_color(&color, &ref_color, surface);
 	}
 	else if (surface->transp > 0 && rec > 0)
 		color = calc_refract(env, lc, surface, rec);
 	return (color);
 }
-                                                
