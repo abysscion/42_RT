@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:34:01 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/15 20:04:30 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/15 20:58:34 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	adjust_objects(t_env *env)
 			surf->orientation_init = vecnorm(surf->orientation_init);
 			surf->orientation = vec_rotate(obj->rotation,
 				surf->orientation_init);
-			if (surf->type == T_PLANE && surf->type == T_DISC)
+			if (surf->type == T_PLANE || surf->type == T_DISC)
 				surf->position = vecsum(surf->position_init, obj->offset);
 			else
 			{

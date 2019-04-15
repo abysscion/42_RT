@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/27 16:22:22 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/14 18:03:47 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/15 21:18:24 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int		texture_check(int fd, char ***split, char **line)
 {
 	char **texture;
 
-	if (strcmp((*split)[0], "texture") == 0 && check_param_num(*split, 3))
+	if ((strcmp((*split)[0], "texture") == 0 ||
+		strcmp((*split)[0], "normal_map") == 0) &&
+		check_param_num(*split, 3))
 	{
 		texture = ft_strsplit((*split)[2], ' ');
 		if (check_param_num(texture, 1) == 0)

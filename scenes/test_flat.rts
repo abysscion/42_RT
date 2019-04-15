@@ -17,7 +17,7 @@ light
 object
 {
 	position		:	0.0 0.0 0.0
-	orientation		:	0.0 60.0 0.0
+	orientation		:	60.0 60.0 0.0
 	surface
 	{
 		type		:	PLANE
@@ -35,7 +35,7 @@ object
 object
 {
 	position		:	0.0 1.0 0.0
-	orientation		:	0.0 60.0 0.0
+	orientation		:	0.0 0.0 0.0
 	surface
 	{
 		type		:	DISC
@@ -88,7 +88,7 @@ object
 object
 {
 	position		:	0.0 -1.0 0.0
-	orientation		:	0.0 60.0 0.0
+	orientation		:	60.0 60.0 0.0
 	surface
 	{
 		type		:	DISC

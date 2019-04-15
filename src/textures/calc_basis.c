@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 13:53:35 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/15 15:50:55 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/15 20:47:59 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,18 @@ void calc_basis(t_surf *surf)
 		return ;
 	}
 	surf->basis.y = vecnorm(vecmult_vec(surf->basis.z, (t_v){0, 0, 1}));
+	surf->basis.x = vecnorm(vecmult_vec(surf->basis.y, surf->basis.z));
 	if ((int)(surf->basis.y.x * 1e6) == 0 &&
 		(int)(surf->basis.y.y * 1e6) == 0 &&
 		(int)(surf->basis.y.z * 1e6) == 0)
 	{
 		surf->basis.x = (t_v){1, 0, 0};
 		surf->basis.y = (t_v){0, 1, 0};
+		surf->basis.z = (t_v){0, 0, 1};
 		return ;
 	}
-	surf->basis.x = vecnorm(vecmult_vec(surf->basis.y, surf->basis.z));
+	printf("%lf %lf %lf ; %lf %lf %lf\n", surf->basis.x.x, surf->basis.x.y, surf->basis.x.z,
+	surf->basis.y.x, surf->basis.y.y, surf->basis.y.z);
 }
 
 /*LEGACY CODE */ /*
