@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/16 19:12:11 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/16 19:55:13 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,6 @@ t_clr			trace_ray(t_env *env, int recursion)
 	return (color);
 }
 
-/*
-**	Casts rays in every viewport pixel and calculates appropriate color
-**	of the pixel then saves pixel color into sdl.image.
-*/
-
 int				render(void *environment)
 {
 	t_env	*env;
@@ -103,18 +98,19 @@ int				render(void *environment)
 	int		y;
 
 	env = (t_env *)environment;
-	y = env->abuse.hrh * -1 + env->quarter;
-	while (y < env->abuse.hrh)
+	y = env->constants.half_render_h * -1 + env->quarter;
+	while (y < env->constants.half_render_h)
 	{
-		x = env->abuse.hrw * -1;
-		while (x < env->abuse.hrw)
+		x = env->constants.half_render_w * -1;
+		while (x < env->constants.half_render_w)
 		{
 			dest = (t_v){x * 1.0 / RT__W, y * -1.0 / RT__H, 1.0};
 			dest = vecnorm(vec_rotate(env->cam.rotation, dest));
 			init_ray(env, dest);
 			color = trace_ray(env, RECURSION);
 			env->sdl.image[RT__W *
-				(y + env->abuse.hrh) + (x + env->abuse.hrw)] =
+				(y + env->constants.half_render_h) +
+				(x + env->constants.half_render_w)] =
 				(color.r << 16) + (color.b << 8) + (color.g);
 			x++;
 		}

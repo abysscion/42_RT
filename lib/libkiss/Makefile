@@ -6,7 +6,7 @@ FILES	=	kiss_draw.c \
 			kiss_posix.c \
 			kiss_widgets.c
 
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g
 
 ifeq ($(OS), Linux)
 SDL_INC	=	-I /usr/include/SDL2

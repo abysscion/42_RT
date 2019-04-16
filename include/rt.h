@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/16 19:21:40 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/16 19:28:53 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,20 @@
 # include <math.h>
 
 /*=================================== GUI ===================================*/
-# define	GUI_BAR_H			74
-# define	GUI_LBLOCK_W		350
-# define	GUI_RBLOCK_W		350 + kiss_edge * 3
-# define	GUI_LBLOCK_H		(RT__H + 200)//- GUI_BAR_H)
-# define	GUI_RBLOCK_H		(RT__H + 200)// - GUI_BAR_H)
-# define	GUI_EFF_W			175
-# define	GUI_SBT_SIZE		15
+# define	GUI_LBLOCK_W			250
+# define	GUI_RBLOCK_W			350 + kiss_edge * 3
+# define	GUI_LBLOCK_H			(RT__H + kiss_edge)
+# define	GUI_RBLOCK_H			(RT__H + kiss_edge)
+# define	GUI_EFF_W				175
+# define	GUI_SBT_SIZE			15
+# define	GUI_SELECTED_TYPE_OBJ	42
+# define	GUI_SELECTED_TYPE_LIGHT	43
+# define	GUI_SELECTED_TYPE_CAM	44
 
+t_light				*get_light_pointer_to_light(t_env *e, int index);
+t_lst				*get_lst_pointer_to_light(t_env *e, int index);
+char				*get_string_obj_type(t_env *e);
+void				update_info(t_env *e);
 void				init_gui(t_env *e);
 void				draw_gui(t_env *e);
 void				draw_all(t_env *e);
@@ -52,7 +58,7 @@ int					numOfObjs(t_env *e);
 # define ROT_STEP				5
 # define RT__W					512
 # define RT__H					512
-# define WIN_H					(RT__H + GUI_BAR_H + 200)
+# define WIN_H					(RT__H + kiss_edge * 4)
 # define WIN_W					(RT__W + GUI_LBLOCK_W + GUI_RBLOCK_W)
 
 # define CLR_BACKGROUND			0

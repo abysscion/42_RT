@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sdl_draw.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 18:18:17 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/04/16 19:12:01 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/16 19:32:49 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	sdl_help(t_env *env, int x, int y)
 void	sdl_draw(t_env *env, t_clr color, int x, int y)
 {
 	SDL_SetRenderDrawColor(env->sdl.renderer, color.r, color.g, color.b, 0);
-	SDL_RenderDrawPoint(env->sdl.renderer, x + env->abuse.hrw + GUI_LBLOCK_W,
-											y + env->abuse.hrh + GUI_BAR_H);
+	SDL_RenderDrawPoint(env->sdl.renderer, x + env->constants.half_render_w
+		+ GUI_LBLOCK_W, y + env->constants.half_render_h + kiss_edge * 2);
 }
 
 /*
@@ -48,7 +48,8 @@ void	draw_rt(t_env *env)
 			color.g = env->sdl.image[x + y * RT__W] & 0xFF;
 			color.b = (env->sdl.image[x + y * RT__W] & 0xFF00) >> 8;
 			color.r = (env->sdl.image[x + y * RT__W] & 0xFF0000) >> 16;
-			sdl_draw(env, color, x - env->abuse.hrw, y - env->abuse.hrh);
+			sdl_draw(env, color, x - env->constants.half_render_w,
+									y - env->constants.half_render_h);
 		}
 	}
 }

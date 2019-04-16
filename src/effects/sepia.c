@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sepia.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 18:31:31 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/04/14 20:32:26 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/15 15:18:51 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ void			sepia(t_env *env)
 	int		y;
 	t_clr	color;
 
-	y = env->abuse.hrh * -1;
-	while (y < env->abuse.hrh)
+	y = env->constants.half_render_h * -1;
+	while (y < env->constants.half_render_h)
 	{
-		x = env->abuse.hrw * -1;
-		while (x < env->abuse.hrw)
+		x = env->constants.half_render_w * -1;
+		while (x < env->constants.half_render_w)
 		{
 			color = cast_in_sepia(env->sdl.image[RT__W *
-					(y + env->abuse.hrh) + (x + env->abuse.hrw)]);
+					(y + env->constants.half_render_h) + (x + env->constants.half_render_w)]);
 			env->sdl.image[RT__W *
-					(y + env->abuse.hrh) + (x + env->abuse.hrw)] =
+					(y + env->constants.half_render_h) + (x + env->constants.half_render_w)] =
 					(color.r << 16) + (color.b << 8) + (color.g);
 			x++;
 		}

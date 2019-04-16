@@ -8,7 +8,6 @@ OBJDIR	= ./obj
 
 # sources
 SRC		=	main.c \
-			gui.c \
 			event.c \
 			lists.c \
 			light.c \
@@ -27,6 +26,7 @@ SRC		=	main.c \
 			intersects/intersect_limits.c \
 			intersects/intersect_other.c \
 			intersects/intersect_limits_flat.c \
+			gui/gui.c \
 			effects/anti_aliasing.c \
 			effects/blur.c \
 			effects/sepia.c \
@@ -48,7 +48,7 @@ OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 # compiler
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra #-Werror
-CFLAGS	+=	-Ofast
+# CFLAGS	+=	-Ofast
 # CFLAGS	+=	-O0
 #CFLAGS	+=	-g
 
@@ -100,6 +100,7 @@ obj:
 	mkdir -p $(OBJDIR)/textures
 	mkdir -p $(OBJDIR)/effects
 	mkdir -p $(OBJDIR)/intersects
+	mkdir -p $(OBJDIR)/gui
 
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(INC) -I $(INCDIR) -o $@ -c $<

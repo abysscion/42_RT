@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_write_surface.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 20:09:40 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/16 19:19:17 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/16 19:29:13 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	init_surface(t_surf *surf)
 void		init_object(t_obj *obj)
 {
 	obj->surfaces = NULL;
-	obj->offset = (t_v){0, 0, 0};
+	obj->position = (t_v){0, 0, 0};
 	obj->rotation = (t_v){0, 0, 0};
 }
 

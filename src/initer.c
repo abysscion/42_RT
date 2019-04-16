@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:34:01 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/16 19:09:45 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/16 19:31:11 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ void	init_env(t_env *env, char **argv)
 	env->gui = (t_gui *)malloc(sizeof(t_gui));
 	kiss_array_new(&env->gui->objarr);
 	env->sdl.renderer = kiss_init(argv[1], &env->gui->objarr, WIN_W, WIN_H);
-	env->abuse.hrw = RT__W / 2;
-	env->abuse.hrh = RT__H / 2;
+	env->constants.half_render_w = RT__W / 2;
+	env->constants.half_render_h = RT__H / 2;
 	env->cam.rotation = (t_v) {0, 0, 0};
 	env->cam.position = (t_v) {0, 0, 0};
 	env->flags.need_render = 1;
+	env->gui->need_redraw = 1;
+	env->gui->need_update_info = 1;
 }
 
 void	adjust_objects(t_env *env)
@@ -52,11 +54,11 @@ void	adjust_objects(t_env *env)
 			surf->orientation = vec_rotate(obj->rotation,
 				surf->orientation_init);
 			if (surf->type == T_PLANE || surf->type == T_DISC)
-				surf->position = vecsum(surf->position_init, obj->offset);
+				surf->position = vecsum(surf->position_init, obj->position);
 			else
 			{
 				surf->position = vec_rotate(obj->rotation, surf->position_init);
-				surf->position = vecsum(surf->position, obj->offset);
+				surf->position = vecsum(surf->position, obj->position);
 			}
 			if (surf->limits.min_height != -INFINITY)
 				surf->position = vecsub(surf->position,

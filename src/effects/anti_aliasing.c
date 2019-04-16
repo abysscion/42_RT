@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   anti_aliasing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 17:06:00 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/04/14 20:33:03 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/15 15:18:43 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,18 +103,18 @@ void		anti_aliasing(t_env *env)
 	t_clr	color;
 	t_clr	aliasing[4];
 
-	i = env->abuse.hrh * -1;
-	while (i < env->abuse.hrh)
+	i = env->constants.half_render_h * -1;
+	while (i < env->constants.half_render_h)
 	{
-		j = env->abuse.hrw * -1;
-		while (j < env->abuse.hrw)
+		j = env->constants.half_render_w * -1;
+		while (j < env->constants.half_render_w)
 		{
-			if (check_pixel(env, i + env->abuse.hrh, j + env->abuse.hrw))
+			if (check_pixel(env, i + env->constants.half_render_h, j + env->constants.half_render_w))
 			{
 				anti_aliasing_render(env, &aliasing[0], i * 2, j * 2);
 				sum_color(&aliasing[0], &color);
 				env->sdl.image[RT__W *
-					(i + env->abuse.hrh) + (j + env->abuse.hrw)] =
+					(i + env->constants.half_render_h) + (j + env->constants.half_render_w)] =
 					(color.r << 16) + (color.b << 8) + (color.g);
 			}
 			j++;

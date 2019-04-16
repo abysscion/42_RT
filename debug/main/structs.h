@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/04 02:26:44 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/14 15:38:04 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ typedef struct		s_ls
 typedef struct		s_object
 {
 	t_lst			*surfaces;
-	t_v				offset;
+	t_v				position;
 	t_v				rotation;
 }					t_obj;
 
