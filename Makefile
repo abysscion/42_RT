@@ -27,6 +27,7 @@ SRC		=	main.c \
 			intersects/intersect_other.c \
 			intersects/intersect_limits_flat.c \
 			gui/gui.c \
+			gui/gui_initer.c \
 			effects/anti_aliasing.c \
 			effects/blur.c \
 			effects/sepia.c \
@@ -50,7 +51,7 @@ CC		=	gcc
 CFLAGS	=	-Wall -Wextra #-Werror
 # CFLAGS	+=	-Ofast
 # CFLAGS	+=	-O0
-#CFLAGS	+=	-g
+CFLAGS	+=	-g
 
 #OSX frameworks
 FWS		=	-framework OpenCL -framework OpenGL -framework AppKit

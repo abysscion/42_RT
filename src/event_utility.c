@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_utility.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 09:30:02 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/16 20:38:21 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/16 21:46:19 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ void			sdl_key_press_events(SDL_Event *event, t_env *env)
 	if (key == SDLK_s)
 		save_image(env->sdl.image);
 	else if (key == SDLK_f)
-		printf("Objs: [%d]\nSurfs: [%d]\nLights: [%d]\n",
-						numOfObjs(env), numOfSurfs(env), numOfLights(env));
+		printf("pressed f to pay respects\n");
 	else if (key == SDLK_r)
 	{
 		env->cam.position = (t_v) {0, 0, -10};

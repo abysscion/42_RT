@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:29:07 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/16 20:12:36 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/16 20:38:32 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ static	void	ent_event(kiss_entry *ent, SDL_Event *ev, int *draw,
 {
 	if (kiss_entry_event(ent, ev, draw))
 	{
-		*value = atof(&ent->text[0]);
+		if (value)
+			*value = atof(&ent->text[0]);
 		adjust_objects(e);
 		e->gui->need_update_info = 1;
 		*draw = 1;
@@ -177,7 +178,6 @@ double		*get_pointer_to_obj_value(t_env *e, int axis_code)
 		value = axis_code == 11 ? &(((t_light *)ptobj)->position.y) : value;
 		value = axis_code == 12 ? &(((t_light *)ptobj)->position.z) : value;
 	}
-
 	else if (e->gui->selected_object_type == GUI_SELECTED_TYPE_CAM)
 	{
 		value = axis_code == 10 ? &(((t_cam *)ptobj)->position.x) : value;

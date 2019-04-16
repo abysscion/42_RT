@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/16 20:47:51 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/16 21:45:30 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@
 t_light				*get_light_pointer_to_light(t_env *e, int index);
 t_lst				*get_lst_pointer_to_light(t_env *e, int index);
 char				*get_string_obj_type(t_env *e);
+void				gui_init_windows(t_env *e);
+void				gui_init_entries_0(t_env *e);
+void				gui_init_entries_1(t_env *e);
+void				gui_init_arrays(t_env *e);
+void				gui_init_labels(t_gui *g);
 void				update_info(t_env *e);
 void				init_gui(t_env *e);
 void				draw_gui(t_env *e);
