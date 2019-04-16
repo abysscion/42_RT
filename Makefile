@@ -31,7 +31,6 @@ SRC		=	main.c \
 			effects/blur.c \
 			effects/sepia.c \
 			effects/stereoscopy.c \
-			textures/normal_map.c \
 			textures/texture_color.c \
 			textures/calc_basis.c \
 			textures/calc_local_coords.c \

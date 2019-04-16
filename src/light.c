@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 21:03:53 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/15 15:45:07 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/16 19:12:34 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,7 @@ t_clr			light_on(t_env *env, double closest, t_surf *surface, int rec)
 	t_clr				ref_color;
 
 	init_color_variables(env, &lc, closest);
-	if (surface->normal_map != NULL)
-		get_texture_normal(surface, &lc);
-	else
-		calc_surf_normal(env, closest, surface, &lc);
+	calc_surf_normal(env, closest, surface, &lc);
 	lc.orig_norm = lc.surf_normal;
 	intensity = 0;
 	calc_light(env, surface, &intensity, &lc);

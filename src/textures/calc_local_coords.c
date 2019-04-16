@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 14:59:38 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/15 16:45:02 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/16 19:07:07 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	calc_conic_local_coords(t_v *surf_p, t_surf *surface,
 			/ (2 * M_PI);
 		*u = fabs(*u - 1) + 0.5;
 	}
-	/* consider using different way to calculate this for cone cause it can go only one way */
 	*v = *v / (surface->limits.max_height - surface->limits.min_height);
 }
 

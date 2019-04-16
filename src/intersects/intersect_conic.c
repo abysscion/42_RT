@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:56:29 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/15 19:57:58 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/16 19:07:34 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int		intersect_cone(t_v *start, t_v *dest, t_surf *cone, double *roots)
 	return (limit_conic(cone, dest, start, roots));
 }
 
-int		intersect_paraboloid(t_v *start, t_v *dest, t_surf *parab, double *roots)
+int		intersect_paraboloid(t_v *start, t_v *dest, t_surf *parab,
+			double *roots)
 {
 	t_v		pos_to_start;
 	double	a;

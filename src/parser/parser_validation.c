@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_validation.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:38:08 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/10 20:29:50 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/16 19:22:13 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void		validate_surface(int fd, int object)
 		if (texture_check(fd, &split, &line))
 			continue ;
 		if (surface_type_check(fd, &split, &line))
+			continue ;
+		if (disruption_check(fd, &split, &line))
 			continue ;
 		if (close_check(&split, &line))
 			break ;

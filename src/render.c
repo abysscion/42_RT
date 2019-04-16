@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/15 20:04:54 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/16 19:12:11 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int				choose_type(t_env *env, t_lst *surface, double *roots)
 		return (0);
 }
 
-static void		intersect_surface(t_env *env, t_lst *surf_lst, t_surf **closest_surf, double *closest_dist)
+static void		intersect_surface(t_env *env, t_lst *surf_lst,
+					t_surf **closest_surf, double *closest_dist)
 {
 	t_surf	*curr_surf;
 	double	roots[2];
@@ -74,7 +75,7 @@ double			closest_intersection(t_env *env, t_surf **closest_surf)
 	return (closest_dist);
 }
 
-t_clr		trace_ray(t_env *env, int recursion)
+t_clr			trace_ray(t_env *env, int recursion)
 {
 	double	closest_dist;
 	t_surf	*closest_surf;
@@ -89,35 +90,11 @@ t_clr		trace_ray(t_env *env, int recursion)
 }
 
 /*
-**	Takes sdl.image content and draws every pixel of it on renderer.
-*/
-
-void		draw_rt(t_env *env)
-{
-	int		x;
-	int		y;
-	t_clr	color;
-
-	y = -1;
-	while (++y < RT__H)
-	{
-		x = -1;
-		while (++x < RT__W)
-		{
-			color.g = env->sdl.image[x + y * RT__W] & 0xFF;
-			color.b = (env->sdl.image[x + y * RT__W] & 0xFF00) >> 8;
-			color.r = (env->sdl.image[x + y * RT__W] & 0xFF0000) >> 16;
-			sdl_draw(env, color, x - env->abuse.hrw, y - env->abuse.hrh);
-		}
-	}
-}
-
-/*
 **	Casts rays in every viewport pixel and calculates appropriate color
 **	of the pixel then saves pixel color into sdl.image.
 */
 
-int			render(void *environment)
+int				render(void *environment)
 {
 	t_env	*env;
 	t_v		dest;

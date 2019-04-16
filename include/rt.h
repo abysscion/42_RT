@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/15 20:04:32 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/16 19:21:40 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ int					texture_check(int fd, char ***split, char **line);
 int					color_check(int fd, char ***split, char **line);
 int					light_type_check(int fd, char ***split, char **line);
 int					surface_type_check(int fd, char ***split, char **line);
+int					disruption_check(int fd, char ***split, char **line);
 
 int					check_surface(int fd, char ***split, char **line,
 						int *object);

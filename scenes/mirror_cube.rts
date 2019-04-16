@@ -45,6 +45,7 @@ object
 		type		:	PLANE
 		texture		:	none
 		color		:	0 150 150
+		disruption	:	1
 		position	:	0.0 10.0 0.0
 		orientation	:	0.0 1.0 0.0
 		specular	:	0.0
