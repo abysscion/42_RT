@@ -182,26 +182,6 @@ int kiss_font_new(kiss_font *font, char *fname, kiss_array *a, int size)
 
 static	void	init_kiss_imgs(int *r, kiss_array *a, SDL_Renderer *ren)
 {
-	// *r += kiss_image_new(&bt_arrup, "../../img/icons/arr_u.png", a, ren);
-	// *r += kiss_image_new(&bt_arrup_p, "../../img/icons/arr_u_p.png", a, ren);
-
-	// *r += kiss_image_new(&kiss_normal, "../../img/kiss_normal.png", a, ren);
-	// *r += kiss_image_new(&kiss_prelight, "../../img/kiss_prelight.png", a, ren);
-	// *r += kiss_image_new(&kiss_active, "../../img/kiss_active.png", a, ren);
-	// *r += kiss_image_new(&kiss_bar, "../../img/kiss_bar.png", a, ren);
-	// *r += kiss_image_new(&kiss_vslider, "../../img/kiss_vslider.png", a, ren);
-	// *r += kiss_image_new(&kiss_hslider, "../../img/kiss_hslider.png", a, ren);
-	// *r += kiss_image_new(&kiss_up, "../../img/kiss_up.png", a, ren);
-	// *r += kiss_image_new(&kiss_down, "../../img/kiss_down.png", a, ren);
-	// *r += kiss_image_new(&kiss_left, "../../img/kiss_left.png", a, ren);
-	// *r += kiss_image_new(&kiss_right, "../../img/kiss_right.png", a, ren);
-	// *r += kiss_image_new(&kiss_combo, "../../img/kiss_combo.png", a, ren);
-	// *r += kiss_image_new(&kiss_selected, "../../img/kiss_selected.png", a, ren);
-	// *r += kiss_image_new(&kiss_unselected, "../../img/kiss_unselected.png", a, ren);
-
-	*r += kiss_image_new(&bt_arrup, "img/icons/arr_u.png", a, ren);
-	*r += kiss_image_new(&bt_arrup_p, "img/icons/arr_u_p.png", a, ren);
-
 	*r += kiss_image_new(&kiss_normal, "img/kiss_normal.png", a, ren);
 	*r += kiss_image_new(&kiss_prelight, "img/kiss_prelight.png", a, ren);
 	*r += kiss_image_new(&kiss_active, "img/kiss_active.png", a, ren);

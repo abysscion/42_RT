@@ -1,7 +1,7 @@
 camera
 {
 	position		:	0.0 0.0 -10.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 }
 light
 {
@@ -23,14 +23,14 @@ light
 object
 {
 	position		:	0.0 0.0 0.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 	surface
 	{
 		type		:	PLANE
 		texture		:	none
 		color		:	0 0 255
 		position	:	0.0 0.0 10.0
-		orientation	:	0.0 0.0 -1.0
+		rotation	:	0.0 0.0 -1.0
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
@@ -39,14 +39,14 @@ object
 object
 {
 	position		:	0.0 0.0 0.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 	surface
 	{
 		type		:	PLANE
 		texture		:	none
 		color		:	0 255 0
 		position	:	0.0 0.0 -20.0
-		orientation	:	0.0 0.0 1.0
+		rotation	:	0.0 0.0 1.0
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
@@ -55,14 +55,14 @@ object
 object
 {
 	position		:	0.0 0.0 0.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 	surface
 	{
 		type		:	SPHERE
 		texture		:	none
 		color		:	0.0 0.0 0.0
 		position	:	0.0 0.0 -2.0
-		orientation	:	0.0 0.0 0.0
+		rotation	:	0.0 0.0 0.0
 		radius		:	2.5
 		specular	:	0.0
 		reflect		:	0.0
@@ -72,14 +72,14 @@ object
 object
 {
 	position		:	2.5 -1.5 2.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 	surface
 	{
 		type		:	SPHERE
 		texture		:	none
 		color		:	255 0 255
 		position	:	0.0 0.0 0.0
-		orientation	:	0.0 0.0 0.0
+		rotation	:	0.0 0.0 0.0
 		radius		:	2.0
 		specular	:	0.0
 		reflect		:	0.0
@@ -89,14 +89,14 @@ object
 object
 {
 	position		:	0.0 2.5 2.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 	surface
 	{
 		type		:	SPHERE
 		texture		:	none
 		color		:	255 0 150
 		position	:	0.0 0.0 0.0
-		orientation	:	0.0 0.0 0.0
+		rotation	:	0.0 0.0 0.0
 		radius		:	2.0
 		specular	:	0.0
 		reflect		:	0.0
@@ -106,14 +106,14 @@ object
 object
 {
 	position		:	-2.5 -1.5 2.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 	surface
 	{
 		type		:	SPHERE
 		texture		:	none
 		color		:	80 0 150
 		position	:	0.0 0.0 0.0
-		orientation	:	0.0 0.0 0.0
+		rotation	:	0.0 0.0 0.0
 		radius		:	2.0
 		specular	:	0.0
 		reflect		:	0.0

@@ -6,11 +6,36 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 13:47:08 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/16 19:18:15 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/16 20:09:13 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+void	gui_init_arrays(t_env *e)
+{
+	int		i;
+	t_gui	*g;
+
+	g = e->gui;
+	kiss_array_new(&g->tbx_obj_arr);
+	kiss_array_new(&g->tbx_info_arr);
+	kiss_array_new(&g->tbx_eff_arr);
+	kiss_array_new(&g->cbb_light_arr);
+	kiss_array_appendstring(&g->tbx_obj_arr, 0, "Main camera", 0x0);
+	kiss_array_appendstring(&g->tbx_eff_arr, 0, "Antialiasing", 0x0);
+	kiss_array_appendstring(&g->tbx_eff_arr, 1, "Stereo", 0x0);
+	kiss_array_appendstring(&g->tbx_eff_arr, 2, "Sepia", 0x0);
+	kiss_array_appendstring(&g->tbx_eff_arr, 3, "Blur", 0x0);
+	kiss_array_appendstring(&g->tbx_eff_arr, 4, "No effects", 0x0);
+	kiss_array_append(&g->objarr, ARRAY_TYPE, &g->tbx_obj_arr);
+	kiss_array_append(&g->objarr, ARRAY_TYPE, &g->tbx_info_arr);
+	kiss_array_append(&g->objarr, ARRAY_TYPE, &g->tbx_eff_arr);
+	kiss_array_append(&g->objarr, ARRAY_TYPE, &g->cbb_light_arr);
+	i = -1;
+	while (++i < numOfLights(e))
+		kiss_array_appendstring(&g->cbb_light_arr, 0, "light №", ft_itoa(i));
+}
 
 void	init_gui(t_env *e)
 {
@@ -31,27 +56,25 @@ void	init_gui(t_env *e)
 	shit = kiss_edge + kiss_textfont.lineheight;
 	g->selected_object = NULL;
 
-	kiss_array_new(&g->tbx_obj_arr);
-	kiss_array_new(&g->tbx_info_arr);
-	kiss_array_new(&g->tbx_eff_arr);
-	kiss_array_new(&g->cbb_light_arr);
+	// kiss_array_new(&g->tbx_obj_arr);
+	// kiss_array_new(&g->tbx_info_arr);
+	// kiss_array_new(&g->tbx_eff_arr);
+	// kiss_array_new(&g->cbb_light_arr);
+	// kiss_array_appendstring(&g->tbx_obj_arr, 0, "Main camera", 0x0);
+	// kiss_array_appendstring(&g->tbx_eff_arr, 0, "Antialiasing", 0x0);
+	// kiss_array_appendstring(&g->tbx_eff_arr, 1, "Stereo", 0x0);
+	// kiss_array_appendstring(&g->tbx_eff_arr, 2, "Sepia", 0x0);
+	// kiss_array_appendstring(&g->tbx_eff_arr, 3, "Blur", 0x0);
+	// kiss_array_appendstring(&g->tbx_eff_arr, 4, "No effects", 0x0);
+	// i = -1;
+	// while (++i < numOfLights(e))
+	// 	kiss_array_appendstring(&g->cbb_light_arr, 0, "light №", ft_itoa(i));
+	// kiss_array_append(&g->objarr, ARRAY_TYPE, &g->tbx_obj_arr);
+	// kiss_array_append(&g->objarr, ARRAY_TYPE, &g->tbx_info_arr);
+	// kiss_array_append(&g->objarr, ARRAY_TYPE, &g->tbx_eff_arr);
+	// kiss_array_append(&g->objarr, ARRAY_TYPE, &g->cbb_light_arr);
 
-	kiss_array_appendstring(&g->tbx_obj_arr, 0, "Main camera", 0x0);
-
-	kiss_array_appendstring(&g->tbx_eff_arr, 0, "Antialiasing", 0x0);
-	kiss_array_appendstring(&g->tbx_eff_arr, 1, "Stereo", 0x0);
-	kiss_array_appendstring(&g->tbx_eff_arr, 2, "Sepia", 0x0);
-	kiss_array_appendstring(&g->tbx_eff_arr, 3, "Blur", 0x0);
-	kiss_array_appendstring(&g->tbx_eff_arr, 4, "No effects", 0x0);
-
-	i = -1;
-	while (++i < numOfLights(e))
-		kiss_array_appendstring(&g->cbb_light_arr, 0, "light №", ft_itoa(i));
-
-	kiss_array_append(&g->objarr, ARRAY_TYPE, &g->tbx_obj_arr);
-	kiss_array_append(&g->objarr, ARRAY_TYPE, &g->tbx_info_arr);
-	kiss_array_append(&g->objarr, ARRAY_TYPE, &g->tbx_eff_arr);
-	kiss_array_append(&g->objarr, ARRAY_TYPE, &g->cbb_light_arr);
+	gui_init_arrays(e);
 
 	kiss_window_new(&g->background, NULL, 0, 0, 0, WIN_W, WIN_H);
 	kiss_window_new(&g->rblock, NULL, 1,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect_conic.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 15:56:29 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/16 19:07:34 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/16 20:16:42 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int		intersect_cylinder(t_v *start, t_v *dest, t_surf *cyl, double *roots)
 	double	discr;
 
 	pos_to_start = vecsub(*start, cyl->position);
-	cyl->orientation = vecnorm(cyl->orientation);
+	cyl->rotation = vecnorm(cyl->rotation);
 	a = vecmult_scal(*dest, *dest) -
-		pow(vecmult_scal(*dest, cyl->orientation), 2);
+		pow(vecmult_scal(*dest, cyl->rotation), 2);
 	b = 2 * (vecmult_scal(pos_to_start, *dest) -
-		(vecmult_scal(*dest, cyl->orientation) *
-		vecmult_scal(pos_to_start, cyl->orientation)));
+		(vecmult_scal(*dest, cyl->rotation) *
+		vecmult_scal(pos_to_start, cyl->rotation)));
 	c = vecmult_scal(pos_to_start, pos_to_start) -
-		pow(vecmult_scal(pos_to_start, cyl->orientation), 2) -
+		pow(vecmult_scal(pos_to_start, cyl->rotation), 2) -
 		cyl->radius * cyl->radius;
 	discr = b * b - 4 * a * c;
 	if (discr < 0)
@@ -47,16 +47,16 @@ int		intersect_cone(t_v *start, t_v *dest, t_surf *cone, double *roots)
 	double	discr;
 
 	pos_to_start = vecsub(*start, cone->position);
-	cone->orientation = vecnorm(cone->orientation);
+	cone->rotation = vecnorm(cone->rotation);
 	a = vecmult_scal(*dest, *dest) - (1 + pow(tan(cone->radius), 2)) *
-		pow(vecmult_scal(*dest, cone->orientation), 2);
+		pow(vecmult_scal(*dest, cone->rotation), 2);
 	b = 2 * (vecmult_scal(*dest, pos_to_start) -
 		(1 + pow(tan(cone->radius), 2)) *
-		vecmult_scal(*dest, cone->orientation) *
-		vecmult_scal(pos_to_start, cone->orientation));
+		vecmult_scal(*dest, cone->rotation) *
+		vecmult_scal(pos_to_start, cone->rotation));
 	c = vecmult_scal(pos_to_start, pos_to_start) -
 		(1 + pow(tan(cone->radius), 2)) *
-		pow(vecmult_scal(pos_to_start, cone->orientation), 2);
+		pow(vecmult_scal(pos_to_start, cone->rotation), 2);
 	discr = b * b - 4 * a * c;
 	if (discr < 0)
 		return (0);
@@ -75,14 +75,14 @@ int		intersect_paraboloid(t_v *start, t_v *dest, t_surf *parab,
 	double	discr;
 
 	pos_to_start = vecsub(*start, parab->position);
-	parab->orientation = vecnorm(parab->orientation);
+	parab->rotation = vecnorm(parab->rotation);
 	a = vecmult_scal(*dest, *dest) -
-		pow(vecmult_scal(*dest, parab->orientation), 2);
-	b = vecmult_scal(*dest, parab->orientation) * (vecmult_scal(pos_to_start,
-		parab->orientation) + 2 * parab->radius);
+		pow(vecmult_scal(*dest, parab->rotation), 2);
+	b = vecmult_scal(*dest, parab->rotation) * (vecmult_scal(pos_to_start,
+		parab->rotation) + 2 * parab->radius);
 	b = 2 * (vecmult_scal(*dest, pos_to_start) - b);
-	c = vecmult_scal(pos_to_start, parab->orientation) *
-		(vecmult_scal(pos_to_start, parab->orientation) + 4 * parab->radius);
+	c = vecmult_scal(pos_to_start, parab->rotation) *
+		(vecmult_scal(pos_to_start, parab->rotation) + 4 * parab->radius);
 	c = vecmult_scal(pos_to_start, pos_to_start) - c;
 	discr = b * b - 4 * a * c;
 	if (discr < 0)

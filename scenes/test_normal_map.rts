@@ -1,7 +1,7 @@
 camera
 {
 	position		:	0.0 0.0 0.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 }
 light
 {
@@ -23,7 +23,7 @@ light
 object
 {
 	position		:	0.0 0.0 0.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 	surface
 	{
 		type		:	SPHERE
@@ -31,7 +31,7 @@ object
 		texture		:	textures/rock_texture.jpg
 		color		:	255 255 0
 		position	:	2.0 -2.0 5.0
-		orientation	:	0.0 1.0 0.0
+		rotation	:	0.0 1.0 0.0
 		radius		:	1.0
 		max_height	:	1.0
 		min_height	:	-1.0
@@ -43,14 +43,14 @@ object
 object
 {
 	position		:	0.0 0.0 0.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 	surface
 	{
 		type		:	SPHERE
 		texture		:	textures/rock_texture.jpg
 		color		:	255 255 0
 		position	:	-2.0 -2.0 5.0
-		orientation	:	0.0 1.0 0.0
+		rotation	:	0.0 1.0 0.0
 		radius		:	1.0
 		max_height	:	1.0
 		min_height	:	-1.0
@@ -62,7 +62,7 @@ object
 object
 {
 	position		:	0.0 0.0 0.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 	surface
 	{
 		type		:	DISC
@@ -70,7 +70,7 @@ object
 		normal_map	:	textures/rock_normal.jpg
 		color		:	0 0 255
 		position	:	2.0 2.0 5.0
-		orientation	:	0.0 0.0 1.0
+		rotation	:	0.0 0.0 1.0
 		radius		:	1.0
 		specular	:	0.0
 		reflect		:	0.0
@@ -80,14 +80,14 @@ object
 object
 {
 	position		:	0.0 0.0 0.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 	surface
 	{
 		type		:	DISC
 		texture		:	textures/rock_texture.jpg
 		color		:	0 0 255
 		position	:	-2.0 2.0 5.0
-		orientation	:	0.0 0.0 1.0
+		rotation	:	0.0 0.0 1.0
 		radius		:	1.0
 		specular	:	0.0
 		reflect		:	0.0

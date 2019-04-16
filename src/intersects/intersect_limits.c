@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect_limits.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 14:08:27 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/14 20:55:00 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/16 20:16:43 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	check_conic_root(t_surf *surf, t_v *dest, t_v *start, double *root)
 
 	surf_point = vecsum(vecmult_num(*dest, *root), *start);
 	position_to_point = (vecsub(surf_point, surf->position));
-	angle = vecmult_scal(vecnorm(position_to_point), surf->orientation);
+	angle = vecmult_scal(vecnorm(position_to_point), surf->rotation);
 	check = (veclen(position_to_point) * angle);
 	if (angle < 0 || check > surf->limits.max_height ||
 		check < surf->limits.min_height)
@@ -57,7 +57,7 @@ static int	check_sphere_root(t_surf *surf, t_v *dest, t_v *start, double *root)
 
 	surf_point = vecsum(vecmult_num(*dest, *root), *start);
 	center_to_point = vecsub(surf_point, surf->position);
-	angle = vecmult_scal(vecnorm(center_to_point), surf->orientation);
+	angle = vecmult_scal(vecnorm(center_to_point), surf->rotation);
 	len = veclen(center_to_point) * angle;
 	if ((angle == 0) || (angle > 0 && len < surf->limits.max_height) ||
 		(angle < 0 && len > surf->limits.min_height))

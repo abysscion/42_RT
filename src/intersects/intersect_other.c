@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect_other.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:22:30 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/15 19:57:42 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/16 20:16:43 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int		intersect_sphere(t_v *start, t_v *dest, t_surf *sph, double *roots)
 
 int		intersect_plane(t_v *start, t_v *dest, t_surf *surf, double *roots)
 {
-	roots[0] = ((vecmult_scal(surf->orientation, surf->position) -
-			vecmult_scal(surf->orientation, *start)) /
-			vecmult_scal(surf->orientation, *dest));
+	roots[0] = ((vecmult_scal(surf->rotation, surf->position) -
+			vecmult_scal(surf->rotation, *start)) /
+			vecmult_scal(surf->rotation, *dest));
 	roots[1] = +INFINITY;
 	if (roots[0] < RAY_LENMIN)
 		return (0);

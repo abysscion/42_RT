@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_float_fields_check.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 15:03:55 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/16 19:18:51 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/16 20:16:44 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	single_float_fields(char ***split)
 static int	triple_float_fields(char ***split)
 {
 	if (strcmp((*split)[0], "position") == 0 ||
-		strcmp((*split)[0], "orientation") == 0)
+		strcmp((*split)[0], "rotation") == 0)
 		return (1);
 	return (0);
 }

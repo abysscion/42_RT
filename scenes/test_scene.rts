@@ -1,7 +1,7 @@
 camera
 {
 	position		:	0.0 0.0 -10.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 }
 light
 {
@@ -17,14 +17,14 @@ light
 object
 {
 	position		:	2.0 2.0 -2.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 	surface
 	{
 		type		:	SPHERE
 		texture		:	textures/planets/mars.jpg
 		color		:	255 255 0
 		position	:	0.0 2.0 0.0
-		orientation	:	0.0 1.0 0.0
+		rotation	:	0.0 1.0 0.0
 		radius		:	1.0
 		specular	:	0.0
 		reflect		:	0.0
@@ -36,7 +36,7 @@ object
 		texture		:	textures/planets/saturn.jpg
 		color		:	255 0 255
 		position	:	0.0 0.0 0.0
-		orientation	:	0.0 1.0 0.0
+		rotation	:	0.0 1.0 0.0
 		radius		:	0.3
 		height		:	1.2
 		specular	:	0.0
@@ -49,7 +49,7 @@ object
 		texture		:	textures/planets/earth.jpg
 		color		:	0 255 255
 		position	:	0.0 0.1 0.0
-		orientation	:	0.0 -1.0 0.0
+		rotation	:	0.0 -1.0 0.0
 		angle		:	0.55
 		tip			:	0.5
 		height		:	1.6
@@ -61,14 +61,14 @@ object
 object
 {
 	position		:	-2.0 3.0 2.0
-	orientation		:	60.0 0.0 60.0	
+	rotation		:	60.0 0.0 60.0
 	surface
 	{
 		type		:	CYLINDER
 		texture		:	none
 		color		:	0 128 255
 		position	:	0.0 0.0 -5.0
-		orientation	:	0.0 0.0 1.0
+		rotation	:	0.0 0.0 1.0
 		radius		:	0.5
 		height		:	10.0
 		specular	:	0.0
@@ -81,7 +81,7 @@ object
 		texture		:	none
 		color		:	0 255 128
 		position	:	-5.0 0.0 0.0
-		orientation	:	1.0 0.0 0.0
+		rotation	:	1.0 0.0 0.0
 		radius		:	0.5
 		height		:	10.0
 		specular	:	0.0
@@ -94,7 +94,7 @@ object
 		texture		:	textures/planets/mercury.jpg
 		color		:	255 255 0
 		position	:	5.0 0.0 0.0
-		orientation	:	0.0 1.0 0.0
+		rotation	:	0.0 1.0 0.0
 		radius		:	1.0
 		specular	:	0.0
 		reflect		:	0.0
@@ -106,7 +106,7 @@ object
 		texture		:	textures/planets/moon.jpg
 		color		:	255 255 0
 		position	:	-5.0 0.0 0.0
-		orientation	:	0.0 1.0 0.0
+		rotation	:	0.0 1.0 0.0
 		radius		:	1.0
 		specular	:	0.0
 		reflect		:	0.0
@@ -118,7 +118,7 @@ object
 		texture		:	textures/planets/earth.jpg
 		color		:	255 255 0
 		position	:	0.0 0.0 5.0
-		orientation	:	0.0 1.0 0.0
+		rotation	:	0.0 1.0 0.0
 		radius		:	1.0
 		specular	:	0.0
 		reflect		:	0.0
@@ -130,7 +130,7 @@ object
 		texture		:	textures/planets/mars.jpg
 		color		:	255 255 0
 		position	:	0.0 0.0 -5.0
-		orientation	:	0.0 1.0 0.0
+		rotation	:	0.0 1.0 0.0
 		radius		:	1.0
 		specular	:	0.0
 		reflect		:	0.0
@@ -140,14 +140,14 @@ object
 object
 {
 	position		:	0.0 0.0 0.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 	surface
 	{
 		type		:	CONE
 		texture		:	textures/planets/earth.jpg
 		color		:	0 255 255
 		position	:	0.0 0.0 0.0
-		orientation	:	0.0 -1.0 0.0
+		rotation	:	0.0 -1.0 0.0
 		angle		:	0.5
 		min_height	:	0.0
 		max_height	:	1.0
@@ -164,7 +164,7 @@ object
 		texture		:	textures/planets/earth.jpg
 		color		:	0 255 255
 		position	:	0.0 0.0 0.0
-		orientation	:	0.0 -1.0 0.0
+		rotation	:	0.0 -1.0 0.0
 		angle		:	0.5
 		tip			:	0.0
 		height		:	1.0
@@ -176,14 +176,14 @@ object
 object
 {
 	position		:	0.0 0.0 0.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 	surface
 	{
 		type		:	PLANE
 		texture		:	none
 		color		:	255 255 255
 		position	:	0.0 0.0 10.0
-		orientation	:	0.0 0.0 1.0
+		rotation	:	0.0 0.0 1.0
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
@@ -194,7 +194,7 @@ object
 		texture		:	none
 		color		:	255 127 127
 		position	:	0.0 0.0 -20.0
-		orientation	:	0.0 0.0 1.0
+		rotation	:	0.0 0.0 1.0
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
@@ -205,7 +205,7 @@ object
 		texture		:	none
 		color		:	127 255 127
 		position	:	0.0 10.0 0.0
-		orientation	:	0.0 1.0 0.0
+		rotation	:	0.0 1.0 0.0
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
@@ -216,7 +216,7 @@ object
 		texture		:	none
 		color		:	0 255 255
 		position	:	0.0 -10.0 0.0
-		orientation	:	0.0 1.0 0.0
+		rotation	:	0.0 1.0 0.0
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
@@ -227,7 +227,7 @@ object
 		texture		:	none
 		color		:	255 0 255
 		position	:	10.0 0.0 0.0
-		orientation	:	1.0 0.0 0.0
+		rotation	:	1.0 0.0 0.0
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
@@ -238,7 +238,7 @@ object
 		texture		:	none
 		color		:	255 255 0
 		position	:	-10.0 0.0 0.0
-		orientation	:	1.0 0.0 0.0
+		rotation	:	1.0 0.0 0.0
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0

@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:38:08 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/16 19:29:20 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/16 20:16:46 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	parse_object(int fd, t_obj *object, char *line)
 		if (strcmp(split[0], "position") == 0)
 			object->position = (t_v){ft_atod(floats[0]),
 				ft_atod(floats[1]), ft_atod(floats[2])};
-		if (strcmp(split[0], "orientation") == 0)
+		if (strcmp(split[0], "rotation") == 0)
 			object->rotation = (t_v){ft_atod(floats[0]),
 				ft_atod(floats[1]), ft_atod(floats[2])};
 		if (strcmp(split[0], "surface"))
@@ -85,7 +85,7 @@ static void	parse_cam(int fd, t_env *env, char *line)
 		if (strcmp(split[0], "position") == 0)
 			env->cam.position = (t_v){ft_atod(floats[0]),
 				ft_atod(floats[1]), ft_atod(floats[2])};
-		if (strcmp(split[0], "orientation") == 0)
+		if (strcmp(split[0], "rotation") == 0)
 			env->cam.rotation = (t_v){ft_atod(floats[0]),
 				ft_atod(floats[1]), ft_atod(floats[2])};
 		free_words(floats);

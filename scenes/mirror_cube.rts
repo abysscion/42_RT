@@ -1,7 +1,7 @@
 camera
 {
 	position		:	0.0 0.0 0.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 }
 light
 {
@@ -17,14 +17,14 @@ light
 object
 {
 	position		:	0.0 0.0 0.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 	surface
 	{
 		type		:	PLANE
 		texture		:	none
 		color		:	150 0 150
 		position	:	0.0 0.0 10.0
-		orientation	:	0.0 0.0 1.0
+		rotation	:	0.0 0.0 1.0
 		specular	:	0.0
 		reflect		:	0.7
 		transp		:	0.0
@@ -35,7 +35,7 @@ object
 		texture		:	none
 		color		:	150 150 0
 		position	:	0.0 0.0 -10.0
-		orientation	:	0.0 0.0 1.0
+		rotation	:	0.0 0.0 1.0
 		specular	:	0.0
 		reflect		:	0.7
 		transp		:	0.0
@@ -47,7 +47,7 @@ object
 		color		:	0 150 150
 		disruption	:	1
 		position	:	0.0 10.0 0.0
-		orientation	:	0.0 1.0 0.0
+		rotation	:	0.0 1.0 0.0
 		specular	:	0.0
 		reflect		:	0.7
 		transp		:	0.0
@@ -58,7 +58,7 @@ object
 		texture		:	none
 		color		:	150 37 255
 		position	:	0.0 -10.0 10.0
-		orientation	:	0.0 1.0 0.0
+		rotation	:	0.0 1.0 0.0
 		specular	:	0.0
 		reflect		:	0.7
 		transp		:	0.0
@@ -69,7 +69,7 @@ object
 		texture		:	none
 		color		:	125 255 100
 		position	:	10.0 0.0 0.0
-		orientation	:	1.0 0.0 0.0
+		rotation	:	1.0 0.0 0.0
 		specular	:	0.0
 		reflect		:	0.7
 		transp		:	0.0
@@ -80,7 +80,7 @@ object
 		texture		:	none
 		color		:	0 120 255
 		position	:	-10.0 0.0 0.0
-		orientation	:	1.0 0.0 0.0
+		rotation	:	1.0 0.0 0.0
 		specular	:	0.0
 		reflect		:	0.7
 		transp		:	0.0
@@ -89,14 +89,14 @@ object
 object
 {
 	position		:	0.0 0.0 0.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 	surface
 	{
 			type		:	SPHERE
 			texture		:	none
 			color		:	150 0 0
 			position	:	-2.0 0.0 5.0
-			orientation	:	0.0 0.0 -1.0
+			rotation	:	0.0 0.0 -1.0
 			specular	:	0.0
 			reflect		:	1.0
 			transp		:	0.0
@@ -105,14 +105,14 @@ object
 object
 {
 	position		:	0.0 0.0 0.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 	surface
 	{
 			type		:	SPHERE
 			texture		:	none
 			color		:	150 0 0
 			position	:	2.0 0.0 5.0
-			orientation	:	0.0 0.0 -1.0
+			rotation	:	0.0 0.0 -1.0
 			specular	:	0.0
 			reflect		:	1.0
 			transp		:	0.0
@@ -121,14 +121,14 @@ object
 object
 {
 	position		:	0.0 0.0 0.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 	surface
 	{
 			type		:	SPHERE
 			texture		:	none
 			color		:	150 0 0
 			position	:	0.0 2.0 5.0
-			orientation	:	0.0 0.0 -1.0
+			rotation	:	0.0 0.0 -1.0
 			specular	:	0.0
 			reflect		:	1.0
 			transp		:	0.0
@@ -137,14 +137,14 @@ object
 object
 {
 	position		:	0.0 0.0 0.0
-	orientation		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
 	surface
 	{
 			type		:	SPHERE
 			texture		:	none
 			color		:	150 0 0
 			position	:	0.0 -2.0 5.0
-			orientation	:	0.0 0.0 -1.0
+			rotation	:	0.0 0.0 -1.0
 			specular	:	0.0
 			reflect		:	1.0
 			transp		:	0.0

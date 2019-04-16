@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_writing_fields.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 18:46:21 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/16 19:17:20 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/16 20:16:45 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static void	triple_num_fields(char ***split, char **num, t_surf *surf)
 	if (strcmp((*split)[0], "position") == 0)
 		surf->position_init = (t_v){ft_atod(num[0]),
 			ft_atod(num[1]), ft_atod(num[2])};
-	else if (strcmp((*split)[0], "orientation") == 0)
-		surf->orientation_init = (t_v){ft_atod(num[0]),
+	else if (strcmp((*split)[0], "rotation") == 0)
+		surf->rotation_init = (t_v){ft_atod(num[0]),
 			ft_atod(num[1]), ft_atod(num[2])};
 	else if (strcmp((*split)[0], "color") == 0)
 		surf->color = (t_clr){ft_atoi(num[0]),

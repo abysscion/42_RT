@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 20:09:40 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/16 19:29:13 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/16 20:16:45 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static void	init_surface(t_surf *surf)
 	surf->limits.min_height = -INFINITY;
 	surf->limits.max_width = +INFINITY;
 	surf->limits.min_width = -INFINITY;
-	surf->orientation = (t_v){0, 0, 0};
+	surf->rotation = (t_v){0, 0, 0};
 	surf->position = (t_v){0, 0, 0};
-	surf->orientation_init = (t_v){0, 0, 0};
+	surf->rotation_init = (t_v){0, 0, 0};
 	surf->position_init = (t_v){0, 0, 0};
 	surf->radius = 1;
 	surf->reflect = 0;

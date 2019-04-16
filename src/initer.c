@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:34:01 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/16 19:31:11 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/16 20:16:40 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	adjust_objects(t_env *env)
 		while (surfs)
 		{
 			surf = (t_surf *)surfs->obj;
-			surf->orientation_init = vecnorm(surf->orientation_init);
-			surf->orientation = vec_rotate(obj->rotation,
-				surf->orientation_init);
+			surf->rotation_init = vecnorm(surf->rotation_init);
+			surf->rotation = vec_rotate(obj->rotation,
+				surf->rotation_init);
 			if (surf->type == T_PLANE || surf->type == T_DISC)
 				surf->position = vecsum(surf->position_init, obj->position);
 			else
@@ -62,7 +62,7 @@ void	adjust_objects(t_env *env)
 			}
 			if (surf->limits.min_height != -INFINITY)
 				surf->position = vecsub(surf->position,
-					vecmult_num(surf->orientation, surf->limits.min_height));
+					vecmult_num(surf->rotation, surf->limits.min_height));
 			calc_basis(surf);
 			surfs = surfs->next;
 		}

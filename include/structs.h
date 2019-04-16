@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/16 19:29:03 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/16 20:16:21 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,9 @@ typedef	struct		s_surface
 	t_lim				limits;
 	t_clr				color;
 	t_v					position_init;
-	t_v					orientation_init;
+	t_v					rotation_init;
 	t_v					position;
-	t_v					orientation;
+	t_v					rotation;
 	double				radius;
 	double				specular;
 	double				reflect;
