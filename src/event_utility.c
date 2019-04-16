@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_utility.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 09:30:02 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/15 16:39:31 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/16 20:38:21 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void			sdl_key_press_events(SDL_Event *event, t_env *env)
 
 	key = event->key.keysym.sym;
 	if (key == SDLK_s)
-		save_image(env->sdl.image, 0);
+		save_image(env->sdl.image);
 	else if (key == SDLK_f)
 		printf("Objs: [%d]\nSurfs: [%d]\nLights: [%d]\n",
 						numOfObjs(env), numOfSurfs(env), numOfLights(env));

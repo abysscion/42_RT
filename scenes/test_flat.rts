@@ -47,6 +47,7 @@ object
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
+		disruption	:	1
 	}
 }
 object
@@ -65,6 +66,7 @@ object
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
+		disruption	:	1
 	}
 }
 object
@@ -83,6 +85,7 @@ object
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
+		disruption	:	1
 	}
 }
 object
@@ -100,5 +103,6 @@ object
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
+		disruption	:	1
 	}
 }

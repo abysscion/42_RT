@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/16 19:28:53 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/16 20:47:51 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_clr				light_on(t_env *env, double closest, t_surf *surface, int rec);
 t_clr   			calc_refract(t_env *env, t_lc lc, t_surf *surface, int rec);
 
 void				init_color_variables(t_env *env, t_lc *lc, double closest);
-void				calc_color(t_clr *color, double intens, t_surf *surface);
+void				calc_color(t_clr *color, double intens, t_surf *surface, t_env *env);
 void				calc_ref_color(t_clr *color, t_clr *ref_color,
 						t_surf *surface);
 
@@ -188,7 +188,7 @@ void				sepia(t_env *env);
 void				blur(t_env *env);
 void				stereoscopy(t_env *env);
 void				anti_aliasing(t_env *env);
-void				save_image(int *mass, int iter);
+void				save_image(int *mass);
 /*============================== END OF EFFECTS =============================*/
 
 /*================================= UTILITY =================================*/

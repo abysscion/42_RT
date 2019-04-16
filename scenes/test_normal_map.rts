@@ -27,7 +27,6 @@ object
 	surface
 	{
 		type		:	SPHERE
-		normal_map	:	textures/rock_normal.jpg
 		texture		:	textures/rock_texture.jpg
 		color		:	255 255 0
 		position	:	2.0 -2.0 5.0
@@ -38,6 +37,7 @@ object
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
+		disruption	:	1
 	}
 }
 object
@@ -57,6 +57,7 @@ object
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
+		disruption	:	1
 	}
 }
 object
@@ -67,7 +68,6 @@ object
 	{
 		type		:	DISC
 		texture		:	textures/rock_texture.jpg
-		normal_map	:	textures/rock_normal.jpg
 		color		:	0 0 255
 		position	:	2.0 2.0 5.0
 		rotation	:	0.0 0.0 1.0
@@ -75,6 +75,7 @@ object
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
+		disruption	:	1
 	}
 }
 object
@@ -92,5 +93,6 @@ object
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
+		disruption	:	1
 	}
 }
