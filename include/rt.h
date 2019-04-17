@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/17 20:10:48 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/17 20:11:53 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void				init_ray(t_env *env, t_v dest);
 void				draw_rt(t_env *env);
 int					render(void *environment);
 double				closest_intersection(t_env *env, t_surf **closest_surf);
+void				save_image(int *mass);
 /*============================= END OF MAIN =================================*/
 
 /*======================== COLORS, LIGHTS AND SHADOWS =======================*/
@@ -199,6 +200,10 @@ void				blur(t_env *env);
 void				stereoscopy(t_env *env);
 void				anti_aliasing(t_env *env);
 void				save_image(int *mass);
+void				cartoon_effect(t_env *env);
+void				sum_color(t_clr *aliasing, t_clr *color);
+int					check_pixel(t_env *env, int i, int j);
+void				stereo_aliasing(t_env *env);
 /*============================== END OF EFFECTS =============================*/
 
 /*================================= UTILITY =================================*/
