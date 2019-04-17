@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multithreading.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 16:49:07 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/15 15:15:16 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/17 20:06:33 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static	void	check_flags(t_env *env)
 {
+	//stereo_aliasing(env);
+	//cartoon_effect(env);
 	env->flags.aa ? anti_aliasing(env) : NULL;
 	env->flags.blur ? blur(env) : NULL;
 	env->flags.sepia ? sepia(env) : NULL;

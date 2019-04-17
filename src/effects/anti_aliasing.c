@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   anti_aliasing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 17:06:00 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/04/15 15:18:43 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/17 20:01:04 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void	sum_color(t_clr *aliasing, t_clr *color)
+void	sum_color(t_clr *aliasing, t_clr *color)
 {
 	int		i;
 
@@ -47,7 +47,7 @@ static int	check_difference(int i, int j)
 	return (0);
 }
 
-static int	check_pixel(t_env *env, int i, int j)
+int	check_pixel(t_env *env, int i, int j)
 {
 	int mass;
 
