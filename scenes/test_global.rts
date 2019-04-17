@@ -21,6 +21,58 @@ object
 	surface
 	{
 		type		:	PLANE
+		texture		:	textures/concrete.jpg
+		color		:	0 0 0
+		position	:	-20.0 0.0 25.0
+		rotation	:	0.0 0.0 -1.0
+		max_height	:	50.0
+		max_width	:	10.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	PLANE
+		texture		:	textures/concrete.jpg
+		color		:	0 0 0
+		position	:	20.0 0.0 25.0
+		rotation	:	0.0 0.0 -1.0
+		max_height	:	50.0
+		max_width	:	10.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	PLANE
+		texture		:	textures/concrete.jpg
+		color		:	0 0 0
+		position	:	0.0 15.0 25.0
+		rotation	:	0.0 0.0 -1.0
+		max_height	:	15.0
+		max_width	:	50.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	PLANE
+		texture		:	textures/concrete.jpg
+		color		:	0 0 0
+		position	:	0.0 -20.0 25.0
+		rotation	:	0.0 0.0 -1.0
+		max_height	:	15.0
+		max_width	:	50.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	PLANE
 		texture		:	textures/wooden_floor.jpg
 		color		:	0 0 0
 		position	:	0.0 -25.0 0.0
@@ -51,19 +103,6 @@ object
 		color		:	0 0 0
 		position	:	-25.0 0.0 0.0
 		rotation	:	1.0 0.0 0.0
-		max_height	:	50.0
-		max_width	:	50.0
-		specular	:	0.0
-		reflect		:	0.0
-		transp		:	0.0
-	}
-	surface
-	{
-		type		:	PLANE
-		texture		:	textures/concrete.jpg
-		color		:	0 0 0
-		position	:	0.0 0.0 25.0
-		rotation	:	0.0 0.0 -1.0
 		max_height	:	50.0
 		max_width	:	50.0
 		specular	:	0.0
@@ -288,8 +327,7 @@ object
 		radius		:	0.15
 		min_height	:	0.0
 		max_height	:	1.5
-		specular	:	0.0
-		reflect		:	0.0
+		specular	:	1.0
 		refract		:	1.0
 		transp		:	0.75
 	}
@@ -303,8 +341,7 @@ object
 		angle		:	0.85
 		min_height	:	0.125
 		max_height	:	1.0
-		specular	:	0.0
-		reflect		:	0.0
+		specular	:	1.0
 		refract		:	1.0
 		transp		:	0.75
 	}
@@ -318,8 +355,78 @@ object
 		min_height	:	-1.75
 		max_height	:	1.0
 		radius		:	1.75
-		specular	:	0.0
+		specular	:	1.0
 		refract		:	1.0
 		transp		:	0.75
+	}
+}
+object
+{
+	position	:	-1.0 -15.5 5.3
+	rotation	:	0.0 0.0 0.0
+	surface
+	{
+		type		:	SPHERE
+		texture		:	none
+		color		:	155 50 155
+		position	:	1.0 0.0 1.3
+		rotation	:	0.0 1.0 0.0
+		radius		:	1.0
+		specular	:	1.0
+		refract		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	SPHERE
+		texture		:	none
+		color		:	50 155 155
+		position	:	0.0 0.0 0.0
+		rotation	:	0.0 1.0 0.0
+		radius		:	1.0
+		specular	:	100.0
+		refract		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	SPHERE
+		texture		:	none
+		color		:	155 155 50
+		position	:	-1.0 0.0 1.3
+		rotation	:	0.0 1.0 0.0
+		radius		:	1.0
+		specular	:	10.0
+		refract		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	SPHERE
+		texture		:	none
+		color		:	255 255 255
+		position	:	0.0 1.5 1.0
+		rotation	:	0.0 1.0 0.0
+		radius		:	1.0
+		specular	:	0.0
+		refract		:	1.2
+		transp		:	0.85
+	}
+}
+object
+{
+	position	:	0.0 2.0 50.0
+	rotation	:	0.0 0.0 0.0
+	surface
+	{
+		type		:	SPHERE
+		texture		:	textures/planets/moon.jpg
+		color		:	50 150 60
+		position	:	0.0 0.0 0.0
+		rotation	:	0.0 1.0 0.0
+		radius		:	10.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
 	}
 }
