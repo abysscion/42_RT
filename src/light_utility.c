@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light_utility.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 10:08:37 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/17 13:54:54 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/17 16:44:29 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,6 @@ static double	max_color(double intens, unsigned char color, int *remain)
 		return (255);
 	}
 	return (intens * color);
-}
-
-void			init_new_color(t_clr *new_color, t_surf *surf, t_env *env)
-{
-	if (surf->disruption > 0 && surf->disruption < 2)
-		*new_color = (((int)(1 * env->ray.start.x + 1000)
-			+ (int)(1 * env->ray.start.y + 1000)) & 1) ?
-			(t_clr){255 - surf->color.r, 255 - surf->color.g, 255 -
-			surf->color.b} : surf->color;
-	else
-		*new_color = surf->color;
 }
 
 void			calc_color(t_clr *color, double intens,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/17 16:26:34 by emayert          ###   ########.fr       */
+/*   Updated: 2019/04/17 16:45:50 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ void				calc_basis(t_surf *surf);
 
 void				get_texture_normal(t_surf *surface, t_lc *light);
 void				get_texture_color(t_surf *surface, t_lc *light);
+void				init_new_color(t_clr *new_color, t_surf *surf, t_env *env);
 
 void				calc_plane_local_coords(t_v *surf_point, t_surf *surface,
 						double *u, double *v);
