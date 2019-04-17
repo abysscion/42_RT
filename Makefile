@@ -28,6 +28,10 @@ SRC		=	main.c \
 			intersects/intersect_limits_flat.c \
 			gui/gui.c \
 			gui/gui_initer.c \
+			gui/gui_drawer.c \
+			gui/gui_utility.c \
+			gui/gui_utility1.c \
+			gui/gui_events_handler.c \
 			effects/anti_aliasing.c \
 			effects/blur.c \
 			effects/sepia.c \

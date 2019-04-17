@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 09:30:02 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/16 21:46:19 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/17 12:05:41 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,22 +93,3 @@ void			sdl_key_press_events(SDL_Event *event, t_env *env)
 		env->flags.need_render = 1;
 	}
 }
-
-/*									temp shit
-	// t_lst	*objects;
-	// t_lst	*objsurfs;
-	// t_surf	*target;
-
-	// objects = env->objects;
-	// objsurfs = ((t_obj *) objects->obj)->surfaces;
-	// target = (t_surf *) objsurfs->obj;
-	// ((t_surf*)((t_lst *)((t_obj *)e->objects->obj)->surfaces)->obj)->color.r -= 50;
-
-	// kiss_array_appendstring(&env->gui->tbx_obj_arr, 0,
-	// 			"1st surf green value: ", ft_itoa(target->color.g));
-
-	// kiss_array_assign(&env->gui->tbx_obj_arr, 0, 0,
-											// ft_strjoin("", "La cameria"));
-
-	// printf("data [%s]", (char *)kiss_array_data(&env->gui->tbx_obj_arr, 3));
-*/

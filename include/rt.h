@@ -6,7 +6,7 @@
 /*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/16 21:45:30 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/17 12:00:42 by sb_fox           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,21 @@
 
 t_light				*get_light_pointer_to_light(t_env *e, int index);
 t_lst				*get_lst_pointer_to_light(t_env *e, int index);
+double				*get_pointer_to_obj_value(t_env *e, int axis_code);
 char				*get_string_obj_type(t_env *e);
+void				getObjByClick(t_env *e, t_obj **obj, double *cDist,
+									t_lst *temp);
+void				gui_handle_events(t_env *e, SDL_Event *ev, int *draw);
 void				gui_init_windows(t_env *e);
 void				gui_init_entries_0(t_env *e);
 void				gui_init_entries_1(t_env *e);
 void				gui_init_arrays(t_env *e);
 void				gui_init_labels(t_gui *g);
 void				update_info(t_env *e);
+void				gui_draw(t_env *e);
 void				init_gui(t_env *e);
-void				draw_gui(t_env *e);
 void				draw_all(t_env *e);
-
 int					numOfLights(t_env *e);
-int					numOfSurfs(t_env *e);
-int					numOfObjs(t_env *e);
 /*================================ END OF GUI ===============================*/
 
 /*================================ MAIN =====================================*/
