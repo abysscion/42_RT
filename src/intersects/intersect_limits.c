@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect_limits.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 14:08:27 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/16 20:16:43 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/17 18:45:27 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	check_conic_root(t_surf *surf, t_v *dest, t_v *start, double *root)
 	position_to_point = (vecsub(surf_point, surf->position));
 	angle = vecmult_scal(vecnorm(position_to_point), surf->rotation);
 	check = (veclen(position_to_point) * angle);
-	if (angle < 0 || check > surf->limits.max_height ||
+	if (check > surf->limits.max_height ||
 		check < surf->limits.min_height)
 		return (0);
 	return (1);

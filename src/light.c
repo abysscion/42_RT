@@ -6,7 +6,7 @@
 /*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 21:03:53 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/17 16:08:51 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/17 18:44:25 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_clr			light_on(t_env *env, double closest, t_surf *surface, int rec)
 	if (surface->texture)
 		get_texture_color(surface, &lc);
 	calc_color(&color, intensity, surface, env);
-	if (surface->reflect > 0 && surface->reflect <= 0 && rec > 0)
+	if (surface->reflect > 0 && surface->reflect <= 1 && rec > 0)
 	{
 		ref_color = reflection(env, &lc, rec);
 		calc_ref_color(&color, &ref_color, surface->reflect);
