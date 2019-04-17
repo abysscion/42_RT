@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:44:37 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/17 19:35:33 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/17 19:57:23 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			init_env(t_env *env, char **argv)
 
 static	void	check_lights(t_env *env)
 {
-	t_lst 	*lights;
+	t_lst	*lights;
 	t_light *light;
 
 	lights = env->lights;

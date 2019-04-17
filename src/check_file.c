@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 20:33:38 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/04/17 19:52:50 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/17 19:56:51 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		check_filename(char *file_name)
 {
-	int fd;
+	int		fd;
 	char	*line;
 
 	if ((fd = open(file_name, O_RDONLY)) == -1)
