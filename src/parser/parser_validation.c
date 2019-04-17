@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:38:08 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/17 17:50:14 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/17 19:43:20 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,4 @@ void		parser_validation(char *name)
 		free_words(split);
 		free(line);
 	}
-	close(fd);
 }

@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 18:46:21 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/17 14:56:05 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/17 19:42:49 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	single_num_fields(char ***split, char **num, t_surf *surf)
 	else if (strcmp((*split)[0], "min_width") == 0)
 		surf->limits.min_width = ft_atod(num[0]);
 	else if (strcmp((*split)[0], "angle") == 0)
-		surf->radius = ft_atod(num[0]);	
+		surf->radius = ft_atod(num[0]);
 	else if (strcmp((*split)[0], "refract") == 0)
 		surf->refract = ft_atod(num[0]);
 	else if (strcmp((*split)[0], "disruption") == 0)
