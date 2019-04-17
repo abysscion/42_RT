@@ -6,7 +6,7 @@
 /*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/17 17:36:41 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/17 19:34:26 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ int					num_of_lights(t_env *e);
 # define MSG_USAGE	"usage: \e[33mThere's no usage yet :^)\e[0m"
 # define RAY_LENMAX				2147483647
 # define RAY_LENMIN				0.001
-# define ROT_STEP				5
-# define RT__W					512
-# define RT__H					512
+# define ROT_STEP				15
+# define RT__W					800
+# define RT__H					800
 # define WIN_H					(RT__H + kiss_edge * 4)
 # define WIN_W					(RT__W + GUI_LBLOCK_W + GUI_RBLOCK_W)
 
