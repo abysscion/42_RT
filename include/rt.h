@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/17 19:34:26 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/17 20:10:48 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int					num_of_lights(t_env *e);
 /*================================ END OF GUI ===============================*/
 
 /*================================ MAIN =====================================*/
-# define MSG_USAGE	"usage: \e[33mThere's no usage yet :^)\e[0m"
+# define MSG_USAGE	"usage: \e[33m./RT scene_file\e[0m"
 # define RAY_LENMAX				2147483647
 # define RAY_LENMIN				0.001
 # define ROT_STEP				15
