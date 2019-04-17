@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_utility.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/10 09:30:02 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/17 15:34:24 by eloren-l         ###   ########.fr       */
+/*   Created: 2019/04/17 19:36:45 by cschuste          #+#    #+#             */
+/*   Updated: 2019/04/17 19:37:12 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ static	void	movement_keys(int key, t_env *e)
 	else if (key == SDLK_LEFT)
 		e->cam.position = vecsub(e->cam.position,
 			vec_rotate(e->cam.rotation, (t_v){1, 0, 0}));
-	else if (key == SDLK_RIGHT) 
+	else if (key == SDLK_RIGHT)
 		e->cam.position = vecsum(e->cam.position,
 			vec_rotate(e->cam.rotation, (t_v){1, 0, 0}));
 	else if (key == SDLK_UP)
 		e->cam.position = vecsum(e->cam.position,
 			vec_rotate(e->cam.rotation, (t_v){0, 0, 1}));
-	else if (key == SDLK_DOWN) 
+	else if (key == SDLK_DOWN)
 		e->cam.position = vecsub(e->cam.position,
 			vec_rotate(e->cam.rotation, (t_v){0, 0, 1}));
 	e->gui->need_update_info = 1;

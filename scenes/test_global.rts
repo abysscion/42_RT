@@ -101,8 +101,8 @@ object
 		type		:	PLANE
 		texture		:	textures/concrete.jpg
 		color		:	0 0 0
-		position	:	-25.0 0.0 0.0
-		rotation	:	1.0 0.0 0.0
+		position	:	0.0 0.0 25.0
+		rotation	:	0.0 0.0 -1.00
 		max_height	:	50.0
 		max_width	:	50.0
 		specular	:	0.0
@@ -115,7 +115,7 @@ object
 		texture		:	textures/concrete.jpg
 		color		:	0 0 0
 		position	:	0.0 0.0 -25.0
-		rotation	:	0.0 0.0 1.0
+		rotation	:	0.0 0.0 1.00
 		max_height	:	50.0
 		max_width	:	50.0
 		specular	:	0.0

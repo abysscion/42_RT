@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:38:08 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/17 16:56:00 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/17 19:41:14 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static void	parse_light(int fd, t_lst *lst, t_light *light, char *line)
 
 	get_next_line(fd, &line);
 	split = ft_strsplit(line, '\t');
-
 	open_check(fd, &split, &line);
 	while (1)
 	{
