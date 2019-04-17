@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:34:01 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/16 20:16:40 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/17 14:15:25 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ void	init_env(t_env *env, char **argv)
 	env->flags.need_render = 1;
 	env->gui->need_redraw = 1;
 	env->gui->need_update_info = 1;
+	env->flags.aa = 0;
+	env->flags.blur = 0;
+	env->flags.stereo = 0;
+	env->flags.sepia = 0;
 }
 
 void	adjust_objects(t_env *env)

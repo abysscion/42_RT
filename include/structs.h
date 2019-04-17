@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/16 20:16:21 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/17 14:02:31 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ typedef	struct		s_surface
 	double				radius;
 	double				specular;
 	double				reflect;
+	double				refract;
 	double				transp;
 	int					disruption;
 	int					type;

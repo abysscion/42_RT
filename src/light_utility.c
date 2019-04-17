@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light_utility.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 10:08:37 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/16 21:35:03 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/17 13:54:54 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ void			calc_color(t_clr *color, double intens,
 	color->r = color->r + remain > 255 ? 255 : color->r + remain;
 }
 
-void			calc_ref_color(t_clr *color, t_clr *ref_color, t_surf *surface)
+void			calc_ref_color(t_clr *color, t_clr *ref_color, double reflect)
 {
-	color->r = color->r * (1 - surface->reflect) + ref_color->r *
-				surface->reflect;
-	color->g = color->g * (1 - surface->reflect) + ref_color->g *
-				surface->reflect;
-	color->b = color->b * (1 - surface->reflect) + ref_color->b *
-				surface->reflect;
+	color->r = color->r * (1 - reflect) + ref_color->r *
+				reflect;
+	color->g = color->g * (1 - reflect) + ref_color->g *
+				reflect;
+	color->b = color->b * (1 - reflect) + ref_color->b *
+				reflect;
 }
 
 t_v				calc_reflected_ray(t_v direction, t_v bisect)

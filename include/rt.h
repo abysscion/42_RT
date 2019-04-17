@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/17 12:00:42 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/17 13:55:21 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_clr   			calc_refract(t_env *env, t_lc lc, t_surf *surface, int rec);
 void				init_color_variables(t_env *env, t_lc *lc, double closest);
 void				calc_color(t_clr *color, double intens, t_surf *surface, t_env *env);
 void				calc_ref_color(t_clr *color, t_clr *ref_color,
-						t_surf *surface);
+						double reflect);
 
 void				calc_surf_normal(t_env *env, double closest, t_surf *surface,
 						t_lc *light);

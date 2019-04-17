@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gui_utility.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 13:47:08 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/17 11:35:54 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/17 14:11:52 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,13 @@ t_light	*get_light_pointer_to_light(t_env *e, int index)
 
 	tmp = e->lights;
 	while (e->lights)
-		if (tmp->id == index)
-			return ((t_light *)tmp->obj);
-		else
-			tmp = tmp->next;
+		if (tmp)
+		{	
+			if (tmp->id == index)
+				return ((t_light *)tmp->obj);
+			else
+				tmp = tmp->next;
+		}
 	return (NULL);
 }
 
