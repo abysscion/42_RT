@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sepia.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 18:31:31 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/04/15 15:18:51 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/17 20:26:08 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ void			sepia(t_env *env)
 		while (x < env->constants.half_render_w)
 		{
 			color = cast_in_sepia(env->sdl.image[RT__W *
-					(y + env->constants.half_render_h) + (x + env->constants.half_render_w)]);
+					(y + env->constants.half_render_h)
+					+ (x + env->constants.half_render_w)]);
 			env->sdl.image[RT__W *
-					(y + env->constants.half_render_h) + (x + env->constants.half_render_w)] =
+					(y + env->constants.half_render_h) +
+					(x + env->constants.half_render_w)] =
 					(color.r << 16) + (color.b << 8) + (color.g);
 			x++;
 		}

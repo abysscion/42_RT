@@ -6,13 +6,13 @@
 /*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 17:06:00 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/04/17 20:01:04 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/17 20:24:38 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void	sum_color(t_clr *aliasing, t_clr *color)
+void		sum_color(t_clr *aliasing, t_clr *color)
 {
 	int		i;
 
@@ -47,7 +47,7 @@ static int	check_difference(int i, int j)
 	return (0);
 }
 
-int	check_pixel(t_env *env, int i, int j)
+int			check_pixel(t_env *env, int i, int j)
 {
 	int mass;
 
@@ -109,12 +109,13 @@ void		anti_aliasing(t_env *env)
 		j = env->constants.half_render_w * -1;
 		while (j < env->constants.half_render_w)
 		{
-			if (check_pixel(env, i + env->constants.half_render_h, j + env->constants.half_render_w))
+			if (check_pixel(env, i + env->constants.half_render_h,
+					j + env->constants.half_render_w))
 			{
 				anti_aliasing_render(env, &aliasing[0], i * 2, j * 2);
 				sum_color(&aliasing[0], &color);
-				env->sdl.image[RT__W *
-					(i + env->constants.half_render_h) + (j + env->constants.half_render_w)] =
+				env->sdl.image[RT__W * (i + env->constants.half_render_h) +
+					(j + env->constants.half_render_w)] =
 					(color.r << 16) + (color.b << 8) + (color.g);
 			}
 			j++;

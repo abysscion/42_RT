@@ -6,7 +6,7 @@
 /*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:52:56 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/04/17 19:54:45 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/17 20:27:05 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ t_surf			*trace_object(t_env *env)
 	return (closest_surf);
 }
 
-void		check_surf(t_surf *surf, t_env *env, int x, int y)
+void			check_surf(t_surf *surf, t_env *env, int x, int y)
 {
-	t_surf *surface1;
-	t_surf *surface2;
+	t_surf	*surface1;
+	t_surf	*surface2;
 	t_v		dest;
 
 	surface1 = NULL;
@@ -95,10 +95,10 @@ void		check_surf(t_surf *surf, t_env *env, int x, int y)
 			(x + env->constants.half_render_w)] = 0;
 }
 
-void		cartoon_effect(t_env *env)
+void			cartoon_effect(t_env *env)
 {
 	t_v		dest;
-	t_surf  *surf;
+	t_surf	*surf;
 	int		x;
 	int		y;
 

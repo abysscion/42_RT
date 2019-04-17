@@ -6,19 +6,22 @@
 /*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 19:38:41 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/04/17 19:42:38 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/17 20:32:15 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void	left_anti_aliasing_render(t_env *env, t_clr *aliasing, int i, int j)
+static void			left_anti_aliasing_render(t_env *env,
+						t_clr *aliasing, int i, int j)
 {
 	t_v		dest;
 	int		k;
 	int		x;
 	int		y;
+	int		rt_h;
 
+	rt_h = RT__H;
 	y = i;
 	k = 0;
 	while (y <= i + 1)
@@ -26,7 +29,7 @@ static void	left_anti_aliasing_render(t_env *env, t_clr *aliasing, int i, int j)
 		x = j;
 		while (x <= j + 1)
 		{
-			dest = (t_v){x * 1.0 / (RT__W), y * -1.0 / (RT__H * 2), 1.0};
+			dest = (t_v){x * 1.0 / (RT__W), y * -1.0 / (rt_h * 2), 1.0};
 			dest = vecnorm(vec_rotate(env->cam.rotation, dest));
 			init_ray(env, dest);
 			aliasing[k] = trace_ray(env, RECURSION);
@@ -37,13 +40,16 @@ static void	left_anti_aliasing_render(t_env *env, t_clr *aliasing, int i, int j)
 	}
 }
 
-static void	right_anti_aliasing_render(t_env *env, t_clr *aliasing, int i, int j)
+static void			right_anti_aliasing_render(t_env *env,
+						t_clr *aliasing, int i, int j)
 {
 	t_v		dest;
 	int		k;
 	int		x;
 	int		y;
+	int		rt_h;
 
+	rt_h = RT__H;
 	y = i;
 	k = 0;
 	while (y <= i + 1)
@@ -51,7 +57,7 @@ static void	right_anti_aliasing_render(t_env *env, t_clr *aliasing, int i, int j
 		x = j;
 		while (x <= j + 1)
 		{
-			dest = (t_v){x * 1.0 / (RT__W), y * -1.0 / (RT__H * 2), 1.0};
+			dest = (t_v){x * 1.0 / (RT__W), y * -1.0 / (rt_h * 2), 1.0};
 			dest = vecnorm(vec_rotate(env->cam.rotation, dest));
 			init_ray(env, dest);
 			aliasing[k] = trace_ray(env, RECURSION);
@@ -74,8 +80,8 @@ static void			left_stereo_anti_aliasing(t_env *env)
 	y = env->constants.half_render_h * -1;
 	while (y < env->constants.half_render_h)
 	{
-		x = (env->constants.half_render_w / 2) * -1;
-		while (x < env->constants.half_render_w / 2)
+		x = ((env->constants.half_render_w / 2) * -1) - 1;
+		while (++x < env->constants.half_render_w / 2)
 		{
 			if (check_pixel(env, y + env->constants.half_render_h,
 				x + (env->constants.half_render_w / 2)))
@@ -86,7 +92,6 @@ static void			left_stereo_anti_aliasing(t_env *env)
 						(x + (env->constants.half_render_w / 2))] =
 					(color.r << 16) + (color.b << 8) + (color.g);
 			}
-			x++;
 		}
 		y++;
 	}
@@ -104,11 +109,11 @@ static void			right_stereo_anti_aliasing(t_env *env)
 	y = env->constants.half_render_h * -1;
 	while (y < env->constants.half_render_h)
 	{
-		x = (env->constants.half_render_w / 2) * -1;
-		while (x < (env->constants.half_render_w / 2))
+		x = ((env->constants.half_render_w / 2) * -1) - 1;
+		while (++x < (env->constants.half_render_w / 2))
 		{
-			if (check_pixel(env, y + env->constants.half_render_h,
-				x + (env->constants.half_render_w + env->constants.half_render_w / 2)))
+			if (check_pixel(env, y + env->constants.half_render_h, x +
+			(env->constants.half_render_w + env->constants.half_render_w / 2)))
 			{
 				right_anti_aliasing_render(env, &aliasing[0], y * 2, x * 2);
 				sum_color(&aliasing[0], &color);
@@ -116,13 +121,12 @@ static void			right_stereo_anti_aliasing(t_env *env)
 						(x + (int)(env->constants.half_render_w * 1.5))] =
 					(color.r << 16) + (color.b << 8) + (color.g);
 			}
-			x++;
 		}
 		y++;
 	}
 }
 
-void			stereo_aliasing(t_env *env)
+void				stereo_aliasing(t_env *env)
 {
 	left_stereo_anti_aliasing(env);
 	right_stereo_anti_aliasing(env);

@@ -6,7 +6,7 @@
 /*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 18:53:39 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/04/17 20:03:50 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/17 20:25:03 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,5 @@ void			stereoscopy(t_env *env)
 	right_stereoscopy(env, windows_w);
 	env->cam.position.x -= 0.1;
 	env->cam.rotation.y += 0.2;
+	stereo_aliasing(env);
 }
