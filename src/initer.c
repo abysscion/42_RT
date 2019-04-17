@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:44:37 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/17 18:52:38 by emayert          ###   ########.fr       */
+/*   Updated: 2019/04/17 19:35:33 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,28 @@ void			init_env(t_env *env, char **argv)
 	env->flags.sepia = 0;
 }
 
+static	void	check_lights(t_env *env)
+{
+	t_lst 	*lights;
+	t_light *light;
+
+	lights = env->lights;
+	while (lights)
+	{
+		light = (t_light *)(lights->obj);
+		if (light->intensity < 0)
+			light->intensity = 0;
+		lights = lights->next;
+	}
+}
+
 static	void	choose_surf(t_surf *surf, t_obj *obj)
 {
 	surf->rotation_init = vecnorm(surf->rotation_init);
 	surf->rotation = vec_rotate(obj->rotation,
 		surf->rotation_init);
-	if (surf->type == T_PLANE || surf->type == T_DISC)
-		surf->position = vecsum(surf->position_init, obj->position);
-	else
-	{
-		surf->position = vec_rotate(obj->rotation, surf->position_init);
-		surf->position = vecsum(surf->position, obj->position);
-	}
+	surf->position = vec_rotate(obj->rotation, surf->position_init);
+	surf->position = vecsum(surf->position, obj->position);
 	if (surf->limits.min_height != -INFINITY)
 		surf->position = vecsub(surf->position,
 			vecmult_num(surf->rotation, surf->limits.min_height));
@@ -77,4 +87,5 @@ void			adjust_objects(t_env *env)
 		}
 		objs = objs->next;
 	}
+	check_lights(env);
 }
