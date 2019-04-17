@@ -11,7 +11,7 @@ light
 light
 {
 	type			:	POINT
-	intensity		:	0.8
+	intensity		:	1.0
 	position		:	0.0 10.0 -10.0
 }
 object
@@ -25,7 +25,7 @@ object
 		color		:	255 255 255
 		position	:	0.0 0.0 0.0
 		rotation	:	0.0 0.0 -1.0
-		specular	:	0.0
+		specular	:	50.0
 		reflect		:	0.0
 		transp		:	0.0
 		refract		:	1.0
@@ -46,7 +46,7 @@ object
 		radius		:	0.3
 		min_height	:	0.0
 		max_height	:	1.5
-		specular	:	0.0
+		specular	:	1.0
 		reflect		:	0.0
 		refract		:	0.5
 		transp		:	1.0
@@ -61,7 +61,7 @@ object
 		radius		:	0.3
 		min_height	:	0.0
 		max_height	:	1.5
-		specular	:	0.0
+		specular	:	1.0
 		reflect		:	0.0
 		transp		:	0.0
 	}
@@ -75,7 +75,7 @@ object
 		radius		:	0.3
 		min_height	:	0.0
 		max_height	:	1.5
-		specular	:	0.0
+		specular	:	1.0
 		reflect		:	0.0
 		transp		:	0.0
 	}

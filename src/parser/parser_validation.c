@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:38:08 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/17 17:27:10 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/17 17:50:14 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void		parser_validation(char *name)
 	while (get_next_line(fd, &line))
 	{
 		split = ft_strsplit(line, '\t');
+		check_empty(&split, object);
 		if (ft_strcmp(split[0], "camera") == 0 &&
 			check_param_num(split, 1))
 			validate_cam(fd, object);
