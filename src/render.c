@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/06 22:20:00 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/16 19:55:13 by sb_fox           ###   ########.fr       */
+/*   Created: 2019/04/17 19:41:24 by cschuste          #+#    #+#             */
+/*   Updated: 2019/04/17 19:42:39 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ int				render(void *environment)
 	y = env->constants.half_render_h * -1 + env->quarter;
 	while (y < env->constants.half_render_h)
 	{
-		x = env->constants.half_render_w * -1;
-		while (x < env->constants.half_render_w)
+		x = env->constants.half_render_w * -1 - 1;
+		while (++x < env->constants.half_render_w)
 		{
 			dest = (t_v){x * 1.0 / RT__W, y * -1.0 / RT__H, 1.0};
 			dest = vecnorm(vec_rotate(env->cam.rotation, dest));
@@ -112,7 +112,6 @@ int				render(void *environment)
 				(y + env->constants.half_render_h) +
 				(x + env->constants.half_render_w)] =
 				(color.r << 16) + (color.b << 8) + (color.g);
-			x++;
 		}
 		y += THREADS;
 	}
