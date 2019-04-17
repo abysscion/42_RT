@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/04/17 17:27:58 by eloren-l         ###   ########.fr       */
+=======
+/*   Updated: 2019/04/17 16:45:50 by fdibbert         ###   ########.fr       */
+>>>>>>> fed2c984d21beb91d4dfa2c3a96edec4b15a26dc
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +46,7 @@ t_light				*get_light_pointer_to_light(t_env *e, int index);
 t_lst				*get_lst_pointer_to_light(t_env *e, int index);
 double				*get_pointer_to_obj_value(t_env *e, int axis_code);
 char				*get_string_obj_type(t_env *e);
-void				getObjByClick(t_env *e, t_obj **obj, double *cDist,
+void				get_obj_by_click(t_env *e, t_obj **obj, double *c_dist,
 									t_lst *temp);
 void				gui_handle_events(t_env *e, SDL_Event *ev, int *draw);
 void				gui_init_windows(t_env *e);
@@ -54,7 +58,7 @@ void				update_info(t_env *e);
 void				gui_draw(t_env *e);
 void				init_gui(t_env *e);
 void				draw_all(t_env *e);
-int					numOfLights(t_env *e);
+int					num_of_lights(t_env *e);
 /*================================ END OF GUI ===============================*/
 
 /*================================ MAIN =====================================*/
@@ -147,6 +151,7 @@ void				calc_basis(t_surf *surf);
 
 void				get_texture_normal(t_surf *surface, t_lc *light);
 void				get_texture_color(t_surf *surface, t_lc *light);
+void				init_new_color(t_clr *new_color, t_surf *surf, t_env *env);
 
 void				calc_plane_local_coords(t_v *surf_point, t_surf *surface,
 						double *u, double *v);

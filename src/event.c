@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 05:21:02 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/17 11:47:32 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/17 15:55:53 by emayert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static	void	mouse_click(SDL_Event *event, t_env *e)
 		dest = (t_v){p.x, p.y, 1.0};
 		dest = vecnorm(vec_rotate(e->cam.rotation, dest));
 		init_ray(e, dest);
-		getObjByClick(e, &obj, &closeDist, e->objects);
+		get_obj_by_click(e, &obj, &closeDist, e->objects);
 		if (closeDist < e->ray.max)
 			mouse_click_supply(e, obj);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gui_utility1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/25 13:47:08 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/17 11:52:44 by sb_fox           ###   ########.fr       */
+/*   Created: 2019/04/17 16:07:04 by emayert           #+#    #+#             */
+/*   Updated: 2019/04/17 16:07:13 by emayert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static	double	*get_pointer_to_obj_value_supply(t_env *e, int axis_code)
 
 	value = NULL;
 	ptobj = e->gui->selected_object;
-
 	if (e->gui->selected_object_type == GUI_SELECTED_TYPE_CAM)
 	{
 		value = axis_code == 10 ? &(((t_cam *)ptobj)->position.x) : value;
@@ -63,4 +62,26 @@ double			*get_pointer_to_obj_value(t_env *e, int axis_code)
 	else
 		return (get_pointer_to_obj_value_supply(e, axis_code));
 	return (value);
+}
+
+char			*get_string_obj_type(t_env *e)
+{
+	void	*tmp;
+
+	if (e->gui->selected_object_type == GUI_SELECTED_TYPE_CAM)
+		return ("Camera");
+	else if (e->gui->selected_object_type == GUI_SELECTED_TYPE_LIGHT)
+	{
+		tmp = get_lst_pointer_to_light(e,
+				ft_atoi(&e->gui->cbb_light.entry.text[9]));
+		if (((t_lst *)tmp)->type == T_AMBIENT)
+			return ("Ambient light");
+		else if (((t_lst *)tmp)->type == T_POINT)
+			return ("Point light");
+		else if (((t_lst *)tmp)->type == T_DIRECTIONAL)
+			return ("Directional light");
+	}
+	else if (e->gui->selected_object_type == GUI_SELECTED_TYPE_OBJ)
+		return ("Object");
+	return (NULL);
 }

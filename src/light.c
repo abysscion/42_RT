@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 21:03:53 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/17 15:01:48 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/17 16:08:51 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,15 +101,16 @@ t_clr			light_on(t_env *env, double closest, t_surf *surface, int rec)
 	if (surface->texture)
 		get_texture_color(surface, &lc);
 	calc_color(&color, intensity, surface, env);
-	if (rec > 0 && surface->reflect > 0)
+	if (surface->reflect > 0 && surface->reflect <= 0 && rec > 0)
 	{
 		ref_color = reflection(env, &lc, rec);
 		calc_ref_color(&color, &ref_color, surface->reflect);
 	}
-	else if (surface->transp > 0 && rec > 0)
+	else if (surface->refract >= 1.0 && surface->transp <= 1.00 &&
+		surface->transp > 0 && rec > 0)
 	{
 		ref_color = calc_refract(env, lc, surface, rec);
-		calc_ref_color(&color, &ref_color, surface->refract);	
+		calc_ref_color(&color, &ref_color, surface->transp);
 	}
 	return (color);
 }

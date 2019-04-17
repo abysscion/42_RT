@@ -1,7 +1,7 @@
 camera
 {
-	position		:	0.0 0.0 -10.0
-	rotation		:	0.0 0.0 0.0
+	position		:	-20.0 -9.0 -22.0
+	rotation		:	10.0 35.0 0.0
 }
 light
 {
@@ -11,14 +11,8 @@ light
 light
 {
 	type			:	POINT
-	intensity		:	0.35
-	position		:	-20.0 0.0 -10.0
-}
-light
-{
-	type			:	POINT
-	intensity		:	0.35
-	position		:	20.0 0.0 -10.0
+	intensity		:	0.7
+	position		:	12.5 12.5 12.5
 }
 object
 {
@@ -27,26 +21,64 @@ object
 	surface
 	{
 		type		:	PLANE
-		texture		:	none
-		color		:	0 0 255
-		position	:	0.0 0.0 10.0
+		texture		:	textures/wooden_floor.jpg
+		color		:	0 0 0
+		position	:	0.0 -25.0 0.0
+		rotation	:	0.0 1.0 0.0
+		max_height	:	50.0
+		max_width	:	50.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	PLANE
+		texture		:	textures/concrete.jpg
+		color		:	0 0 0
+		position	:	25.0 0.0 0.0
+		rotation	:	-1.0 0.0 0.0
+		max_height	:	50.0
+		max_width	:	50.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	PLANE
+		texture		:	textures/concrete.jpg
+		color		:	0 0 0
+		position	:	-25.0 0.0 0.0
+		rotation	:	1.0 0.0 0.0
+		max_height	:	50.0
+		max_width	:	50.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+	}
+	surface
+	{
+		type		:	PLANE
+		texture		:	textures/concrete.jpg
+		color		:	0 0 0
+		position	:	0.0 0.0 25.0
 		rotation	:	0.0 0.0 -1.0
+		max_height	:	50.0
+		max_width	:	50.0
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
 	}
-}
-object
-{
-	position		:	0.0 0.0 0.0
-	rotation		:	0.0 0.0 0.0
 	surface
 	{
 		type		:	PLANE
-		texture		:	none
-		color		:	0 255 0
-		position	:	0.0 0.0 -20.0
+		texture		:	textures/concrete.jpg
+		color		:	0 0 0
+		position	:	0.0 0.0 -25.0
 		rotation	:	0.0 0.0 1.0
+		max_height	:	50.0
+		max_width	:	50.0
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
@@ -60,61 +92,10 @@ object
 	{
 		type		:	SPHERE
 		texture		:	none
-		color		:	0.0 0.0 0.0
-		position	:	0.0 0.0 -2.0
-		rotation	:	0.0 0.0 0.0
-		radius		:	2.5
-		specular	:	0.0
-		reflect		:	0.0
-		transp		:	1.01
-	}
-}
-object
-{
-	position		:	2.5 -1.5 2.0
-	rotation		:	0.0 0.0 0.0
-	surface
-	{
-		type		:	SPHERE
-		texture		:	none
-		color		:	255 0 255
-		position	:	0.0 0.0 0.0
-		rotation	:	0.0 0.0 0.0
-		radius		:	2.0
-		specular	:	0.0
-		reflect		:	0.0
-		transp		:	0.0
-	}
-}
-object
-{
-	position		:	0.0 2.5 2.0
-	rotation		:	0.0 0.0 0.0
-	surface
-	{
-		type		:	SPHERE
-		texture		:	none
-		color		:	255 0 150
-		position	:	0.0 0.0 0.0
-		rotation	:	0.0 0.0 0.0
-		radius		:	2.0
-		specular	:	0.0
-		reflect		:	0.0
-		transp		:	0.0
-	}
-}
-object
-{
-	position		:	-2.5 -1.5 2.0
-	rotation		:	0.0 0.0 0.0
-	surface
-	{
-		type		:	SPHERE
-		texture		:	none
-		color		:	80 0 150
-		position	:	0.0 0.0 0.0
-		rotation	:	0.0 0.0 0.0
-		radius		:	2.0
+		color		:	255 255 0
+		position	:	0.0 0.0 5.0
+		rotation	:	0.0 0.0 1.0
+		radius		:	1.0
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0

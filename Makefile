@@ -21,6 +21,7 @@ SRC		=	main.c \
 			light_utility.c \
 			check_file.c \
 			multithreading.c \
+			disruption.c \
 			intersects/intersect_utility.c \
 			intersects/intersect_conic.c \
 			intersects/intersect_limits.c \
@@ -46,16 +47,16 @@ SRC		=	main.c \
 			parser/parser_reading_utility.c \
 			parser/parser_open_close_check.c \
 			parser/parser_float_fields_check.c \
-			parser/parser_other_fields_check.c
+			parser/parser_other_fields_check.c 
 
 OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 # compiler
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra #-Werror
-# CFLAGS	+=	-Ofast
+CFLAGS	+=	-Ofast
 # CFLAGS	+=	-O0
-CFLAGS	+=	-g
+# CFLAGS	+=	-g
 
 #OSX frameworks
 FWS		=	-framework OpenCL -framework OpenGL -framework AppKit

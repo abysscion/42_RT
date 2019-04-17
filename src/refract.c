@@ -6,7 +6,7 @@
 /*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 05:21:02 by emayert           #+#    #+#             */
-/*   Updated: 2019/04/15 15:27:29 by cschuste         ###   ########.fr       */
+/*   Updated: 2019/04/17 15:25:53 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_clr			calc_refract(t_env *env, t_lc lc, t_surf *surface, int rec)
 	env->ray.start = lc.surf_point;
 	env->ray.min = RAY_LENMIN;
 	env->ray.max = RAY_LENMAX;
-	temp = refract(lc.orig_dest, lc.orig_norm, &trans_vec, surface->transp);
+	temp = refract(lc.orig_dest, lc.orig_norm, &trans_vec, surface->refract);
 	if (temp == 0)
 	{
 		env->ray.dest = calc_reflected_ray(lc.orig_norm, lc.orig_dest);
