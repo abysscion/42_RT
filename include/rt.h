@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/17 14:58:59 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/17 17:27:58 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ int					check_floats(char **param, int i);
 int					check_param_num(char **param, int i);
 void				invalid_syntax(int object);
 
+void				check_empty(char ***split, int object);
 int					open_check(int fd, char ***split, char **line);
 int					close_check(char ***split, char **line);
 int					intensity_check(int fd, char ***split, char **line);
@@ -182,6 +183,8 @@ int					disruption_check(int fd, char ***split, char **line);
 int					check_surface(int fd, char ***split, char **line,
 						int *object);
 void				validate_surface(int fd, int object);
+void				surface_validation(char **split, char *line,
+						int object, int fd);
 
 int					check_single_float_field(int fd,
 						char ***split, char **line);

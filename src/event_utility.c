@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_utility.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 09:30:02 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/17 12:05:41 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/17 15:34:24 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,30 +38,24 @@ static	void	movement_keys(int key, t_env *e)
 		e->flags.need_render = 1;
 	else
 		return ;
-	if (key == SDLK_RSHIFT){
+	if (key == SDLK_RSHIFT)
 		e->cam.position = vecsum(e->cam.position,
 			vec_rotate(e->cam.rotation, (t_v){0, 1, 0}));
-		printf("up\n");}
-	else if (key == SDLK_RCTRL){
+	else if (key == SDLK_RCTRL)
 		e->cam.position = vecsub(e->cam.position,
 			vec_rotate(e->cam.rotation, (t_v){0, 1, 0}));
-			printf("down\n");}
 	else if (key == SDLK_LEFT)
-	{	e->cam.position = vecsub(e->cam.position,
+		e->cam.position = vecsub(e->cam.position,
 			vec_rotate(e->cam.rotation, (t_v){1, 0, 0}));
-			printf("left\n");}
-	else if (key == SDLK_RIGHT) {
+	else if (key == SDLK_RIGHT) 
 		e->cam.position = vecsum(e->cam.position,
 			vec_rotate(e->cam.rotation, (t_v){1, 0, 0}));
-			printf("right\n");}
-	else if (key == SDLK_UP){
+	else if (key == SDLK_UP)
 		e->cam.position = vecsum(e->cam.position,
 			vec_rotate(e->cam.rotation, (t_v){0, 0, 1}));
-			printf("forward\n");}
-	else if (key == SDLK_DOWN) {
+	else if (key == SDLK_DOWN) 
 		e->cam.position = vecsub(e->cam.position,
 			vec_rotate(e->cam.rotation, (t_v){0, 0, 1}));
-			printf("backwards\n");}
 	e->gui->need_update_info = 1;
 	draw_all(e);
 }
@@ -74,7 +68,7 @@ void			sdl_key_press_events(SDL_Event *event, t_env *env)
 	if (key == SDLK_s)
 		save_image(env->sdl.image);
 	else if (key == SDLK_f)
-		printf("pressed f to pay respects\n");
+		ft_putstr("pressed f to pay respects\n");
 	else if (key == SDLK_r)
 	{
 		env->cam.position = (t_v) {0, 0, -10};
