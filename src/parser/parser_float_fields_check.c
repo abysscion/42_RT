@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_float_fields_check.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 15:03:55 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/16 20:16:44 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/17 14:57:21 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static int	single_float_fields(char ***split)
 		strcmp((*split)[0], "min_height") == 0 ||
 		strcmp((*split)[0], "max_width") == 0 ||
 		strcmp((*split)[0], "min_width") == 0 ||
+		strcmp((*split)[0], "refract") == 0 ||
 		strcmp((*split)[0], "angle") == 0)
 		return (1);
 	return (0);

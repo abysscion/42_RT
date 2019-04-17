@@ -16,18 +16,20 @@ light
 }
 object
 {
-	position		:	0.0 0.0 0.0
+	position		:	0.0 0.0 20.0
 	rotation		:	0.0 0.0 0.0
 	surface
 	{
 		type		:	PLANE
 		texture		:	none
 		color		:	255 255 255
-		position	:	0.0 0.0 20.0
+		position	:	0.0 0.0 0.0
 		rotation	:	0.0 0.0 -1.0
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
+		refract		:	0.5
+		transp		:	1.0
 	}
 }
 object
@@ -46,7 +48,8 @@ object
 		max_height	:	1.5
 		specular	:	0.0
 		reflect		:	0.0
-		transp		:	0.0
+		refract		:	0.5
+		transp		:	1.0
 	}
 	surface
 	{
@@ -227,7 +230,7 @@ object
 		type		:	CYLINDER
 		texture		:	textures/planets/earth.jpg
 		color		:	255 255 0
-		position	:	0.0 0.0 5.0
+		position	:	0.0 0.0 0.0
 		rotation	:	0.0 1.0 1.0
 		radius		:	1.0
 		max_height	:	0.8

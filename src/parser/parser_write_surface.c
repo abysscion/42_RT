@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_write_surface.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 20:09:40 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/04/16 20:16:45 by sb_fox           ###   ########.fr       */
+/*   Updated: 2019/04/17 14:38:46 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	init_surface(t_surf *surf)
 	surf->position_init = (t_v){0, 0, 0};
 	surf->radius = 1;
 	surf->reflect = 0;
+	surf->refract = 0;
 	surf->specular = 0;
 	surf->texture = NULL;
 	surf->transp = 0;
