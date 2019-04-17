@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gui.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/25 13:47:08 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/17 11:14:47 by sb_fox           ###   ########.fr       */
+/*   Created: 2019/04/17 16:18:57 by emayert           #+#    #+#             */
+/*   Updated: 2019/04/17 16:25:39 by emayert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ void			init_gui(t_env *e)
 {
 	t_gui	*g;
 	int		i;
+	int		ke;
 
 	g = e->gui;
+	ke = kiss_edge;
 	g->eff_num = sizeof(g->sbt_eff_arr) / sizeof(kiss_selectbutton);
 	g->selected_object = NULL;
 	gui_init_arrays(e);
@@ -25,9 +27,8 @@ void			init_gui(t_env *e)
 	gui_init_entries_0(e);
 	gui_init_entries_1(e);
 	gui_init_labels(e->gui);
-	kiss_combobox_new(&g->cbb_light, &g->lblock, "", &g->cbb_light_arr,
-		kiss_edge * 4, g->lab_cbb_light.rect.y + 20,
-		g->lblock.rect.w - kiss_edge * 13, 100);
+	kiss_combobox_new(&g->cbb_light, &g->lblock, "", &g->cbb_light_arr, ke * 4,
+		g->lab_cbb_light.rect.y + 20, g->lblock.rect.w - kiss_edge * 13, 100);
 	i = -1;
 	while (++i < g->eff_num)
 		kiss_selectbutton_new(&g->sbt_eff_arr[i], &g->rblock, g->tbx_eff.rect.x
@@ -55,18 +56,18 @@ static	void	update_more_info(t_env *e)
 		snprintf(&e->gui->ent_rot_z.text[0], 11, "%s", "-");
 		return ;
 	}
-		snprintf(&e->gui->ent_pos_x.text[0], 11, "%.2f",
-					((t_obj *)e->gui->selected_object)->position.x);
-		snprintf(&e->gui->ent_pos_y.text[0], 11, "%.2f",
-					((t_obj *)e->gui->selected_object)->position.y);
-		snprintf(&e->gui->ent_pos_z.text[0], 11, "%.2f",
-					((t_obj *)e->gui->selected_object)->position.z);
-		snprintf(&e->gui->ent_rot_x.text[0], 11, "%.2f",
-					((t_obj *)e->gui->selected_object)->rotation.x);
-		snprintf(&e->gui->ent_rot_y.text[0], 11, "%.2f",
-					((t_obj *)e->gui->selected_object)->rotation.y);
-		snprintf(&e->gui->ent_rot_z.text[0], 11, "%.2f",
-					((t_obj *)e->gui->selected_object)->rotation.z);
+	snprintf(&e->gui->ent_pos_x.text[0], 11, "%.2f",
+				((t_obj *)e->gui->selected_object)->position.x);
+	snprintf(&e->gui->ent_pos_y.text[0], 11, "%.2f",
+				((t_obj *)e->gui->selected_object)->position.y);
+	snprintf(&e->gui->ent_pos_z.text[0], 11, "%.2f",
+				((t_obj *)e->gui->selected_object)->position.z);
+	snprintf(&e->gui->ent_rot_x.text[0], 11, "%.2f",
+				((t_obj *)e->gui->selected_object)->rotation.x);
+	snprintf(&e->gui->ent_rot_y.text[0], 11, "%.2f",
+				((t_obj *)e->gui->selected_object)->rotation.y);
+	snprintf(&e->gui->ent_rot_z.text[0], 11, "%.2f",
+				((t_obj *)e->gui->selected_object)->rotation.z);
 }
 
 void			update_info(t_env *e)

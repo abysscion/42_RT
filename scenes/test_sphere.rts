@@ -37,6 +37,5 @@ object
 		specular	:	0.0
 		reflect		:	0.0
 		transp		:	0.0
-		
 	}
 }

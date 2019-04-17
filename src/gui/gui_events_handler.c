@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gui_events_handler.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sb_fox <xremberx@gmail.com>                +#+  +:+       +#+        */
+/*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/25 13:47:08 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/17 12:03:31 by sb_fox           ###   ########.fr       */
+/*   Created: 2019/04/17 16:16:24 by emayert           #+#    #+#             */
+/*   Updated: 2019/04/17 16:16:33 by emayert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static	void	tbx_obj_event(kiss_textbox *tbx, SDL_Event *ev, int *draw,
 				e->gui->win_info.visible = 1;
 		}
 		e->gui->need_update_info = 1;
-	*draw = 1;
+		*draw = 1;
 	}
 }
 
@@ -44,7 +44,7 @@ static	void	sbt_event(kiss_selectbutton *sbt, SDL_Event *ev, int *draw,
 	if (kiss_selectbutton_event(sbt, ev, draw))
 	{
 		if (sbt == (kiss_selectbutton *)&e->gui->sbt_eff_arr[last_index])
-			while(++i < last_index)
+			while (++i < last_index)
 				e->gui->sbt_eff_arr[i].selected = 0;
 		sbt->selected ^= 0;
 		i = -1;
@@ -61,16 +61,16 @@ static	void	sbt_event(kiss_selectbutton *sbt, SDL_Event *ev, int *draw,
 	}
 }
 
-static	void	ent_event(kiss_entry *ent, SDL_Event *ev, int *draw,
-							t_env *e, double *value)
+static	void	ent_event(kiss_entry *ent, SDL_Event *ev, t_env *e,
+							double *value)
 {
-	if (kiss_entry_event(ent, ev, draw))
+	if (kiss_entry_event(ent, ev, &e->gui->need_redraw))
 	{
 		if (value)
 			*value = atof(&ent->text[0]);
 		adjust_objects(e);
 		e->gui->need_update_info = 1;
-		*draw = 1;
+		e->gui->need_redraw = 1;
 	}
 }
 
@@ -106,17 +106,11 @@ void			gui_handle_events(t_env *e, SDL_Event *ev, int *draw)
 	while (++i < e->gui->eff_num)
 		sbt_event(&e->gui->sbt_eff_arr[i], ev, draw, e);
 	tbx_obj_event(&e->gui->tbx_obj, ev, draw, e);
-	ent_event(&e->gui->ent_pos_x, ev, draw, e,
-										get_pointer_to_obj_value(e, 10));
-	ent_event(&e->gui->ent_pos_y, ev, draw, e,
-										get_pointer_to_obj_value(e, 11));
-	ent_event(&e->gui->ent_pos_z, ev, draw, e,
-										get_pointer_to_obj_value(e, 12));
-	ent_event(&e->gui->ent_rot_x, ev, draw, e,
-										get_pointer_to_obj_value(e, 20));
-	ent_event(&e->gui->ent_rot_y, ev, draw, e,
-										get_pointer_to_obj_value(e, 21));
-	ent_event(&e->gui->ent_rot_z, ev, draw, e,
-										get_pointer_to_obj_value(e, 22));
+	ent_event(&e->gui->ent_pos_x, ev, e, get_pointer_to_obj_value(e, 10));
+	ent_event(&e->gui->ent_pos_y, ev, e, get_pointer_to_obj_value(e, 11));
+	ent_event(&e->gui->ent_pos_z, ev, e, get_pointer_to_obj_value(e, 12));
+	ent_event(&e->gui->ent_rot_x, ev, e, get_pointer_to_obj_value(e, 20));
+	ent_event(&e->gui->ent_rot_y, ev, e, get_pointer_to_obj_value(e, 21));
+	ent_event(&e->gui->ent_rot_z, ev, e, get_pointer_to_obj_value(e, 22));
 	cbb_event(&e->gui->cbb_light, ev, draw, e);
 }

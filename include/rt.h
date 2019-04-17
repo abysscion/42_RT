@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/17 14:58:59 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/17 16:09:06 by emayert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_light				*get_light_pointer_to_light(t_env *e, int index);
 t_lst				*get_lst_pointer_to_light(t_env *e, int index);
 double				*get_pointer_to_obj_value(t_env *e, int axis_code);
 char				*get_string_obj_type(t_env *e);
-void				getObjByClick(t_env *e, t_obj **obj, double *cDist,
+void				get_obj_by_click(t_env *e, t_obj **obj, double *c_dist,
 									t_lst *temp);
 void				gui_handle_events(t_env *e, SDL_Event *ev, int *draw);
 void				gui_init_windows(t_env *e);
@@ -54,7 +54,7 @@ void				update_info(t_env *e);
 void				gui_draw(t_env *e);
 void				init_gui(t_env *e);
 void				draw_all(t_env *e);
-int					numOfLights(t_env *e);
+int					num_of_lights(t_env *e);
 /*================================ END OF GUI ===============================*/
 
 /*================================ MAIN =====================================*/
