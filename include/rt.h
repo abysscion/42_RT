@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:23:36 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/17 20:11:53 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/17 20:36:56 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,15 @@
 # include <fcntl.h>
 # include <math.h>
 
-/*=================================== GUI ===================================*/
-# define	GUI_LBLOCK_W			250
-# define	GUI_RBLOCK_W			350 + kiss_edge * 3
-# define	GUI_LBLOCK_H			(RT__H + kiss_edge)
-# define	GUI_RBLOCK_H			(RT__H + kiss_edge)
-# define	GUI_EFF_W				175
-# define	GUI_SBT_SIZE			15
-# define	GUI_SELECTED_TYPE_OBJ	42
-# define	GUI_SELECTED_TYPE_LIGHT	43
-# define	GUI_SELECTED_TYPE_CAM	44
+# define GUI_LBLOCK_W			250
+# define GUI_RBLOCK_W			350 + kiss_edge * 3
+# define GUI_LBLOCK_H			(RT__H + kiss_edge)
+# define GUI_RBLOCK_H			(RT__H + kiss_edge)
+# define GUI_EFF_W				175
+# define GUI_SBT_SIZE			15
+# define GUI_SELECTED_TYPE_OBJ	42
+# define GUI_SELECTED_TYPE_LIGHT	43
+# define GUI_SELECTED_TYPE_CAM	44
 
 t_light				*get_light_pointer_to_light(t_env *e, int index);
 t_lst				*get_lst_pointer_to_light(t_env *e, int index);
@@ -55,9 +54,7 @@ void				gui_draw(t_env *e);
 void				init_gui(t_env *e);
 void				draw_all(t_env *e);
 int					num_of_lights(t_env *e);
-/*================================ END OF GUI ===============================*/
 
-/*================================ MAIN =====================================*/
 # define MSG_USAGE	"usage: \e[33m./RT scene_file\e[0m"
 # define RAY_LENMAX				2147483647
 # define RAY_LENMIN				0.001
@@ -103,24 +100,22 @@ void				draw_rt(t_env *env);
 int					render(void *environment);
 double				closest_intersection(t_env *env, t_surf **closest_surf);
 void				save_image(int *mass);
-/*============================= END OF MAIN =================================*/
 
-/*======================== COLORS, LIGHTS AND SHADOWS =======================*/
-t_clr				light_on(t_env *env, double closest, t_surf *surface, int rec);
-t_clr   			calc_refract(t_env *env, t_lc lc, t_surf *surface, int rec);
+t_clr				light_on(t_env *env, double closest, t_surf *surface,
+						int rec);
+t_clr				calc_refract(t_env *env, t_lc lc, t_surf *surface, int rec);
 
 void				init_color_variables(t_env *env, t_lc *lc, double closest);
-void				calc_color(t_clr *color, double intens, t_surf *surface, t_env *env);
+void				calc_color(t_clr *color, double intens, t_surf *surface,
+						t_env *env);
 void				calc_ref_color(t_clr *color, t_clr *ref_color,
 						double reflect);
 
-void				calc_surf_normal(t_env *env, double closest, t_surf *surface,
-						t_lc *light);
+void				calc_surf_normal(t_env *env, double closest,
+						t_surf *surface, t_lc *light);
 t_v					calc_reflected_ray(t_v bisect, t_v direction);
-/*===================== END OF COLORS, LIGHTS AND SHADOWS ===================*/
 
-/*========================= LIMITS AND INTERSECTIONS ========================*/
-int					choose_type(t_env *env, t_lst *surface , double *roots);
+int					choose_type(t_env *env, t_lst *surface, double *roots);
 
 int					intersect_paraboloid(t_v *start, t_v *dest, t_surf *parab,
 						double *roots);
@@ -141,9 +136,7 @@ int					limit_sphere(t_surf *surf, t_v *dest, t_v *start,
 						double *roots);
 int					limit_disc(t_surf *surf, t_v *dest, t_v *start,
 						double *roots);
-/*===================== END OF LIMITS AND INTERSECTIONS =====================*/
 
-/*========================= TEXTURES AND COORDINATES ========================*/
 void				calc_basis(t_surf *surf);
 
 void				get_texture_normal(t_surf *surface, t_lc *light);
@@ -156,9 +149,7 @@ void				calc_sphere_local_coords(t_v *surf_point, t_surf *surface,
 						double *u, double *v);
 void				calc_conic_local_coords(t_v *surf_p, t_surf *surface,
 						double *u, double *v);
-/*===================== END OF TEXTURES AND COORDINATES =====================*/
 
-/*================================= PARSER ==================================*/
 void				check_filename(char *file_name);
 void				parse_file(char *name, t_env *env);
 void				parser_validation(char *name);
@@ -192,9 +183,7 @@ int					check_single_float_field(int fd,
 						char ***split, char **line);
 int					check_triple_float_field(int fd,
 						char ***split, char **line);
-/*============================== END OF PARSER ==============================*/
 
-/*================================= EFFECTS =================================*/
 void				sepia(t_env *env);
 void				blur(t_env *env);
 void				stereoscopy(t_env *env);
@@ -204,14 +193,11 @@ void				cartoon_effect(t_env *env);
 void				sum_color(t_clr *aliasing, t_clr *color);
 int					check_pixel(t_env *env, int i, int j);
 void				stereo_aliasing(t_env *env);
-/*============================== END OF EFFECTS =============================*/
 
-/*================================= UTILITY =================================*/
 double				*min_root(double *roots);
 double				*max_root(double *roots);
 
 t_lst				*list_add(t_lst *lst);
 t_lst				*list_create();
-/*============================== END OF UTILITY =============================*/
 
 #endif
