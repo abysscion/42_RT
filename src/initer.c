@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschuste <cschuste@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/01 15:34:01 by sb_fox            #+#    #+#             */
-/*   Updated: 2019/04/17 14:15:25 by cschuste         ###   ########.fr       */
+/*   Created: 2019/04/17 15:44:37 by cschuste          #+#    #+#             */
+/*   Updated: 2019/04/17 16:08:01 by cschuste         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void	init_ray(t_env *env, t_v dest)
+void			init_ray(t_env *env, t_v dest)
 {
 	env->ray.start = env->cam.position;
 	env->ray.dest = dest;
@@ -20,12 +20,12 @@ void	init_ray(t_env *env, t_v dest)
 	env->ray.max = RAY_LENMAX;
 }
 
-void	init_env(t_env *env, char **argv)
+void			init_env(t_env *env, char **argv)
 {
-	env->sdl.image = (int *)malloc(sizeof(int) * WIN_H * WIN_W);
 	env->gui = (t_gui *)malloc(sizeof(t_gui));
 	kiss_array_new(&env->gui->objarr);
 	env->sdl.renderer = kiss_init(argv[1], &env->gui->objarr, WIN_W, WIN_H);
+	env->sdl.image = (int *)malloc(sizeof(int) * WIN_W * WIN_H);
 	env->constants.half_render_w = RT__W / 2;
 	env->constants.half_render_h = RT__H / 2;
 	env->cam.rotation = (t_v) {0, 0, 0};
@@ -39,7 +39,24 @@ void	init_env(t_env *env, char **argv)
 	env->flags.sepia = 0;
 }
 
-void	adjust_objects(t_env *env)
+static	void	choose_surf(t_surf *surf, t_obj *obj)
+{
+	surf->rotation_init = vecnorm(surf->rotation_init);
+	surf->rotation = vec_rotate(obj->rotation,
+		surf->rotation_init);
+	if (surf->type == T_PLANE || surf->type == T_DISC)
+		surf->position = vecsum(surf->position_init, obj->position);
+	else
+	{
+		surf->position = vec_rotate(obj->rotation, surf->position_init);
+		surf->position = vecsum(surf->position, obj->position);
+	}
+	if (surf->limits.min_height != -INFINITY)
+		surf->position = vecsub(surf->position,
+			vecmult_num(surf->rotation, surf->limits.min_height));
+}
+
+void			adjust_objects(t_env *env)
 {
 	t_lst	*objs;
 	t_obj	*obj;
@@ -54,19 +71,7 @@ void	adjust_objects(t_env *env)
 		while (surfs)
 		{
 			surf = (t_surf *)surfs->obj;
-			surf->rotation_init = vecnorm(surf->rotation_init);
-			surf->rotation = vec_rotate(obj->rotation,
-				surf->rotation_init);
-			if (surf->type == T_PLANE || surf->type == T_DISC)
-				surf->position = vecsum(surf->position_init, obj->position);
-			else
-			{
-				surf->position = vec_rotate(obj->rotation, surf->position_init);
-				surf->position = vecsum(surf->position, obj->position);
-			}
-			if (surf->limits.min_height != -INFINITY)
-				surf->position = vecsub(surf->position,
-					vecmult_num(surf->rotation, surf->limits.min_height));
+			choose_surf(surf, obj);
 			calc_basis(surf);
 			surfs = surfs->next;
 		}
