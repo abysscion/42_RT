@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 20:09:40 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/30 18:00:49 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/17 14:38:46 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,28 @@ static void	parse_surface(int fd, t_lst *list, t_surf *surf)
 static void	init_surface(t_surf *surf)
 {
 	surf->color = (t_clr){255, 255, 255};
-	surf->max_height = 1;
-	surf->min_height = 0;
-	surf->orientation = (t_v){0, 0, 0};
+	surf->limits.max_height = +INFINITY;
+	surf->limits.min_height = -INFINITY;
+	surf->limits.max_width = +INFINITY;
+	surf->limits.min_width = -INFINITY;
+	surf->rotation = (t_v){0, 0, 0};
 	surf->position = (t_v){0, 0, 0};
-	surf->orientation_init = (t_v){0, 0, 0};
+	surf->rotation_init = (t_v){0, 0, 0};
 	surf->position_init = (t_v){0, 0, 0};
 	surf->radius = 1;
 	surf->reflect = 0;
+	surf->refract = 0;
 	surf->specular = 0;
 	surf->texture = NULL;
 	surf->transp = 0;
+	surf->disruption = 0;
 	surf->type = 0;
 }
 
 void		init_object(t_obj *obj)
 {
 	obj->surfaces = NULL;
-	obj->offset = (t_v){0, 0, 0};
+	obj->position = (t_v){0, 0, 0};
 	obj->rotation = (t_v){0, 0, 0};
 }
 

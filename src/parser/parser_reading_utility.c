@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 14:22:32 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/30 14:08:30 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/16 19:22:31 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,4 @@ int			check_floats(char **param, int i)
 		free_words(num);
 	}
 	return (1);
-}
-
-void		free_words(char **words)
-{
-	int		i;
-
-	i = 0;
-	while (words[i])
-		free(words[i++]);
-	free(words);
 }

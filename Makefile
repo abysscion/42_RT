@@ -8,33 +8,48 @@ OBJDIR	= ./obj
 
 # sources
 SRC		=	main.c \
-			ft_atod.c \
-			light.c \
-			calc_normal.c \
-			initer.c \
-			render.c \
-			intersect.c \
-			intersect_utility.c \
-			light_utility.c \
+			event.c \
 			lists.c \
-			key_events.c \
-			anti_aliasing.c \
-			textures.c \
+			light.c \
+			render.c \
+			initer.c \
 			refract.c \
-			calc_basis.c \
+			sdl_draw.c \
+			calc_normal.c \
+			image_saver.c \
+			event_utility.c \
+			light_utility.c \
+			check_file.c \
+			multithreading.c \
+			disruption.c \
+			intersects/intersect_utility.c \
+			intersects/intersect_conic.c \
+			intersects/intersect_limits.c \
+			intersects/intersect_other.c \
+			intersects/intersect_limits_flat.c \
+			gui/gui.c \
+			gui/gui_initer.c \
+			gui/gui_drawer.c \
+			gui/gui_utility.c \
+			gui/gui_utility1.c \
+			gui/gui_events_handler.c \
+			effects/anti_aliasing.c \
+			effects/blur.c \
+			effects/sepia.c \
+			effects/cartoon_effect.c \
+			effects/stereoscopy.c \
+			effects/stereoscopy_antialiasing.c \
+			textures/texture_color.c \
+			textures/calc_basis.c \
+			textures/calc_local_coords.c \
 			parser/parser.c \
 			parser/parser_validation.c \
-			parser/parser_reading_utility.c \
 			parser/parser_write_surface.c \
 			parser/parser_writing_fields.c \
-			parser/parser_float_fields_check.c \
+			parser/parser_reading_utility.c \
 			parser/parser_open_close_check.c \
-			parser/parser_other_fields_check.c \
-			sdl_draw.c \
-			sepia_effect.c \
-			stereoscopy.c \
-			image_saver.c \
-			blur.c
+			parser/parser_float_fields_check.c \
+			parser/parser_other_fields_check.c 
 
 OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
@@ -42,7 +57,8 @@ OBJ		=	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra #-Werror
 CFLAGS	+=	-Ofast
-#CFLAGS	+=	-g
+# CFLAGS	+=	-O0
+# CFLAGS	+=	-g
 
 #OSX frameworks
 FWS		=	-framework OpenCL -framework OpenGL -framework AppKit
@@ -59,23 +75,43 @@ VEC		=	./lib/libvec/
 VEC_INC	=	-I ./lib/libvec
 VEC_LNK	=	-L ./lib/libvec -lvec
 
+# kiss lib
+KISS_LIB	=	$(addprefix $(FT),libkiss.a)
+KISS		=	./lib/libkiss/
+KISS_INC	=	-I ./lib/libkiss
+KISS_LNK	=	-L ./lib/libkiss -lkiss
+
 # sdl lib
 ifeq ($(OS), Linux)
 SDL_INC	=	-I /usr/include/SDL2
-SDL_LNK	=	-L /use/include/SDL2 -lSDL2_image -lSDL2
+SDL_LNK	=	-L /usr/include/SDL2 -lSDL2_image -lSDL2 -lSDL2_ttf
 else
 SDL_INC	=	-I ~/.brew/include/SDL2
-SDL_LNK	=	-L ~/.brew/lib -lSDL2-2.0.0 -lSDL2_image-2.0.0
+SDL_LNK	=	-L ~/.brew/lib -lSDL2-2.0.0 -lSDL2_image-2.0.0 -lSDL2_ttf-2.0.0
 endif
 
-all: obj $(FT_LIB) $(VEC_LIB) $(MLX_LIB) $(NAME)
+LNK		=	$(FT_LNK)
+LNK		+=	$(VEC_LNK)
+LNK		+=	$(KISS_LNK)
+LNK		+=	$(SDL_LNK)
+
+INC		=	$(FT_INC)
+INC		+=	$(VEC_INC)
+INC		+=	$(KISS_INC)
+INC		+=	$(SDL_INC)
+
+all: obj $(FT_LIB) $(VEC_LIB) $(KISS_LIB) $(NAME)
 
 obj:
 	mkdir -p $(OBJDIR)
 	mkdir -p $(OBJDIR)/parser
+	mkdir -p $(OBJDIR)/textures
+	mkdir -p $(OBJDIR)/effects
+	mkdir -p $(OBJDIR)/intersects
+	mkdir -p $(OBJDIR)/gui
 
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
-	$(CC) $(CFLAGS) $(SDL_INC) $(VEC_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
+	$(CC) $(CFLAGS) $(INC) -I $(INCDIR) -o $@ -c $<
 
 $(FT_LIB):
 	make -C $(FT)
@@ -83,17 +119,27 @@ $(FT_LIB):
 $(VEC_LIB):
 	make -C $(VEC)
 
+$(KISS_LIB):
+	make -C $(KISS)
+
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) $(SDL_LNK) $(VEC_LNK) $(FT_LNK) -lpthread -lm -o $@
+	$(CC) $(OBJ) $(LNK) -lm -o $@
 
 clean:
 	rm -rf $(OBJDIR)
 	make -C $(FT) clean
 	make -C $(VEC) clean
+	make -C $(KISS) clean
 
 fclean: clean
 	rm -rf $(NAME)
 	make -C $(FT) fclean
 	make -C $(VEC) fclean
+	make -C $(KISS) fclean
+
+cleanobj:
+	rm -rf $(OBJDIR)
+
+repair: cleanobj all
 
 re: fclean all

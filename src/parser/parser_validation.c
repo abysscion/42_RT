@@ -6,7 +6,7 @@
 /*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:38:08 by eloren-l          #+#    #+#             */
-/*   Updated: 2019/03/30 14:27:17 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/17 19:43:20 by eloren-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,10 @@ void		validate_surface(int fd, int object)
 
 	get_next_line(fd, &line);
 	split = ft_strsplit(line, '\t');
+	check_empty(&split, object);
 	if (open_check(fd, &split, &line) == 0)
 		invalid_syntax(object);
-	while (1)
-	{
-		if (check_single_float_field(fd, &split, &line))
-			continue ;
-		if (check_triple_float_field(fd, &split, &line))
-			continue ;
-		if (color_check(fd, &split, &line))
-			continue ;
-		if (texture_check(fd, &split, &line))
-			continue ;
-		if (surface_type_check(fd, &split, &line))
-			continue ;
-		if (close_check(&split, &line))
-			break ;
-		invalid_syntax(object);
-	}
+	surface_validation(split, line, object, fd);
 }
 
 static int	validate_object(int fd, int object)
@@ -46,10 +32,12 @@ static int	validate_object(int fd, int object)
 
 	get_next_line(fd, &line);
 	split = ft_strsplit(line, '\t');
+	check_empty(&split, object);
 	if (open_check(fd, &split, &line) == 0)
 		invalid_syntax(object);
 	while (1)
 	{
+		check_empty(&split, object);
 		if (check_triple_float_field(fd, &split, &line))
 			continue ;
 		if (check_surface(fd, &split, &line, &object))
@@ -68,10 +56,12 @@ static void	validate_light(int fd, int object)
 
 	get_next_line(fd, &line);
 	split = ft_strsplit(line, '\t');
+	check_empty(&split, object);
 	if (open_check(fd, &split, &line) == 0)
 		invalid_syntax(object);
 	while (1)
 	{
+		check_empty(&split, object);
 		if (check_triple_float_field(fd, &split, &line))
 			continue ;
 		if (intensity_check(fd, &split, &line))
@@ -91,10 +81,12 @@ static void	validate_cam(int fd, int object)
 
 	get_next_line(fd, &line);
 	split = ft_strsplit(line, '\t');
+	check_empty(&split, object);
 	if (open_check(fd, &split, &line) == 0)
 		invalid_syntax(object);
 	while (1)
 	{
+		check_empty(&split, object);
 		if (check_triple_float_field(fd, &split, &line))
 			continue ;
 		if (close_check(&split, &line))
@@ -114,6 +106,7 @@ void		parser_validation(char *name)
 	while (get_next_line(fd, &line))
 	{
 		split = ft_strsplit(line, '\t');
+		check_empty(&split, object);
 		if (ft_strcmp(split[0], "camera") == 0 &&
 			check_param_num(split, 1))
 			validate_cam(fd, object);
@@ -129,5 +122,4 @@ void		parser_validation(char *name)
 		free_words(split);
 		free(line);
 	}
-	close(fd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light_utility.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eloren-l <eloren-l@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 10:08:37 by cschuste          #+#    #+#             */
-/*   Updated: 2019/03/20 18:15:55 by eloren-l         ###   ########.fr       */
+/*   Updated: 2019/04/17 16:44:29 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,18 @@ static double	max_color(double intens, unsigned char color, int *remain)
 	return (intens * color);
 }
 
-void			calc_color(t_clr *color, double intens, t_surf *surface)
+void			calc_color(t_clr *color, double intens,
+							t_surf *surface, t_env *env)
 {
-	int	remain;
+	int		remain;
+	t_clr	new_clr;
 
-	color->r = max_color(intens, surface->color.r, &remain);
-	color->g = surface->color.g + remain > 255 ?
-				255 : surface->color.g + remain;
-	color->b = surface->color.b + remain > 255 ?
-				255 : surface->color.b + remain;
+	init_new_color(&new_clr, surface, env);
+	color->r = max_color(intens, new_clr.r, &remain);
+	color->g = new_clr.g + remain > 255 ?
+				255 : new_clr.g + remain;
+	color->b = new_clr.b + remain > 255 ?
+				255 : new_clr.b + remain;
 	color->g = max_color(intens, color->g, &remain);
 	color->r = color->r + remain > 255 ? 255 : color->r + remain;
 	color->b = color->b + remain > 255 ? 255 : color->b + remain;
@@ -40,14 +43,14 @@ void			calc_color(t_clr *color, double intens, t_surf *surface)
 	color->r = color->r + remain > 255 ? 255 : color->r + remain;
 }
 
-void			calc_ref_color(t_clr *color, t_clr *ref_color, t_surf *surface)
+void			calc_ref_color(t_clr *color, t_clr *ref_color, double reflect)
 {
-	color->r = color->r * (1 - surface->reflect) + ref_color->r *
-				surface->reflect;
-	color->g = color->g * (1 - surface->reflect) + ref_color->g *
-				surface->reflect;
-	color->b = color->b * (1 - surface->reflect) + ref_color->b *
-				surface->reflect;
+	color->r = color->r * (1 - reflect) + ref_color->r *
+				reflect;
+	color->g = color->g * (1 - reflect) + ref_color->g *
+				reflect;
+	color->b = color->b * (1 - reflect) + ref_color->b *
+				reflect;
 }
 
 t_v				calc_reflected_ray(t_v direction, t_v bisect)
@@ -58,4 +61,12 @@ t_v				calc_reflected_ray(t_v direction, t_v bisect)
 					vecmult_scal(bisect, direction));
 	reflected_ray = vecsub(reflected_ray, direction);
 	return (reflected_ray);
+}
+
+void			init_color_variables(t_env *env, t_lc *lc, double closest)
+{
+	lc->orig_dest = env->ray.dest;
+	lc->to_start = vecmult_num(env->ray.dest, -1);
+	lc->surf_point = vecsum(env->ray.start,
+		vecmult_num(env->ray.dest, closest));
 }

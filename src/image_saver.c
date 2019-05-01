@@ -6,7 +6,7 @@
 /*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 19:38:25 by fdibbert          #+#    #+#             */
-/*   Updated: 2019/03/30 20:34:24 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/16 20:41:32 by fdibbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,50 +50,63 @@ char		*itoa_fd(int color)
 
 void		init_ppm(int *fd)
 {
-	char *str;
+	char	*str;
+	ssize_t	muff;
 
-	*fd = open("screenshot.ppm", O_RDWR | O_CREAT);
+	*fd = open("screenshot.ppm", O_RDWR | O_CREAT, S_IWUSR | S_IRUSR | S_IXUSR);
 	if (*fd == -1)
 		exit(0);
-	write(*fd, "P3\n", 3);
-	str = itoa_fd(WIN_H);
+	muff = write(*fd, "P3\n", 3);
+	str = itoa_fd(RT__H);
 	ft_putstr_fd(str, *fd);
 	free(str);
-	write(*fd, " ", 1);
-	str = itoa_fd(WIN_W);
+	muff = write(*fd, " ", 1);
+	str = itoa_fd(RT__W);
 	ft_putstr_fd(str, *fd);
 	free(str);
-	write(*fd, "\n255\n", 5);
+	muff = write(*fd, "\n255\n", 5);
+	if (muff == -1)
+		ft_putstr("something goes horribly wrong\n");
 }
 
-void		save_image(int *mass, int iter)
+static void	writing_in_image(unsigned char *color,
+						int *mass, int fd, int y)
+{
+	char	*str;
+	int		iter;
+	int		x;
+
+	x = -1;
+	while (++x < RT__W)
+	{
+		color[0] = (mass[x + y * RT__H] >> 16) & 0xFF;
+		color[1] = mass[x + y * RT__H] & 0xFF;
+		color[2] = (mass[x + y * RT__H] >> 8) & 0xFF;
+		iter = -1;
+		while (++iter < 3)
+		{
+			str = itoa_fd(color[iter]);
+			ft_putstr_fd(str, fd);
+			free(str);
+			if (write(fd, " ", 1) == -1)
+				ft_putstr("smth goes horribly wrong with image saving\n");
+		}
+	}
+}
+
+void		save_image(int *mass)
 {
 	unsigned char	color[3];
-	int				x;
 	int				y;
 	int				fd;
-	char			*str;
 
 	init_ppm(&fd);
 	y = -1;
-	while (++y < WIN_H)
+	while (++y < RT__H)
 	{
-		x = -1;
-		while (++x < WIN_W)
-		{
-			color[0] = (mass[x + y * WIN_H] >> 16) & 0xFF;
-			color[1] = mass[x + y * WIN_H] & 0xFF;
-			color[2] = (mass[x + y * WIN_H] >> 8) & 0xFF;
-			iter = -1;
-			while (++iter < 3)
-			{
-				str = itoa_fd(color[iter]);
-				ft_putstr_fd(str, fd);
-				free(str);
-				write(fd, " ", 1);
-			}
-		}
-		write(fd, "\n", 1);
+		writing_in_image(&color[0], mass, fd, y);
+		if (write(fd, "\n", 1) == -1)
+			ft_putstr("smth goes horribly wrong with image saving\n");
 	}
 	close(fd);
 }

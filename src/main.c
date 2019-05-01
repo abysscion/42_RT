@@ -3,47 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fdibbert <fdibbert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emayert <emayert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:29:07 by cschuste          #+#    #+#             */
-/*   Updated: 2019/04/02 18:13:29 by fdibbert         ###   ########.fr       */
+/*   Updated: 2019/04/17 17:09:35 by emayert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void	sdl_loop(t_env *env)
+static	void	sdl_loop(t_env *env)
 {
-	char		quit;
 	SDL_Event	event;
+	int			quit;
+	int			*draw;
 
 	quit = 0;
-	while(!quit)
+	draw = &env->gui->need_redraw;
+	while (!quit)
 	{
-		while(SDL_PollEvent(&event) != 0)
-			if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
+		SDL_Delay(10);
+		while (SDL_PollEvent(&event) != 0)
+		{
+			if ((event.type == SDL_KEYDOWN &&
+				event.key.keysym.sym == SDLK_ESCAPE) || event.type == SDL_QUIT)
 				quit = 1;
-			else if (event.type == SDL_KEYDOWN)
-				sdl_key_press_events(event.key.keysym.sym, env);
+			events_handler(&event, env);
+			gui_handle_events(env, &event, draw);
+		}
+		kiss_combobox_event(&env->gui->cbb_light, NULL, draw);
+		if (*draw == 1)
+			draw_all(env);
 	}
 	SDL_DestroyWindow(env->sdl.window);
+	kiss_clean(&env->gui->objarr);
 	SDL_Quit();
 	exit(0);
 }
 
-int			main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	t_env *env;
 
-	env = (t_env *)malloc(sizeof(t_env));
-	env->sdl.image = (int *)malloc(sizeof(int) * WIN_H * WIN_W);
-	SDL_CreateWindowAndRenderer(WIN_W, WIN_H, 0, &(env->sdl.window), &(env->sdl.renderer));
-	if (argc == 2)
+	if (argc == 2 || argc == 3)
 	{
-		init_env(env);
+		check_filename(argv[1]);
+		env = (t_env *)malloc(sizeof(t_env));
+		init_env(env, argv);
 		parse_file(argv[1], env);
+		init_gui(env);
 		adjust_objects(env);
-		render(env);
+		draw_all(env);
 		sdl_loop(env);
 	}
 	ft_putendl(MSG_USAGE);

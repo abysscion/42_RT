@@ -1,0 +1,93 @@
+camera
+{
+	position		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
+}
+light
+{
+	type			:	AMBIENT
+	intensity		:	0.2
+}
+light
+{
+	type			:	POINT
+	intensity		:	0.8
+	position		:	0.0 0.0 0.0
+}
+object
+{
+	position		:	0.0 0.0 0.0
+	rotation		:	0.0 0.0 0.0
+	surface
+	{
+		type		:	PLANE
+		texture		:	none
+		color		:	150 0 150
+		position	:	0.0 0.0 10.0
+		rotation	:	0.0 0.0 1.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+		disruption	:	1
+	}
+	surface
+	{
+		type		:	PLANE
+		texture		:	none
+		color		:	150 150 0
+		position	:	0.0 0.0 -10.0
+		rotation	:	0.0 0.0 1.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+		disruption	:	2
+	}
+	surface
+	{
+		type		:	PLANE
+		texture		:	none
+		color		:	0 150 150
+		position	:	0.0 10.0 0.0
+		rotation	:	0.0 1.0 0.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+		disruption	:	3
+	}
+	surface
+	{
+		type		:	PLANE
+		texture		:	none
+		color		:	150 37 255
+		position	:	0.0 -10.0 10.0
+		rotation	:	0.0 1.0 0.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+		disruption	:	1
+	}
+	surface
+	{
+		type		:	PLANE
+		texture		:	none
+		color		:	125 255 100
+		position	:	10.0 0.0 0.0
+		rotation	:	1.0 0.0 0.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+		disruption	:	2
+	}
+	surface
+	{
+		type		:	PLANE
+		texture		:	none
+		color		:	0 120 255
+		position	:	-10.0 0.0 0.0
+		rotation	:	1.0 0.0 0.0
+		specular	:	0.0
+		reflect		:	0.0
+		transp		:	0.0
+		disruption	:	3
+	}
+}
